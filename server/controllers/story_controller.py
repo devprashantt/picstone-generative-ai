@@ -1,4 +1,6 @@
 from flask import request, jsonify
+
+# LOCAL IMPORTS
 from utils.upload_img import upload_image_to_cloudinary
 from utils.generate_story import generate_poem_story
 from utils.analyze_tags import analyze_tags
@@ -20,17 +22,16 @@ class StoryController:
         tag_analysis = analyze_tags(tags)
 
         # Upload the image to Cloudinary
-        # cloudinary_data = upload_image_to_cloudinary(file)
-
-        # print("cloudinary_data", cloudinary_data)
+        cloudinary_data = upload_image_to_cloudinary(file)
 
         # Extract tags from the Cloudinary metadata
-        # cloudinary_tags = cloudinary_data['tags']
+        cloudinary_tags = cloudinary_data['tags']
 
-        # if not cloudinary_tags:
-        #     return jsonify({'error': 'No Cloudinary-generated tags found'})
+        if not cloudinary_tags:
+            return jsonify({'error': 'No Cloudinary-generated tags found'})
 
         # Generate a story based on the Cloudinary-generated tags
-        # story = generate_poem_story(cloudinary_tags)
+        story = generate_poem_story(
+            tags=cloudinary_tags, tag_analysis=tag_analysis)
 
-        return jsonify({'story': "story", "cloudinary_data": "cloudinary_data", "tag_analysis": tag_analysis["moods"]})
+        return jsonify({'story': story, "cloudinary_data": cloudinary_data})
