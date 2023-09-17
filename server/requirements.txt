@@ -13,5 +13,4 @@ openai==0.28.0
 SQLAlchemy==1.4.25
 tqdm==4.66.1
 typing_extensions==4.7.1
-Werkzeug==2.3.7
 yarl==1.9.2
