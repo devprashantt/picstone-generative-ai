@@ -6,7 +6,6 @@ import styles from "./Hero.module.scss";
 import { images } from "../../constant";
 
 // COMPONENTS
-import Card from "../Card/Card";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 const Hero = ({ subHeading, heading, description }) => {
@@ -32,11 +31,7 @@ const Hero = ({ subHeading, heading, description }) => {
         </p>
       </div>
       {/* IMAGE UPLOADER */}
-      <ImageUploader
-        onImageUpload={(image) => {
-          console.log(image);
-        }}
-      />
+      <ImageUploader />
       {/* SHAPES */}
       <img src={images.rectangle} alt="rectangle" className={styles.shape1} />
       <img src={images.ellipse} alt="ellipse" className={styles.shape2} />
