@@ -4,31 +4,27 @@ const useStory = () => {
     // UPLOAD IMAGE
     const uploadImage = async (payload, cb) => {
         try {
-            const res = await axios.post(`/v1/story/upload`, payload);
-            if (res.statusText !== 'OK')
-                throw new Error(res.msg || 'Some error occured, please try again');
-            if (cb && typeof cb === 'function') cb(res.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+            // Make sure the URL is correct
+            const res = await axios.post(`/generate-story`, payload);
 
-    // TEST API
-    const testApi = async (cb) => {
-        try {
-            const res = await axios.get(`/v1/story/test`);
-            if (res.statusText !== 'OK')
-                throw new Error(res.msg || 'Some error occured, please try again');
-            if (cb && typeof cb === 'function') cb(res.data);
+            if (res.status !== 200) {
+                throw new Error(res.data.error || 'Some error occurred, please try again');
+            }
+
+            if (cb && typeof cb === 'function') {
+                cb(res.data);
+            }
+
+            console.log(res.data);
         } catch (err) {
-            console.log(err);
+            console.error(err);
+            // Handle errors if necessary
         }
     };
 
     return {
-        uploadImage,
-        testApi
+        uploadImage
     }
 }
 
-export default useStory
+export default useStory;

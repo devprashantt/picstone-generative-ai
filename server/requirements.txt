@@ -15,3 +15,4 @@ SQLAlchemy==1.4.25
 tqdm==4.66.1
 typing_extensions==4.7.1
 yarl==1.9.2
+flask-cors==4.0.0

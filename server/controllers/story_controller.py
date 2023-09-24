@@ -7,31 +7,44 @@ from utils.analyze_tags import analyze_tags
 
 
 class StoryController:
+    @staticmethod
     def generate_story_from_image():
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file part'})
+        try:
+            # Check if 'file' is in the request files
+            if 'file' not in request.files:
+                return jsonify({'error': 'No file part'})
 
-        file = request.files['file']
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'})
+            file = request.files['file']
 
-        tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
-                'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
+            # Check if a file was selected
+            if file.filename == '':
+                return jsonify({'error': 'No selected file'})
 
-        # Analyze the tags
-        tag_analysis = analyze_tags(tags)
+            # Tags for analysis
+            tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
+                    'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
 
-        # Upload the image to Cloudinary
-        cloudinary_data = upload_image_to_cloudinary(file)
+            # Analyze the tags
+            tag_analysis = analyze_tags(tags)
 
-        # Extract tags from the Cloudinary metadata
-        cloudinary_tags = cloudinary_data['tags']
+            # Upload the image to Cloudinary
+            cloudinary_data = upload_image_to_cloudinary(file)
 
-        if not cloudinary_tags:
-            return jsonify({'error': 'No Cloudinary-generated tags found'})
+            # Extract tags from the Cloudinary metadata
+            cloudinary_tags = cloudinary_data['tags']
 
-        # Generate a story based on the Cloudinary-generated tags
-        story = generate_poem_story(
-            tags=cloudinary_tags, tag_analysis=tag_analysis)
+            if not cloudinary_tags:
+                return jsonify({'error': 'No Cloudinary-generated tags found'})
 
-        return jsonify({'story': story, "cloudinary_data": cloudinary_data})
+            # Generate a story based on the Cloudinary-generated tags
+            story = generate_poem_story(
+                tags=cloudinary_tags, tag_analysis=tag_analysis)
+
+            return jsonify({
+                'story': story,
+                "cloudinary_data": cloudinary_data
+            })
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
