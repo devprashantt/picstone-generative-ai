@@ -17,17 +17,17 @@
         align-items: center;
         text-align: center;
 
-        gap: 0.4rem;
+        gap: 0.6rem;
 
         .hero__subHeading {
-            color: #170f49;
             text-align: center;
             font-feature-settings:
                 "clig" off,
                 "liga" off;
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 600;
+            line-height: 2.1875rem;
         }
 
         .hero__heading {
@@ -35,7 +35,7 @@
             font-feature-settings:
                 "clig" off,
                 "liga" off;
-            font-size: 4rem;
+            font-size: 3.2rem;
             font-style: normal;
             font-weight: 700;
 
@@ -46,7 +46,7 @@
         }
 
         .hero__description {
-            width: 70%;
+            width: 80%;
             color: #170f49;
             text-align: center;
             font-feature-settings:
@@ -61,14 +61,14 @@
     .shape1 {
         position: absolute;
         bottom: 0;
-        left: 10%;
+        left: 5%;
         z-index: -1;
     }
 
     .shape2 {
         position: absolute;
         bottom: 0;
-        right: 10%;
+        right: 5%;
         z-index: -1;
     }
 }

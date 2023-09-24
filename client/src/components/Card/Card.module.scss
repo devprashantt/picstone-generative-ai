@@ -1,0 +1,69 @@
+.card {
+    display: flex;
+    width: 25rem;
+    height: 17.1875rem;
+    padding: 1.25rem;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+
+    border-radius: 0.9375rem;
+    background: var(--neutral-100, #fff);
+
+    box-shadow: 0px 5px 14px 0px rgba(8, 15, 52, 0.04);
+
+    .img {
+        width: 3.125rem;
+        height: 3.125rem;
+        flex-shrink: 0;
+        border-radius: 0.3125rem;
+    }
+
+    .heading {
+        color: var(--neutral-800, #170f49);
+        font-feature-settings:
+            "clig" off,
+            "liga" off;
+
+        font-family: DM Sans;
+        font-size: 1.375rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.75rem;
+    }
+    .description {
+        display: flex;
+        height: 5.25rem;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        align-self: stretch;
+
+        overflow: hidden;
+        color: var(--neutral-800, #170f49);
+        font-feature-settings:
+            "clig" off,
+            "liga" off;
+        text-overflow: ellipsis;
+        whitespace: nowrap;
+        font-family: DM Sans;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.75rem;
+    }
+
+    .link {
+        align-self: stretch;
+        color: #00e;
+        font-feature-settings:
+            "clig" off,
+            "liga" off;
+        font-family: DM Sans;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.75rem;
+    }
+}
