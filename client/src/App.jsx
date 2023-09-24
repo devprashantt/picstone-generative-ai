@@ -1,5 +1,19 @@
+import { Landing } from "./pages";
+
+import axios from "axios";
+
 const App = () => {
-  return <div>App</div>;
+  // SET BASE URL
+  axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+
+  // SET CONTENT TYPE
+  axios.defaults.headers.post["Content-Type"] = "application/json";
+
+  return (
+    <div>
+      <Landing />
+    </div>
+  );
 };
 
 export default App;
