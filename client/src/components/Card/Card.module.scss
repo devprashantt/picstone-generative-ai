@@ -1,7 +1,7 @@
 .card {
     display: flex;
-    width: 25rem;
-    height: 17.1875rem;
+    width: 100%;
+    max-height: 17.1875rem;
     padding: 1.25rem;
     flex-direction: column;
     justify-content: space-between;
@@ -21,6 +21,7 @@
     }
 
     .heading {
+        width: 100%;
         color: var(--neutral-800, #170f49);
         font-feature-settings:
             "clig" off,
@@ -31,8 +32,10 @@
         font-style: normal;
         font-weight: 700;
         line-height: 1.75rem;
+        margin: 0.8rem 0;
     }
     .description {
+        width: 100%;
         display: flex;
         height: 5.25rem;
         flex-direction: column;
@@ -55,6 +58,7 @@
     }
 
     .link {
+        width: 100%;
         align-self: stretch;
         color: #00e;
         font-feature-settings:

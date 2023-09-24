@@ -1,39 +1,13 @@
-import { useState } from "react";
-
 // PROP-VALIDATION
 import PropTypes from "prop-types";
 
 // CONSTANTS
 import styles from "./Hero.module.scss";
 import { images } from "../../constant";
-import ImageUploader from "../ImageUploader/ImageUploader";
 
-const data = [
-  {
-    id: 1,
-    img: "https://picsum.photos/200/300",
-    heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id.",
-    link: "/",
-  },
-  {
-    id: 2,
-    img: "https://picsum.photos/200/300",
-    heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id.",
-    link: "/",
-  },
-  {
-    id: 3,
-    img: "https://picsum.photos/200/300",
-    heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id.",
-    link: "/",
-  },
-];
+// COMPONENTS
+import Card from "../Card/Card";
+import ImageUploader from "../ImageUploader/ImageUploader";
 
 const Hero = ({ subHeading, heading, description }) => {
   return (
@@ -46,7 +20,7 @@ const Hero = ({ subHeading, heading, description }) => {
           heading
         ) : (
           <h1 className={styles.hero__heading}>
-            Picstone
+            <span>Picstone</span>
             <br />
             Where Every Image Paints a Thousand Stories
           </h1>
@@ -63,7 +37,6 @@ const Hero = ({ subHeading, heading, description }) => {
           console.log(image);
         }}
       />
-
       {/* SHAPES */}
       <img src={images.rectangle} alt="rectangle" className={styles.shape1} />
       <img src={images.ellipse} alt="ellipse" className={styles.shape2} />
