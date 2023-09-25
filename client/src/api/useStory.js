@@ -2,7 +2,7 @@ const useStory = () => {
     // UPLOAD IMAGE
     const uploadImage = async (payload, cb) => {
         try {
-            const response = await fetch(`http://127.0.0.1:5000/generate-story`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story`, {
                 method: 'POST',
                 body: payload,
             });
