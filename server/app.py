@@ -6,8 +6,16 @@ from routes.user_routes import user_bp
 from routes.story_routes import story_bp
 
 app = Flask(__name__)
+# Enable CORS
 CORS(app)
+
+# Configure the database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/picstone'
+
+# Set SQLALCHEMY_TRACK_MODIFICATIONS to False to suppress the warning
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
 if app.debug:

@@ -15,6 +15,7 @@ class StoryController:
                 return jsonify({'error': 'No file part'})
 
             file = request.files['file']
+            print(file)
 
             # Check if a file was selected
             if file.filename == '':

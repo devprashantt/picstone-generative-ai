@@ -1,6 +1,12 @@
-import { Landing } from "./pages";
-
 import axios from "axios";
+
+import { useEffect } from "react";
+
+import { Routes, Route } from "react-router-dom";
+
+// CONSTANTS
+import { Navbar } from "./components";
+import { Landing, Story } from "./pages";
 
 const App = () => {
   // SET BASE URL
@@ -9,9 +15,23 @@ const App = () => {
   // SET CONTENT TYPE
   axios.defaults.headers.post["Content-Type"] = "application/json";
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on component render
+  }, []);
+
   return (
-    <div>
-      <Landing />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/story" element={<Story />} />
+      </Routes>
     </div>
   );
 };

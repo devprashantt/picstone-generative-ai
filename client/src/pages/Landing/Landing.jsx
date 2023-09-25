@@ -1,43 +1,38 @@
-import { Navbar, Hero, Card } from "../../components";
+import { Hero } from "../../components";
 import { images } from "../../constant";
 import styles from "./Landing.module.scss";
 
 // UTILS
 import replaceNewlinesWithBr from "../../utility/replaceNewLineWithBr";
 
-// const data = [
-//   {
-//     id: 1,
-//     img: "https://picsum.photos/200/300",
-//     heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//     description:
-//       "Our platform uses ChatGPT technology to generate a wide range of prompt ideas that you can use to make your portfolio stand out.",
-//     link: "/",
-//   },
-//   {
-//     id: 2,
-//     img: "https://picsum.photos/200/300",
-//     heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//     description:
-//       "Our platform uses ChatGPT technology to generate a wide range of prompt ideas that you can use to make your portfolio stand out.",
-//     link: "/",
-//   },
-//   {
-//     id: 3,
-//     img: "https://picsum.photos/200/300",
-//     heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//     description:
-//       "Our platform uses ChatGPT technology to generate a wide range of prompt ideas that you can use to make your portfolio stand out.",
-//     link: "/",
-//   },
-// ];
-
 const Landing = () => {
-  const inputText = `\n\nThe water, clouds, and sky\nA stunning view of the atmosphere,\nThe plants, ecoregions, afterglow\nA beautiful sight of the bird, orange, and snow.\n\nThe natural landscape, lake, and body of water\nA perfect sight of the dusk, sunset, and red sky at morning,\nThe sunrise, sunlight, and beach\nThe horizon light up and the atmospheric phenomenon starts showing.\n\nThe landscape, sun, tree, and waterway\nA remarkable view of the shore, calm, and seabird,\nThe dawn, reflection, and evening\nThe coast is a sight to be seen and heard.\n\nThe ocean, wildlife, and sound\nAn amazing view of the astronomical object, wave, and reservoir,\nThe art, tropics, palm tree, and stock photography\nA wonderful view of the upbeat, passionate, and intriguing scene.\n\nThe sentiment is positive, negative, neutral\nThe mood is joyful, melancholic, peaceful, and energetic,\nTheres beauty in every sunrise and sunset\nIn the sky, water, and everything in between.\n\nThe lake, beach, and horizon\nA fabulous view of the atmospheric phenomenon,\nThe sun, tree, and waterway\nThe shore, calm, and seabird can be seen.\n\nThe ocean, wildlife, and sound\nA spectacular view of the astronomical object, wave, and reservoir,\nThe art, tropics, palm tree, and stock photography\nA delightful view of the upbeat, passionate, and intriguing scene.\n\nThe sentiment is positive, negative, neutral\nThe mood is joyful, melancholic, peaceful, and energetic,\nTheres beauty in every evening and dawn\nIn the sky, water, and everything in between.\n\nThe lake, beach, and horizon\nA captivating view of the atmospheric phenomenon,\nThe sun, tree, and waterway\nThe shore, calm, and seabird can be seen.\n\nThe ocean, wildlife, and sound\nAn extraordinary view of the astronomical object, wave, and reservoir,\nThe art, tropics, palm tree, and stock photography\nA wonderful view of the upbeat, passionate, and intriguing scene.\n\nThe sentiment is positive, negative, neutral\nThe mood is joyful, melancholic, peaceful, and energetic,\nThe beauty of the afterglow and red sky at morning\nThe lake, beach, and horizon will always be calling.`;
+  const inputText = `
+  The sun was shining brightly as the fawn-colored working animal pulled the sleek military uniform-clad military person through the landscape. The soldier was clad in a ballistic vest, military camouflage cargo pants, and a helmet that provided the utmost security as they navigated the asphalt-covered terrain. As they traveled, the soldier held a leash that connected them to the canine breed that was faithfully following along.
+  
+  The soldier was part of a military organization, and as they reached their destination, they were greeted by their fellow marines in uniforms that matched their own. Each of them carried a backpack with personal protective equipment and a few other items in tow. As they reached the entrance, the non-commissioned officer in charge of the group addressed the soldier with a cheerful smile.
+  
+  "Welcome to the base!" he said. "We hope you have enjoyed your journey here. Your mission is to secure the area and make sure that no unauthorized personnel enter. Be sure to keep an eye out for any suspicious activity, and be sure to use your automotive tire and other items to your advantage."
+  
+  The soldier nodded and began to survey the area. They could see the luggage and bags of passengers who had recently arrived, and the military officer made sure to inspect each one. They were also on the lookout for any signs of danger or illegal activity.
+  
+  After a few hours of patrolling, the soldier was ready to call it a day. They gathered their equipment and headed back to the base. As they walked, the soldier could not help but feel a sense of pride in what they did and the work they did for their country. 
+  
+  The soldier's mood changed as they reached the entrance of the base. They were met by the non-commissioned officer with a hearty smile and thanked them for their hard work. The soldier felt a sense of accomplishment and joy as they returned the salute.
+  
+  The soldier returned to their quarters and prepared themselves for the next day's mission. They exchanged their military uniform for a more casual outfit and grabbed their bag filled with items necessary for their mission. With a smile, they looked out at the landscape and thought of the adventures that awaited them.
+  
+  Tomorrow, they would be part of a larger mission and part of a larger military organization. They would be joined by their fellow soldiers and they would have to rely on each other to complete their objectives.
+  
+  The soldier felt energized and passionate as they thought of the mission that lay ahead. They thought of the hard work and dedication that would be necessary to complete it and the camaraderie that would come from serving alongside their fellow soldiers. 
+  
+  The soldier was ready for the challenges that awaited them and the rewards that would come with success. They grabbed their bag, secured their helmet, and headed out the door with a new sense of purpose. The soldier felt that they were part of something larger than themselves and was excited to be part of a larger mission. 
+  
+  The soldier was ready for the adventure that lay ahead and was passionate about the work they were doing to keep their country safe. There was a sense of security and pride that came with being part of such a large and important military organization. The soldier was ready to serve and protect their nation and its people.`;
+
   const formattedText = replaceNewlinesWithBr(inputText);
+
   return (
     <div className={styles.landing}>
-      <Navbar />
       {/* HERO */}
       <Hero />
       {/* CARDS */}
