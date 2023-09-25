@@ -1,14 +1,33 @@
-import { useRef } from "react";
-import PropTypes from "prop-types";
+// REACT IMPORTS
+import { useRef, useState } from "react";
 
 // CONSTANTS
 import styles from "./ImageUploader.module.scss";
 
+// ROUTER DOM
+import { useNavigate } from "react-router-dom";
+
 // USE APIS
 import useStory from "../../api/useStory";
 
+// REDUX STATE
+import { useDispatch } from "react-redux";
+import { setStory, setCloudinaryData } from "../../store/reducers/storySlice";
+
 const ImageUploader = () => {
+  // REF
   const inputRef = useRef(null);
+
+  // REDUX DISPATCH
+  const dispatch = useDispatch();
+
+  // NAVIGATE
+  const navigate = useNavigate();
+
+  // UPLOADING STATE
+  const [isUploading, setIsUploading] = useState(false);
+
+  // UPLOAD STORY
   const { uploadImage } = useStory();
 
   const handleImageClick = () => {
@@ -18,40 +37,35 @@ const ImageUploader = () => {
 
   const handleFileChange = async (event) => {
     // Handle the selected file when it changes
-    const selectedFile = event.target.files[0];
-
-    // Check if a file was selected
-    if (!selectedFile) {
-      alert("Please select a file.");
-      return; // Abort further processing
-    }
-
-    // Perform file type (extension) validation
-    const allowedFileTypes = ["image/jpeg", "image/png"];
-    if (!allowedFileTypes.includes(selectedFile.type)) {
-      alert("Invalid file type. Please select a JPEG or PNG image.");
-      return; // Abort further processing
-    }
-
-    // Perform file size validation (in bytes)
-    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
-    if (selectedFile.size > maxSizeInBytes) {
-      alert("File size exceeds the maximum allowed (5MB).");
-      return; // Abort further processing
-    }
+    const file = event.target.files[0];
 
     // Create a FormData object to send the file
     const formData = new FormData();
-    formData.append("file", selectedFile); // Assuming 'file' is the name expected by the backend
+    formData.append("file", file); // Assuming 'file' is the name expected by the backend
 
     try {
-      await uploadImage(formData, (response) => {
-        // Handle the response from the backend here
-        console.log("Response from backend:", response);
-        // You can update your UI or take further actions based on the response
+      console.log("Uploading image...", formData);
+
+      setIsUploading(true); // Set the uploading state to true
+
+      // You can remove the forEach loop for debugging, as it's not needed
+      // formData.forEach((value, key) => {
+      //   console.log(key, value);
+      // });
+
+      await uploadImage(formData, (responseData) => {
+        console.log("Response data:", responseData);
+        dispatch(setStory(responseData.story));
+        dispatch(setCloudinaryData(responseData.cloudinary_data));
+        navigate("/story");
       });
+
+      setIsUploading(false); // Set the uploading state back to false
+
+      // You can update your UI or take further actions based on the response
     } catch (error) {
       console.error("Error uploading image:", error);
+      setIsUploading(false); // Set the uploading state to false in case of an error
       // Handle errors if necessary
     }
   };
@@ -65,13 +79,11 @@ const ImageUploader = () => {
         ref={inputRef}
         onChange={handleFileChange}
       />
-      <p className={styles.button}>Upload an image</p>
+      <p className={styles.button}>
+        {isUploading ? "Uploading..." : "Upload an image"}
+      </p>
     </div>
   );
-};
-
-ImageUploader.propTypes = {
-  onImageUpload: PropTypes.func.isRequired,
 };
 
 export default ImageUploader;

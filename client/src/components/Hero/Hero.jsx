@@ -21,7 +21,7 @@ const Hero = ({ subHeading, heading, description }) => {
           <h1 className={styles.hero__heading}>
             <span>Picstone</span>
             <br />
-            Where Every Image Paints a Thousand Stories
+            Where Image Paints Thousand Stories
           </h1>
         )}
         <p className={styles.hero__description}>

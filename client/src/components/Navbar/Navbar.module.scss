@@ -8,4 +8,12 @@
 
     width: 100%;
     z-index: 1;
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
 }

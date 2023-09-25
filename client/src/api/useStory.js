@@ -1,21 +1,24 @@
-import axios from 'axios';
-
 const useStory = () => {
     // UPLOAD IMAGE
     const uploadImage = async (payload, cb) => {
         try {
-            // Make sure the URL is correct
-            const res = await axios.post(`/generate-story`, payload);
+            const response = await fetch(`http://127.0.0.1:5000/generate-story`, {
+                method: 'POST',
+                body: payload,
+            });
 
-            if (res.status !== 200) {
-                throw new Error(res.data.error || 'Some error occurred, please try again');
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Some error occurred, please try again');
             }
+
+            const data = await response.json();
 
             if (cb && typeof cb === 'function') {
-                cb(res.data);
+                cb(data);
             }
 
-            console.log(res.data);
+            console.log(data);
         } catch (err) {
             console.error(err);
             // Handle errors if necessary
@@ -23,8 +26,8 @@ const useStory = () => {
     };
 
     return {
-        uploadImage
-    }
-}
+        uploadImage,
+    };
+};
 
 export default useStory;

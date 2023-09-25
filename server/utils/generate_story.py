@@ -19,7 +19,7 @@ def generate_poem_story(tags, tag_analysis):
     tone = ', '.join(detected_tones) if detected_tones else default_tone
 
     # Create a prompt with specific instructions for ChatGPT
-    prompt = f"Compose a beautiful poem in at least 500 words about {', '.join(tags)} with the tone of {tone}. The sentiment should be {sentiment} and the mood should be {mood}."
+    prompt = f"Compose a long story in at least 500 words using these tags as follow: {', '.join(tags)} with the tone of {tone}. The sentiment should be {sentiment} and the mood should be {mood}."
 
     try:
         # Generate a story/poem using ChatGPT
