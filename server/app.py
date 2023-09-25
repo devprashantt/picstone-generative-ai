@@ -18,6 +18,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
+# Production mode
+app.debug = app.config.get('DEBUG', False)
+
+
 if app.debug:
     print("The Flask app is running in debug mode.")
 
@@ -39,4 +43,4 @@ app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
