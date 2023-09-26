@@ -55,6 +55,20 @@ const Landing = () => {
         <div className={styles.radial_effect} />
         <p dangerouslySetInnerHTML={{ __html: formattedText }}></p>
       </div>
+
+      {/* FOOTER */}
+      {/* ADD PEER-LIST PROFILE */}
+      <a href="https://peerlist.io/prashantkumar">
+        <img
+          style={{
+            margin: "2rem 0",
+          }}
+          src={
+            "https://github-readme-badge.peerlist.io/api/prashantkumar?style=for-the-badge"
+          }
+          alt="peer-list"
+        />
+      </a>
     </div>
   );
 };

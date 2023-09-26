@@ -58,6 +58,25 @@
         }
     }
 
+    .warning {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        gap: 0.6rem;
+        width: 80%;
+
+        span {
+            color: #ff2d2d;
+        }
+
+        p {
+            width: 70%;
+        }
+    }
+
     .shape1 {
         position: absolute;
         bottom: 0;

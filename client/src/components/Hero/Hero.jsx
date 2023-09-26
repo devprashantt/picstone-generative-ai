@@ -32,6 +32,18 @@ const Hero = ({ subHeading, heading, description }) => {
       </div>
       {/* IMAGE UPLOADER */}
       <ImageUploader />
+      {/* WARNING */}
+      <div className={styles.warning}>
+        <span>Warning:</span>{" "}
+        <p>
+          {/* LIMITED USE */}
+          This is a demo site and is intended for limited use only. Please do
+          not upload any images that you do not own or have permission to use.
+          {/* PUBLIC */}
+          Images uploaded here are public and can be viewed by anyone. Please do
+          not upload any sensitive or personal images.
+        </p>
+      </div>
       {/* SHAPES */}
       <img src={images.rectangle} alt="rectangle" className={styles.shape1} />
       <img src={images.ellipse} alt="ellipse" className={styles.shape2} />

@@ -16,7 +16,7 @@ const Navbar = () => {
         <img src={images.picstone} alt="picstone" />
       </Link>
 
-      <Button buttonText="Sign In" />
+      <Button buttonText="Sign In (Coming soon)" />
     </div>
   );
 };

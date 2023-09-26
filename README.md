@@ -73,6 +73,10 @@ Before you begin, ensure you have met the following requirements:
 4. Explore a library of previously generated content for inspiration.
 5. Share your creations with the Picstone community.
 
+## Contributing
+
+[![Peerlist](https://github-readme-badge.peerlist.io/api/prashantkumar?style=social)](https://peerlist.io/prashantkumar)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
