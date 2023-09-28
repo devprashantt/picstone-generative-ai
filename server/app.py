@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+import os
+from dotenv import load_dotenv
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
@@ -8,6 +10,9 @@ from routes.story_routes import story_bp
 from config.database import db
 from config.cloudinary import cloudinary
 from config.open_ai import openai
+
+# ENV variables
+load_dotenv()
 
 app = Flask(__name__)
 # Enable CORS
@@ -19,11 +24,17 @@ db = SQLAlchemy(app)
 # Production mode
 app.debug = app.config.get('DEBUG', False)
 
+# Access environment variables using os.environ
+database_url = os.environ.get('SQLALCHEMY_DATABASE_URI')
+
 # Set SQLALCHEMY_DATABASE_URI to your TiDB URI
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://3Rr9emCtyuVf5o2.root:JK5UrTGYhp9diw3K@gateway01.us-west-2.prod.aws.tidbcloud.com:4000/picstone?ssl_ca=self-signed-cert.pem'
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 # Disable SQLALCHEMY_TRACK_MODIFICATIONS warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Increase the pool size to, for example, 20
+app.config['SQLALCHEMY_POOL_SIZE'] = 20
 
 # Production mode
 app.debug = app.config.get('DEBUG', False)

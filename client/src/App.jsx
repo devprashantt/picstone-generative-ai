@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 
 // CONSTANTS
 import { Navbar } from "./components";
-import { Landing, Story } from "./pages";
+import { About, Explore, Landing, Story } from "./pages";
 
 const App = () => {
   // SET BASE URL
@@ -31,6 +31,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/story" element={<Story />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/explore/:id" element={<Story />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );

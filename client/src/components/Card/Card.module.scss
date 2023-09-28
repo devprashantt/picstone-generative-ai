@@ -18,6 +18,12 @@
         height: 3.125rem;
         flex-shrink: 0;
         border-radius: 0.3125rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        object-fit: cover;
     }
 
     .heading {
@@ -32,7 +38,7 @@
         font-style: normal;
         font-weight: 700;
         line-height: 1.75rem;
-        margin: 0.8rem 0;
+        margin: 0.6rem 0;
     }
     .description {
         width: 100%;
@@ -69,5 +75,6 @@
         font-style: normal;
         font-weight: 500;
         line-height: 1.75rem;
+        margin-top: 0.4rem;
     }
 }
