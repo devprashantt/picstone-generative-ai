@@ -61,7 +61,7 @@ const useStory = () => {
     const getStoryById = async (story_id, cb) => {
         try {
             setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story?story_id=${story_id}`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story/${story_id}`);
 
             if (!response.ok) {
                 const data = await response.json();

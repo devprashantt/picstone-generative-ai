@@ -116,9 +116,8 @@ class StoryController:
 
     # get story by id
     @staticmethod
-    def get_story():
-        # Get story by id from param
-        story_id = request.args.get('story_id')
+    def get_story(story_id):
+        print("Getting story with id: ", story_id)
         try:
             # Retrieve the story from the database
             story = Story.query.get(story_id)
