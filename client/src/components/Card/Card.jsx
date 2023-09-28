@@ -1,6 +1,5 @@
 // PROP VALIDATION
 import PropTypes from "prop-types";
-import LazyLoad from "react-lazyload";
 
 // REACT IMPORTS
 import { Link } from "react-router-dom";
@@ -14,10 +13,7 @@ const MAX_CHARACTERS = 110;
 const Card = ({ img, heading, description, link }) => {
   return (
     <div className={styles.card}>
-      {/* Use LazyLoad to lazy load the image */}
-      <LazyLoad height={200} offset={100}>
-        <img src={img} alt="" className={styles.img} />
-      </LazyLoad>
+      <img src={img} alt="" className={styles.img} />
       <h3 className={styles.heading}>{heading}</h3>
       <p className={styles.description}>
         {description.length > MAX_CHARACTERS

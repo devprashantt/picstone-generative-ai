@@ -57,10 +57,37 @@ const useStory = () => {
         }
     };
 
+    // GET STORY BY ID
+    const getStoryById = async (story_id, cb) => {
+        try {
+            setLoading(true);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story?story_id=${story_id}`);
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Some error occurred, please try again');
+            }
+
+            const data = await response.json();
+
+            if (cb && typeof cb === 'function') {
+                cb(data);
+            }
+
+            console.log(data);
+        } catch (err) {
+            console.error(err);
+            // Handle errors if necessary
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return {
         loading,
         uploadImage,
-        getAllStories
+        getAllStories,
+        getStoryById
     };
 };
 

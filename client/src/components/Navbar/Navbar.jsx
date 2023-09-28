@@ -21,12 +21,12 @@ const Navbar = () => {
           <Link to={"/explore"} className={styles.menu}>
             Explore
           </Link>
-          <Link to={"/about"} className={styles.menu}>
+          {/* <Link to={"/about"} className={styles.menu}>
             About
           </Link>
           <Link to={"/contact"} className={styles.menu}>
             Contact
-          </Link>
+          </Link> */}
         </div>
 
         <Button buttonText="Sign In" />
