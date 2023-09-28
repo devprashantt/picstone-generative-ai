@@ -6,5 +6,7 @@ class Music(db.Model):
     story = db.relationship('Story', backref='music')
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=False)
     image = db.relationship('Image', backref='music')
-    music_content = db.Column(db.BLOB)  # You can store binary data for music files
-    created_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
+    # You can store binary data for music files
+    music_content = db.Column(db.BLOB)
+    created_at = db.Column(
+        db.TIMESTAMP, server_default=db.func.current_timestamp())

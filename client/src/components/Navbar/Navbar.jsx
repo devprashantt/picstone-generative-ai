@@ -16,7 +16,21 @@ const Navbar = () => {
         <img src={images.picstone} alt="picstone" />
       </Link>
 
-      <Button buttonText="Sign In (Coming soon)" />
+      <div className={styles.action}>
+        <div className={styles.menus}>
+          <Link to={"/explore"} className={styles.menu}>
+            Explore
+          </Link>
+          {/* <Link to={"/about"} className={styles.menu}>
+            About
+          </Link>
+          <Link to={"/contact"} className={styles.menu}>
+            Contact
+          </Link> */}
+        </div>
+
+        <Button buttonText="Sign In" />
+      </div>
     </div>
   );
 };

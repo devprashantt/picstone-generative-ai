@@ -1,7 +1,7 @@
 import openai
 
 
-def generate_poem_story(tags, tag_analysis):
+def generate_story(tags, tag_analysis):
     # Extract detected moods, sentiments, and tones from tag_analysis
     detected_moods = tag_analysis.get("moods", [])
     detected_sentiments = tag_analysis.get("sentiments", [])
