@@ -1,12 +1,15 @@
 from flask import request, jsonify
-
-# LOCAL IMPORTS
 from utils.upload_img import upload_image_to_cloudinary
-from utils.generate_story import generate_poem_story
+from utils.generate_story import generate_story
 from utils.analyze_tags import analyze_tags
+
+from config.database import db
+from models.story import Story
+from models.image import Image
 
 
 class StoryController:
+    # generate story from image
     @staticmethod
     def generate_story_from_image():
         try:
@@ -15,7 +18,6 @@ class StoryController:
                 return jsonify({'error': 'No file part'})
 
             file = request.files['file']
-            print(file)
 
             # Check if a file was selected
             if file.filename == '':
@@ -38,13 +40,75 @@ class StoryController:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
 
             # Generate a story based on the Cloudinary-generated tags
-            story = generate_poem_story(
+            story = generate_story(
                 tags=cloudinary_tags, tag_analysis=tag_analysis)
+
+            # Save the image in the "images" table
+            new_image = Image(
+                user_id=1,
+                image_path=cloudinary_data['secure_url'],
+            )
+
+            try:
+                db.session.add(new_image)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
+
+            # Retrieve the ID of the newly saved image
+            image_id = new_image.id
+
+            # Create a new Story instance and set its attributes
+            new_story = Story(
+                user_id=1,  # Replace with the actual user_id
+                image_id=image_id,
+                story_content=story  # Set the generated story here
+            )
+
+            try:
+                # Add the new story to the database
+                db.session.add(new_story)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
 
             return jsonify({
                 'story': story,
-                "cloudinary_data": cloudinary_data
+                'cloudinary_data': cloudinary_data
             })
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
+
+    # get all stories
+    @staticmethod
+    def get_all_stories():
+        try:
+            # Retrieve all stories from the database
+            stories = Story.query.all()
+
+            # Convert the stories into the format we want
+            stories_list = []
+            for story in stories:
+                # Retrieve the associated image for each story
+                image = Image.query.get(story.image_id)
+                if image:
+                    image_url = image.image_path
+                else:
+                    image_url = None
+
+                stories_list.append({
+                    'id': story.id,
+                    'user_id': story.user_id,
+                    'image_url': image_url,  # Send the image URL here
+                    'story_content': story.story_content,
+                    'created_at': story.created_at
+                })
+
+            return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
         except Exception as e:
             # Handle exceptions and return an error response
