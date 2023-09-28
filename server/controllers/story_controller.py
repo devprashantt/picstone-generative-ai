@@ -113,3 +113,38 @@ class StoryController:
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
+
+    # get story by id
+    @staticmethod
+    def get_story():
+        # Get story by id from param
+        story_id = request.args.get('story_id')
+        try:
+            # Retrieve the story from the database
+            story = Story.query.get(story_id)
+
+            # Check if the story exists
+            if not story:
+                return jsonify({'error': 'Story not found'})
+
+            # Retrieve the associated image for the story
+            image = Image.query.get(story.image_id)
+            if image:
+                image_url = image.image_path
+            else:
+                image_url = None
+
+            # Convert the story into the format we want
+            story_data = {
+                'id': story.id,
+                'user_id': story.user_id,
+                'image_url': image_url,  # Send the image URL here
+                'story_content': story.story_content,
+                'created_at': story.created_at
+            }
+
+            return jsonify({'story': story_data})
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
