@@ -1,18 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-import os
-from dotenv import load_dotenv
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
 
 from config.database import db
+from config.database import database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
-
-# ENV variables
-load_dotenv()
 
 app = Flask(__name__)
 # Enable CORS
@@ -24,10 +20,8 @@ db = SQLAlchemy(app)
 # Production mode
 app.debug = app.config.get('DEBUG', False)
 
-# Access environment variables using os.environ
-database_url = os.environ.get('SQLALCHEMY_DATABASE_URI')
-
 # Set SQLALCHEMY_DATABASE_URI to your TiDB URI
+print("Connecting to the database...")
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
 # Disable SQLALCHEMY_TRACK_MODIFICATIONS warning
