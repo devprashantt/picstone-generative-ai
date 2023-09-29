@@ -28,7 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Increase the pool size to, for example, 20
-app.config['SQLALCHEMY_POOL_SIZE'] = 20
+app.config['SQLALCHEMY_POOL_SIZE'] = 100
 
 # Production mode
 app.debug = app.config.get('DEBUG', False)
