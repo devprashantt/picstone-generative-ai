@@ -35,21 +35,22 @@ const Explore = () => {
     <div className={styles.explore}>
       {loading
         ? // Display the skeleton loading UI when data is loading
-          [1, 2, 3, 4, 5, 6]?.map((story) => {
-            return <Skeleton key={story?.id} />;
-          })
+          Array.from({ length: 9 }).map((_, index) => <Skeleton key={index} />)
         : // Display the actual content when data is available
-          story?.map((story) => {
-            return (
-              <Card
-                key={story?.id}
-                img={story?.image_url}
-                heading={"Picstone"}
-                description={story?.story_content}
-                link={`/story/${story?.id}`}
-              />
-            );
-          })}
+          story
+            ?.slice()
+            .reverse()
+            .map((story) => {
+              return (
+                <Card
+                  key={story?.id}
+                  img={story?.image_url}
+                  heading={"Picstone"}
+                  description={story?.story_content}
+                  link={`/story/${story?.id}`}
+                />
+              );
+            })}
     </div>
   );
 };
