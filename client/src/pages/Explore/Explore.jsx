@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import styles from "./Explore.module.scss";
+import PropTypes from "prop-types";
 
 // COMPONENTS
 import { Card, Skeleton } from "../../components";
@@ -8,7 +9,7 @@ import { Card, Skeleton } from "../../components";
 // API's
 import useStory from "../../api/useStory";
 
-const Explore = () => {
+const Explore = ({ storyLength }) => {
   const { getAllStories, loading } = useStory();
 
   //   STATE TO MANAGE ALL STORIES
@@ -38,7 +39,7 @@ const Explore = () => {
           Array.from({ length: 9 }).map((_, index) => <Skeleton key={index} />)
         : // Display the actual content when data is available
           story
-            ?.slice()
+            ?.slice(0, storyLength ? storyLength : story?.length)
             .reverse()
             .map((story) => {
               return (
@@ -53,6 +54,10 @@ const Explore = () => {
             })}
     </div>
   );
+};
+
+Explore.propTypes = {
+  storyLength: PropTypes.number,
 };
 
 export default Explore;

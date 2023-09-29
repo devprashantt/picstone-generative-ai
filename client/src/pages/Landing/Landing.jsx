@@ -1,4 +1,5 @@
 import { Hero } from "../../components";
+import Explore from "./../Explore/Explore";
 import styles from "./Landing.module.scss";
 
 // UTILS
@@ -14,6 +15,15 @@ const Landing = () => {
     <div className={styles.landing}>
       {/* HERO */}
       <Hero />
+      {/* GAP */}
+      <div
+        style={{
+          height: "1rem",
+          width: "100%",
+        }}
+      />
+      {/* EXPLORE */}
+      <Explore storyLength={6} />
       {/* CARDS */}
       {/* <div className={styles.cards}>
         {data.map((item) => {
