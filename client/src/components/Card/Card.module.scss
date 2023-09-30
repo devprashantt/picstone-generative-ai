@@ -45,11 +45,11 @@
         display: flex;
         height: 5.25rem;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         flex-shrink: 0;
         align-self: stretch;
 
-        overflow: hidden;
+        overflow-y: auto;
         color: var(--neutral-800, #170f49);
         font-feature-settings:
             "clig" off,
@@ -61,6 +61,13 @@
         font-style: normal;
         font-weight: 400;
         line-height: 1.75rem;
+
+        // DONT SHOW SCROLL
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .link {
