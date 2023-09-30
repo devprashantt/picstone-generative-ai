@@ -19,7 +19,7 @@ def generate_story(tags, tag_analysis):
     tone = ', '.join(detected_tones) if detected_tones else default_tone
 
     # Create a prompt with specific instructions for ChatGPT
-    prompt = f"Compose a long story in at least 500 words using these tags as follow: {', '.join(tags)} with the tone of {tone}. The sentiment should be {sentiment} and the mood should be {mood}."
+    prompt = f"Let's dive into the world of web development and storytelling. Your task is to craft a captivating narrative that unfolds over at least 1000 words, using HTML tags as your storytelling tools. You'll draw inspiration from a selection of HTML tags, each one a unique element in your web development palette: {', '.join(tags)}. These tags will guide the structure of your narrative, lending it a web development quality. The sentiment you'll infuse into your words should resonate with {sentiment} and tone should {tone}, and the overall mood should be nothing less than {mood}. Imagine your readers, eager to embark on this digital journey you're about to create. They await a story that's not just words on a web page but an interactive experience that evokes emotions, thoughts, and memories. Your canvas is ready; the HTML tags are your tools, your keyboard is your brush, and your palette includes {', '.join(tags)}. Start coding your narrative, and let the world of web storytelling come alive."
 
     try:
         # Generate a story/poem using ChatGPT

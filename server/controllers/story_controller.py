@@ -1,9 +1,14 @@
 from flask import request, jsonify
+
+# UTILS
 from utils.upload_img import upload_image_to_cloudinary
 from utils.generate_story import generate_story
 from utils.analyze_tags import analyze_tags
 
+# CONFIG
 from config.database import db
+
+# MODELS
 from models.story import Story
 from models.image import Image
 
