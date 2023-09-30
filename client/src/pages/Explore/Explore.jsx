@@ -39,7 +39,10 @@ const Explore = ({ storyLength }) => {
           Array.from({ length: 9 }).map((_, index) => <Skeleton key={index} />)
         : // Display the actual content when data is available
           story
-            ?.slice(0, storyLength ? storyLength : story?.length)
+            ?.slice(
+              storyLength ? story?.length - storyLength : 0,
+              story?.length
+            )
             .reverse()
             .map((story) => {
               return (

@@ -8,16 +8,21 @@ import { Skeleton } from "../../components";
 // API
 import useStory from "../../api/useStory";
 
+// UTILS
+import replaceNewlinesWithBr from "../../utility/replaceNewLineWithBr";
+
 const StoryPage = () => {
   const { id } = useParams();
   const { getStoryById, loading } = useStory();
 
   const [storyData, setStoryData] = useState({});
+  const [story, setStory] = useState();
 
   const fetchStory = async () =>
     await getStoryById(id, (responseData) => {
       console.log("responseData", responseData);
       setStoryData(responseData?.story);
+      setStory(replaceNewlinesWithBr(responseData?.story?.story_content));
     });
 
   useEffect(() => {
@@ -42,7 +47,11 @@ const StoryPage = () => {
           })}
         </div> */}
       </div>
-      <p dangerouslySetInnerHTML={{ __html: storyData.story_content }}></p>
+      <p
+        dangerouslySetInnerHTML={{
+          __html: story,
+        }}
+      ></p>
     </div>
   );
 };

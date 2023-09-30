@@ -23,20 +23,7 @@ const Landing = () => {
         }}
       />
       {/* EXPLORE */}
-      <Explore storyLength={6} />
-      {/* CARDS */}
-      {/* <div className={styles.cards}>
-        {data.map((item) => {
-          return (
-            <Card
-              key={item.id}
-              img={item.img}
-              heading={item.heading}
-              description={item.description}
-            />
-          );
-        })}
-      </div> */}
+      <Explore storyLength={9} />
       {/* EXAMPLE */}
       <div className={styles.example}>
         <h1>Example</h1>

@@ -7,9 +7,13 @@ import ellipse from '../assets/shapes/ellipse.svg';
 // EXAMPLE
 import nature from '../assets/img.jpg';
 
+// HACKATHON
+import generative_ai from "../assets/generative-ai.png";
+
 export default {
     picstone,
     rectangle,
     ellipse,
-    nature
+    nature,
+    generative_ai
 }
