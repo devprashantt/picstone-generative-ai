@@ -1,41 +1,56 @@
 import { images } from "../../constant";
 import styles from "./Footer.module.scss";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <div className={styles["footer-intro-box"]}>
-        <div className={styles["footer-intro"]}>
+      <div className={styles.footer_intro_box}>
+        <div className={styles.footer_intro}>
           <img src={images.picstone_white} />
-          <p className={styles["footer-intro-text"]}>
+          <p className={styles.footer_intro_text}>
             PromptSpot: Ignite Your Creativity. Inspiring prompts and challenges
             for artists and writers to unleash their artistic potential and
             foster collaborative creativity.
           </p>
         </div>
-        <p className={styles["footer-intro-text"]}>
+        <p className={styles.footer_intro_text}>
           Copyright © 2023 PromptSpot . All rights reserved.
         </p>
       </div>
       <div className={styles.links}>
-        <div className={styles["link-box"]}>
-          <h3 className={styles["link-box-heading"]}>Contact</h3>
-          <p>Phone</p>
-          <p>E-mail</p>
-          <p>Address</p>
+        <div className={styles.link_box}>
+          <h3 className={styles.link_box_heading}>Contact</h3>
+          <a href="#" className={styles.link_box_text}>
+            Phone
+          </a>
+          <a href="#" className={styles.link_box_text}>
+            E-mail
+          </a>
+          <a href="#" className={styles.link_box_text}>
+            Address
+          </a>
         </div>
-        <div className={styles["link-box"]}>
-          <h3 className={styles["link-box-heading"]}>Social Links</h3>
-          <p>Facebook</p>
-          <p>Twitter</p>
-          <p>Instagram</p>
-          <p>Linkedin</p>
+        <div className={styles.link_box}>
+          <h3 className={styles.link_box_heading}>Social Links</h3>
+          <a href="#" className={styles.link_box_text}>
+            Facebook
+          </a>
+          <a href="#" className={styles.link_box_text}>
+            Twitter
+          </a>
+          <a href="#" className={styles.link_box_text}>
+            Instagram
+          </a>
+          <a href="#" className={styles.link_box_text}>
+            Linkedin
+          </a>
         </div>
-        <div className={styles["link-box"]}>
-          <h3 className={styles["link-box-heading"]}>Quick Links</h3>
-          <p>Terms of services</p>
-          <p>Privacy policy</p>
-          <p>FAQ</p>
+        <div className={styles.link_box}>
+          <h3 className={styles.link_box_heading}>Quick Links</h3>
+          <Link className={styles.link_box_text}>Terms of services</Link>
+          <Link className={styles.link_box_text}>Privacy policy</Link>
+          <Link className={styles.link_box_text}>FAQ</Link>
         </div>
       </div>
     </div>
