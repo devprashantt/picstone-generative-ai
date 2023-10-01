@@ -34,9 +34,9 @@ Textarea.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.string,
-  cols: PropTypes.string,
-  rows: PropTypes.string,
+  id: PropTypes.number,
+  cols: PropTypes.number,
+  rows: PropTypes.number,
   onChange: PropTypes.func,
   value: PropTypes.string,
 };

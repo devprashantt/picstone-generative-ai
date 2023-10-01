@@ -1,9 +1,37 @@
+import { useState } from "react";
+
 import styles from "./Contact.module.scss";
 
 import { Hero, Input, Textarea, Button } from "../../components";
 import { images } from "../../constant";
 
+// APIS
+import useMessage from "../../api/useMessage";
+
 const Contact = () => {
+  const { sendMessage, loading } = useMessage();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = async () => {
+    console.log("formData", formData);
+
+    // CHECK IF NOT EMPTY
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // SEND MESSAGE
+    await sendMessage(formData, (responseData) => {
+      console.log("responseData", responseData);
+    });
+  };
+
   return (
     <div className={styles.contact}>
       <Hero
@@ -44,13 +72,46 @@ const Contact = () => {
         </div>
         <div className={styles.form}>
           <h2 className={styles.heading}>Send us a message</h2>
-          <Input type="text" placeholder="Enter your name" />
-          <Input type="email" placeholder="Enter your email" />
-          <Textarea placeholder="Enter your message here..." rows={12} />
+          <Input
+            type="text"
+            placeholder="Enter your name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+          <Input
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
+          <Textarea
+            placeholder="Enter your message here..."
+            rows={12}
+            value={formData.message}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
+          />
           <Button
             className={styles.button}
-            buttonText="Service will be activated soon..."
-            disabled={true}
+            buttonText="Send message"
+            disabled={false}
+            type={"submit"}
+            isLoading={loading}
+            isLoadingText={"Sending message..."}
+            onClick={() => {
+              console.log("formData", formData);
+              handleSubmit();
+
+              // RESET FORM
+              setFormData({
+                name: "",
+                email: "",
+                message: "",
+              });
+            }}
           />
         </div>
       </div>
