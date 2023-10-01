@@ -6,7 +6,7 @@ import { images } from "../../constant";
 import { Link } from "react-router-dom";
 
 // COMPONENTS
-import { Button } from "./../index";
+// import { Button } from "./../index";
 
 const Navbar = () => {
   return (
@@ -24,9 +24,9 @@ const Navbar = () => {
           <Link to={"/about"} className={styles.menu}>
             About
           </Link>
-          {/* <Link to={"/contact"} className={styles.menu}>
+          <Link to={"/contact"} className={styles.menu}>
             Contact
-          </Link> */}
+          </Link>
         </div>
 
         {/* <Button buttonText="Sign In" /> */}
