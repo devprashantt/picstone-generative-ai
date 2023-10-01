@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // CONSTANTS
-import { Navbar, Story } from "./components";
 import { About, Contact, Explore, Landing, StoryPage } from "./pages";
+import { Navbar, Story, Footer } from "./components";
 
 const App = () => {
   // SET BASE URL
@@ -36,6 +36,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
