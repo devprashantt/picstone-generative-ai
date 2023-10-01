@@ -1,11 +1,12 @@
-import picstone from '../assets/picstone.svg';
+import picstone from "../assets/picstone.svg";
+import picstone_white from "../assets/picstone_white.svg";
 
 // SHAPES
-import rectangle from '../assets/shapes/rectangle.svg';
-import ellipse from '../assets/shapes/ellipse.svg';
+import rectangle from "../assets/shapes/rectangle.svg";
+import ellipse from "../assets/shapes/ellipse.svg";
 
 // EXAMPLE
-import nature from '../assets/img.jpg';
+import nature from "../assets/img.jpg";
 
 // HACKATHON
 import generative_ai from "../assets/generative-ai.png";
@@ -19,13 +20,14 @@ import mail from "../assets/icons/mail.svg";
 import map from "../assets/img/map.svg";
 
 export default {
-    picstone,
-    rectangle,
-    ellipse,
-    nature,
-    generative_ai,
-    location,
-    call,
-    mail,
-    map
-}
+  picstone,
+  picstone_white,
+  rectangle,
+  ellipse,
+  nature,
+  generative_ai,
+  location,
+  call,
+  mail,
+  map,
+};
