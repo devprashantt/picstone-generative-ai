@@ -14,7 +14,7 @@ const Landing = () => {
   return (
     <div className={styles.landing}>
       {/* HERO */}
-      <Hero />
+      <Hero warning={true} img_btn={true} />
       {/* GAP */}
       <div
         style={{

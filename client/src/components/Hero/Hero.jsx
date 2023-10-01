@@ -7,8 +7,16 @@ import { images } from "../../constant";
 
 // COMPONENTS
 import ImageUploader from "../ImageUploader/ImageUploader";
+import Button from "../Button/Button";
 
-const Hero = ({ subHeading, heading, description }) => {
+const Hero = ({
+  subHeading,
+  heading,
+  description,
+  warning,
+  img_btn,
+  btn_text,
+}) => {
   return (
     <div className={styles.hero}>
       <div className={styles.hero__content}>
@@ -16,7 +24,7 @@ const Hero = ({ subHeading, heading, description }) => {
           {subHeading ? subHeading : "Explore Limitless Possibilities"}
         </h2>{" "}
         {heading ? (
-          heading
+          <h1 className={styles.hero__heading}>{heading}</h1>
         ) : (
           <h1 className={styles.hero__heading}>
             <span>Picstone</span>
@@ -31,19 +39,21 @@ const Hero = ({ subHeading, heading, description }) => {
         </p>
       </div>
       {/* IMAGE UPLOADER */}
-      <ImageUploader />
+      {img_btn ? <ImageUploader /> : <Button buttonText={btn_text} />}
       {/* WARNING */}
-      <div className={styles.warning}>
-        <span>Warning:</span>{" "}
-        <p>
-          {/* LIMITED USE */}
-          This is a demo site and is intended for limited use only. Please do
-          not upload any images that you do not own or have permission to use.
-          {/* PUBLIC */}
-          Images uploaded here are public and can be viewed by anyone. Please do
-          not upload any sensitive or personal images.
-        </p>
-      </div>
+      {warning && (
+        <div className={styles.warning}>
+          <span>Warning:</span>{" "}
+          <p>
+            {/* LIMITED USE */}
+            This is a demo site and is intended for limited use only. Please do
+            not upload any images that you do not own or have permission to use.
+            {/* PUBLIC */}
+            Images uploaded here are public and can be viewed by anyone. Please
+            do not upload any sensitive or personal images.
+          </p>
+        </div>
+      )}
       {/* SHAPES */}
       <img src={images.rectangle} alt="rectangle" className={styles.shape1} />
       <img src={images.ellipse} alt="ellipse" className={styles.shape2} />
@@ -55,6 +65,9 @@ Hero.propTypes = {
   subHeading: PropTypes.string,
   heading: PropTypes.string,
   description: PropTypes.string,
+  warning: PropTypes.bool,
+  img_btn: PropTypes.bool,
+  btn_text: PropTypes.string,
 };
 
 export default Hero;

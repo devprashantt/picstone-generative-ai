@@ -91,7 +91,7 @@ const Skeleton = ({ type }) => {
               }}
             ></div>
           </div>
-        ); // Render nothing for unknown types
+        );
     }
   };
 
@@ -99,7 +99,7 @@ const Skeleton = ({ type }) => {
 };
 
 Skeleton.propTypes = {
-  type: PropTypes.oneOf(["card", "img"]).isRequired, // Define valid prop values
+  type: PropTypes.oneOf(["card", "img"]).isRequired,
 };
 
 export default Skeleton;
