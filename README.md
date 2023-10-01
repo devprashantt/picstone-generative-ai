@@ -1,3 +1,5 @@
+![Generative AI Hackathon Peerlist X Replit](https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156522/picstone/ads/unnamed_1_qlgyhj.png)
+
 <div align="center">
   <img src="https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156964/picstone/favicon/android-chrome-512x512_pytdfx.png" width="100" alt="Picstone Logo">
 </div>
@@ -5,10 +7,6 @@
 <div align="center">
   <h1>Picstone</h1>
 </div>
-
-![Generative AI Hackathon Peerlist X Replit](https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156522/picstone/ads/unnamed_1_qlgyhj.png)
-
-## Description
 
 Picstone is an innovative platform that combines visual content with storytelling and music generation. It allows users to upload images, and using AI-powered analysis, it generates engaging stories and music compositions based on the visual content. Whether you're a creative writer, a musician, or simply looking for a unique way to express yourself, Picstone offers a creative playground to bring your imagination to life.
 
