@@ -13,13 +13,15 @@ const Footer = () => {
         <div className={styles.footer_intro}>
           <img src={images.picstone_white} />
           <p className={styles.footer_intro_text}>
-            PromptSpot: Ignite Your Creativity. Inspiring prompts and challenges
-            for artists and writers to unleash their artistic potential and
-            foster collaborative creativity.
+            {`Picstone is an innovative platform designed to revolutionize the way
+            you interact with images and stories. With Picstone, your photos
+            come to life with captivating narratives. Whether you're a
+            photography enthusiast, a storyteller, or simply looking to add an
+            extra layer of magic to your images, Picstone has you covered.`}
           </p>
         </div>
         <p className={styles.footer_intro_text}>
-          Copyright © 2023 PromptSpot . All rights reserved.
+          Copyright © 2023 Picstone . All rights reserved.
         </p>
       </div>
       {/* LINKS */}

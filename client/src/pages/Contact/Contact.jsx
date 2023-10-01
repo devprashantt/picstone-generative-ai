@@ -39,7 +39,7 @@ const Contact = () => {
             </div>
           </div>
           <div className={styles.map}>
-            <img src={images.map} alt="" />
+            <img src={images.map} alt="map" />
           </div>
         </div>
         <div className={styles.form}>

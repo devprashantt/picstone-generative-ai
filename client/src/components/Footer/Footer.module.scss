@@ -28,6 +28,7 @@
 }
 
 .footer_intro_text {
+  width: 100%;
   color: var(--neutral-100, #fff);
   font-feature-settings:
     "clig" off,
@@ -48,33 +49,34 @@
 }
 
 .link_box {
+  width: 100%;
   color: var(--neutral-100, #fff);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 1.2rem;
-  width: 100%;
 }
 
 .link_box_heading {
-  text-align: center;
+  width: 100%;
+  text-align: left;
   font-feature-settings:
     "clig" off,
     "liga" off;
   font-family: DM Sans;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-style: normal;
   font-weight: 700;
 }
 
 .link_box_text {
+  width: 100%;
   color: var(--neutral-100, #fff);
   font-feature-settings:
     "clig" off,
     "liga" off;
-  font-family: DM Sans;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
 }
