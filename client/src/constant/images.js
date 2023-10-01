@@ -8,12 +8,6 @@ import ellipse_2 from "../assets/shapes/ellipse_2.svg";
 import triangle_1 from "../assets/shapes/triangle_1.svg";
 import triangle_2 from "../assets/shapes/triangle_2.svg";
 import star from "../assets/shapes/star.svg";
-import rectangle from "../assets/shapes/rectangle.svg";
-import ellipse from "../assets/shapes/ellipse.svg";
-import ellipse_2 from "../assets/shapes/ellipse_2.svg";
-import triangle_1 from "../assets/shapes/triangle_1.svg";
-import triangle_2 from "../assets/shapes/triangle_2.svg";
-import star from "../assets/shapes/star.svg";
 
 // EXAMPLE
 import nature from "../assets/img.jpg";
