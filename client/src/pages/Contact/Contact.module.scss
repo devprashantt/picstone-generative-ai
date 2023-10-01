@@ -113,3 +113,22 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .contact {
+        .body {
+            flex-direction: column;
+            gap: 2.4rem;
+
+            .details {
+                flex-direction: column;
+                gap: 2.4rem;
+
+                .info {
+                    flex-direction: column;
+                    gap: 2.4rem;
+                }
+            }
+        }
+    }
+}

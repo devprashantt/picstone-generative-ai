@@ -9,6 +9,7 @@ const Button = ({
   onClick,
   disabled,
   isLoading,
+  isLoadingText,
   className,
   type,
 }) => {
@@ -21,7 +22,7 @@ const Button = ({
       disabled={disabled || isLoading}
       type={type || "button"}
     >
-      {isLoading ? "Loading..." : buttonText}
+      {isLoading ? isLoadingText : buttonText}
     </button>
   );
 };
@@ -31,6 +32,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
+  isLoadingText: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
 };
@@ -40,6 +42,7 @@ Button.defaultProps = {
   onClick: () => {},
   disabled: false,
   isLoading: false,
+  isLoadingText: "Loading...",
   className: "",
   type: "button",
 };

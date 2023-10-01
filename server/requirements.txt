@@ -18,3 +18,4 @@ yarl==1.9.2
 flask-cors==4.0.0
 pymysql==1.1.0
 python-dotenv==0.21.1
+Flask-Mail==0.9.1
