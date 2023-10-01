@@ -1,10 +1,14 @@
+// CONSTANTS
 import { images } from "../../constant";
 import styles from "./Footer.module.scss";
+
+// REACT ROUTER IMPORTS
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className={styles.footer}>
+      {/* LOGO+INTRO */}
       <div className={styles.footer_intro_box}>
         <div className={styles.footer_intro}>
           <img src={images.picstone_white} />
@@ -18,6 +22,7 @@ const Footer = () => {
           Copyright © 2023 PromptSpot . All rights reserved.
         </p>
       </div>
+      {/* LINKS */}
       <div className={styles.links}>
         <div className={styles.link_box}>
           <h3 className={styles.link_box_heading}>Contact</h3>
