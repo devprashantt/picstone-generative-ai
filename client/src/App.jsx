@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // CONSTANTS
-import { Navbar, Story } from "./components";
+import { Navbar, Story, Footer } from "./components";
 import { About, Explore, Landing, StoryPage } from "./pages";
 
 const App = () => {
@@ -35,6 +35,7 @@ const App = () => {
         <Route path="/story/:id" element={<StoryPage />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
