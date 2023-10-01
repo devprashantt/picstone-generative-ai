@@ -1,5 +1,7 @@
 # Picstone
 
+![Generative AI Hackathon Peerlist X Replit](https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156522/picstone/ads/unnamed_1_qlgyhj.png)
+
 ## Description
 
 Picstone is an innovative platform that combines visual content with storytelling and music generation. It allows users to upload images, and using AI-powered analysis, it generates engaging stories and music compositions based on the visual content. Whether you're a creative writer, a musician, or simply looking for a unique way to express yourself, Picstone offers a creative playground to bring your imagination to life.
