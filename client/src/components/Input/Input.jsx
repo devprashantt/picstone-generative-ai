@@ -2,9 +2,17 @@ import PropTypes from "prop-types";
 
 import styles from "./Input.module.scss";
 
-const Input = ({ label, type, placeholder, value, onChange, name }) => {
+const Input = ({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  name,
+  className,
+}) => {
   return (
-    <div className={styles.input}>
+    <div className={className ? `${styles.input} ${className}` : styles.input}>
       {label && <p className={styles.label}>{label}</p>}
       <input
         type={type}
@@ -25,6 +33,7 @@ Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   name: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Input;

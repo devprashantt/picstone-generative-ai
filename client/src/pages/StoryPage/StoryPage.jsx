@@ -37,15 +37,15 @@ const StoryPage = () => {
         ) : (
           <img src={storyData?.image_url} alt="img-picstone" />
         )}
-        {/* <div className={styles.tags}>
-          {tags?.map((tag) => {
+        <div className={styles.tags}>
+          {storyData?.tags?.map((tag) => {
             return (
               <p key={tag} className={styles.tag}>
                 {tag}
               </p>
             );
           })}
-        </div> */}
+        </div>
       </div>
       <p
         dangerouslySetInnerHTML={{

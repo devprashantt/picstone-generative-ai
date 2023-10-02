@@ -1,5 +1,4 @@
 import { Hero } from "../../components";
-import Explore from "./../Explore/Explore";
 import styles from "./Landing.module.scss";
 
 // UTILS
@@ -23,7 +22,7 @@ const Landing = () => {
         }}
       />
       {/* EXPLORE */}
-      <Explore storyLength={9} />
+      {/* <Explore storyLength={9} /> */}
       {/* EXAMPLE */}
       <div className={styles.example}>
         <h1>Example</h1>
@@ -35,20 +34,6 @@ const Landing = () => {
         />
         <p dangerouslySetInnerHTML={{ __html: formattedText }}></p>
       </div>
-
-      {/* FOOTER */}
-      {/* ADD PEER-LIST PROFILE */}
-      <a href="https://peerlist.io/prashantkumar">
-        <img
-          style={{
-            margin: "2rem 0",
-          }}
-          src={
-            "https://github-readme-badge.peerlist.io/api/prashantkumar?style=for-the-badge"
-          }
-          alt="peer-list"
-        />
-      </a>
     </div>
   );
 };
