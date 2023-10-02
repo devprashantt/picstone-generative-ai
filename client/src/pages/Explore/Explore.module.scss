@@ -1,19 +1,101 @@
 .explore {
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
-    // width: 100%;
-
-    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
 
-@media screen and (max-width: 768px) {
-    .explore {
-        grid-template-columns: repeat(2, 1fr);
+    .search_filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 1rem;
+
+        .search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+        }
+
+        .tags {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            width: 40%;
+
+            .tag {
+                cursor: pointer;
+                display: flex;
+                padding: 0.6rem 1rem;
+                justify-content: center;
+                align-items: center;
+                gap: 0.625rem;
+                flex: 1 0 0;
+
+                border-radius: 0.8rem;
+                background: linear-gradient(
+                    90deg,
+                    rgba(112, 45, 255, 0.1) -3.24%,
+                    rgba(117, 80, 251, 0.1) 29.22%,
+                    rgba(74, 58, 255, 0.1) 74%,
+                    rgba(74, 58, 255, 0.1) 101.79%
+                );
+
+                font-feature-settings:
+                    "clig" off,
+                    "liga" off;
+                font-size: 1.2rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                color: #702dff;
+
+                // CHANGE COLOR OF TAG WHEN HOVER
+                &:hover {
+                    background: linear-gradient(
+                        90deg,
+                        rgba(112, 45, 255, 0.2) -3.24%,
+                        rgba(117, 80, 251, 0.2) 29.22%,
+                        rgba(74, 58, 255, 0.2) 74%,
+                        rgba(74, 58, 255, 0.2) 101.79%
+                    );
+                }
+            }
+        }
+    }
+
+    .stories_container {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 2rem;
+        .heading {
+            text-align: center;
+            font-feature-settings:
+                "clig" off,
+                "liga" off;
+            font-size: 2.2rem;
+            font-style: normal;
+            font-weight: 700;
+
+            background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stories {
+            padding: 0 2rem;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
     }
 }

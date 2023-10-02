@@ -11,6 +11,7 @@ from config.database import db
 # MODELS
 from models.story import Story
 from models.image import Image
+from models.tags import Tags
 
 
 class StoryController:
@@ -40,6 +41,9 @@ class StoryController:
 
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
+
+            # Join the tags into a string
+            tags_string = ','.join(cloudinary_tags)
 
             if not cloudinary_tags:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
@@ -74,6 +78,23 @@ class StoryController:
             try:
                 # Add the new story to the database
                 db.session.add(new_story)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
+
+            # Retrieve the ID of the newly saved story
+            story_id = new_story.id
+
+            # Store tags_string in the database
+            new_tags = Tags(
+                story_id=story_id,
+                image_id=image_id,
+                tags_string=tags_string
+            )
+
+            try:
+                db.session.add(new_tags)
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
@@ -119,7 +140,7 @@ class StoryController:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
 
-    # get story by id
+ # get story by id
     @staticmethod
     def get_story(story_id):
         print("Getting story with id: ", story_id)
@@ -138,13 +159,24 @@ class StoryController:
             else:
                 image_url = None
 
-            # Convert the story into the format we want
+            # Retrieve the associated tags for the story as a single string
+            tags_string = db.session.query(Tags.tags_string).filter(
+                Tags.story_id == story_id).first()
+
+            # Split the tags string into individual tags using comma as the delimiter
+            if tags_string:
+                tag_list = [tag.strip() for tag in tags_string[0].split(',')]
+            else:
+                tag_list = []
+
+            # Convert the story into the format we want, including tags
             story_data = {
                 'id': story.id,
                 'user_id': story.user_id,
-                'image_url': image_url,  # Send the image URL here
+                'image_url': image_url,
                 'story_content': story.story_content,
-                'created_at': story.created_at
+                'created_at': story.created_at,
+                'tags': tag_list
             }
 
             return jsonify({'story': story_data})

@@ -4,6 +4,7 @@ from models.user import User
 
 
 class UserController:
+    # Create a new user
     @classmethod
     def create_user(cls):
         name = 'prashant'

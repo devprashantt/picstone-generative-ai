@@ -46,7 +46,7 @@
         }
 
         .hero__description {
-            width: 80%;
+            width: 75%;
             color: #170f49;
             text-align: center;
             font-feature-settings:
@@ -79,14 +79,14 @@
 
     .shape1 {
         position: absolute;
-        bottom: 0%;
-        left: 5%;
+        top: 60%;
+        left: 4%;
         z-index: -1;
     }
 
     .shape2 {
         position: absolute;
-        bottom: 0;
+        top: 55%;
         right: 5%;
         z-index: -1;
     }

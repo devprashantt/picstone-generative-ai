@@ -58,6 +58,26 @@ const Skeleton = ({ type }) => {
             ></div>
           </div>
         );
+      case "tags":
+        return (
+          <div
+            className={styles.skeleton}
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: "0",
+              boxShadow: "none",
+            }}
+          >
+            <div
+              className={styles.loadingAnimation}
+              style={{
+                width: "6rem",
+                height: "2.8rem",
+              }}
+            ></div>
+          </div>
+        );
       default:
         return (
           <div className={styles.skeleton}>

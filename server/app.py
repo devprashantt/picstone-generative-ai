@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
+from routes.tags_routes import tags_bp
 
 from config.database import db
 from config.database import database_url
@@ -31,7 +32,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_POOL_SIZE'] = 100
 
 # Production mode
-app.debug = app.config.get('DEBUG', False)
+app.debug = app.config.get('DEBUG', True)
 
 if app.debug:
     print("The Flask app is running in debug mode.")
@@ -63,6 +64,7 @@ def index():
 
 app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
+app.register_blueprint(tags_bp)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
