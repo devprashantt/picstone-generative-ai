@@ -11,6 +11,7 @@ from config.database import db
 # MODELS
 from models.story import Story
 from models.image import Image
+from models.tags import Tags
 
 
 class StoryController:
@@ -40,6 +41,9 @@ class StoryController:
 
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
+
+            # Join the tags into a string
+            tags_string = ','.join(cloudinary_tags)
 
             if not cloudinary_tags:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
@@ -74,6 +78,23 @@ class StoryController:
             try:
                 # Add the new story to the database
                 db.session.add(new_story)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
+
+            # Retrieve the ID of the newly saved story
+            story_id = new_story.id
+
+            # Store tags_string in the database
+            new_tags = Tags(
+                story_id=story_id,
+                image_id=image_id,
+                tags_string=tags_string
+            )
+
+            try:
+                db.session.add(new_tags)
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
