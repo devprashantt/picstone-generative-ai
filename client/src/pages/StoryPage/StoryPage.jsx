@@ -48,6 +48,7 @@ const StoryPage = () => {
         </div>
       </div>
       <p
+        className={styles.story_content}
         dangerouslySetInnerHTML={{
           __html: story,
         }}

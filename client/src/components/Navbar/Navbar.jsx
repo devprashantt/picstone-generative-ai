@@ -31,15 +31,7 @@ const Navbar = () => {
 
         {/* <Button buttonText="Sign In" /> */}
         {/* ADD PEER-LIST PROFILE */}
-        <a
-          href="https://peerlist.io/prashantkumar"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0.6rem 0",
-          }}
-        >
+        <a className={styles.peerlist} href="https://peerlist.io/prashantkumar">
           <img
             src={
               "https://github-readme-badge.peerlist.io/api/prashantkumar?style=social"
