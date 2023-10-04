@@ -1,4 +1,5 @@
 .footer {
+  margin-top: 2rem;
   display: flex;
   padding: 2.4rem;
   justify-content: space-between;
@@ -6,77 +7,101 @@
   background: var(--neutral-800, #170f49);
   width: 100%;
   gap: 12rem;
+
+  .footer_intro_box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4.8rem;
+
+    .footer_intro {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2.4rem;
+      flex-shrink: 0;
+
+      .footer_intro_text {
+        width: 100%;
+        color: var(--neutral-100, #fff);
+        font-feature-settings:
+          "clig" off,
+          "liga" off;
+        font-family: DM Sans;
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 500;
+      }
+    }
+
+    .footer_intro_text {
+      width: 100%;
+      color: var(--neutral-100, #fff);
+      font-feature-settings:
+        "clig" off,
+        "liga" off;
+      font-family: DM Sans;
+      font-size: 0.8rem;
+      font-style: normal;
+      font-weight: 500;
+    }
+  }
+
+  .links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3.2rem;
+    align-self: stretch;
+
+    .link_box {
+      width: 100%;
+      color: var(--neutral-100, #fff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.2rem;
+
+      .link_box_heading {
+        width: 100%;
+        text-align: left;
+        font-feature-settings:
+          "clig" off,
+          "liga" off;
+        font-family: DM Sans;
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 700;
+      }
+
+      .link_box_text {
+        width: 100%;
+        color: var(--neutral-100, #fff);
+        font-feature-settings:
+          "clig" off,
+          "liga" off;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+      }
+    }
+  }
 }
 
-.footer_intro_box {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 4.8rem;
-}
+@media screen and (max-width: 768px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
 
-.footer_intro {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2.4rem;
-  flex-shrink: 0;
-}
-
-.footer_intro_text {
-  width: 100%;
-  color: var(--neutral-100, #fff);
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
-  font-family: DM Sans;
-  font-size: 0.8rem;
-  font-style: normal;
-  font-weight: 500;
-}
-
-.links {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 3.2rem;
-  align-self: stretch;
-}
-
-.link_box {
-  width: 100%;
-  color: var(--neutral-100, #fff);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1.2rem;
-}
-
-.link_box_heading {
-  width: 100%;
-  text-align: left;
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
-  font-family: DM Sans;
-  font-size: 1.4rem;
-  font-style: normal;
-  font-weight: 700;
-}
-
-.link_box_text {
-  width: 100%;
-  color: var(--neutral-100, #fff);
-  font-feature-settings:
-    "clig" off,
-    "liga" off;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 500;
+    .footer_intro_box {
+      gap: 1.6rem;
+    }
+  }
 }

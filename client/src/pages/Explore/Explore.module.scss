@@ -22,6 +22,7 @@
 
         .tags {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
@@ -96,6 +97,20 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .explore {
+        .stories_container {
+            .stories {
+                padding: 0 2rem;
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 1rem;
+            }
         }
     }
 }

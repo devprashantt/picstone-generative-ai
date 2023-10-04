@@ -13,9 +13,6 @@
     .logo {
         display: flex;
         align-items: center;
-
-        font-size: 2.4rem;
-        font-weight: 700;
     }
 
     .action {
@@ -36,6 +33,38 @@
                 font-size: 1rem;
                 font-weight: 600;
                 cursor: pointer;
+            }
+        }
+
+        .peerlist {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.6rem 0;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        .logo {
+            height: 50px;
+            width: 150px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .action {
+            .menus {
+                .menu {
+                }
+            }
+
+            .peerlist {
+                display: none;
             }
         }
     }
