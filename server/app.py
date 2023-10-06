@@ -13,6 +13,8 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
+from utils.image_analysis import string
+
 import os
 from dotenv import load_dotenv
 
@@ -93,7 +95,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return "Server is running, and the database is connected."
+    return jsonify({'message': 'Welcome to the Flask API!', "string": string})
 
 
 app.register_blueprint(user_bp)
