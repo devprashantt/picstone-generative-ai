@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask import request, jsonify
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
@@ -10,6 +11,8 @@ from config.database import db
 from config.database import database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
+
+from utils.image_analysis import string
 
 app = Flask(__name__)
 # Enable CORS
@@ -59,7 +62,7 @@ if openai.api_key:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return "Server is running, and the database is connected."
+    return jsonify({'message': 'Welcome to the Flask API!', "string": string})
 
 
 app.register_blueprint(user_bp)
