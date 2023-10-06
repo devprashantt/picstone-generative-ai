@@ -15,9 +15,6 @@ from config.open_ai import openai
 
 from utils.image_analysis import string
 
-import os
-from dotenv import load_dotenv
-
 app = Flask(__name__)
 
 # Enable CORS
@@ -95,7 +92,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return 'application is running...', 200
+    return jsonify({'message': 'Welcome to the Flask API!', "string": string})
 
 
 app.register_blueprint(user_bp)
