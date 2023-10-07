@@ -8,6 +8,12 @@ CREATE TABLE user (
     user_privledge VARCHAR(255) DEFAULT 'USER',
     verification_id VARCHAR(255) NOT NULL,
 );
+-- Create the 'sessions' table (instead of redis)
+CREATE TABLE sessions (
+    email VARCHAR(255) NOT NULL,
+    session_token VARCHAR(255) NOT NULL UNIQUE,
+    FOREIGN KEY (email) REFERENCES user(email)
+);
 -- Create the 'images' table
 CREATE TABLE image (
     id INT AUTO_INCREMENT PRIMARY KEY,
