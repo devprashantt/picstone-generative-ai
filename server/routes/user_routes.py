@@ -4,6 +4,6 @@ from controllers.user_controller import UserController
 user_bp = Blueprint('user', __name__)
 
 
-@user_bp.route('/users', methods=['POST'])
+@user_bp.route('/users', methods=['POST', 'GET'])
 def create_users():
     return UserController.create_user()

@@ -3,7 +3,8 @@ CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    user_privledge VARCHAR(255) NOT NULL,
 );
 -- Create the 'images' table
 CREATE TABLE image (
