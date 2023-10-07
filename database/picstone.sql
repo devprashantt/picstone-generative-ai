@@ -4,7 +4,9 @@ CREATE TABLE user (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    user_privledge VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    user_privledge VARCHAR(255) DEFAULT 'USER',
+    verification_id VARCHAR(255) NOT NULL,
 );
 -- Create the 'images' table
 CREATE TABLE image (
