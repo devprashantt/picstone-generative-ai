@@ -2,6 +2,7 @@ import styles from "./Signin.module.scss";
 
 // REACT IMPORTS
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // REACT ROUTER
 import { useNavigate } from "react-router-dom";
@@ -51,7 +52,9 @@ const Signin = () => {
   return (
     <div className={styles.signin}>
       <div className={styles.left}>
-        <img src={images.picstone} alt="" className={styles.logo} />
+        <Link to={"/"}>
+          <img src={images.picstone} alt="logo" className={styles.logo} />
+        </Link>
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             type="text"

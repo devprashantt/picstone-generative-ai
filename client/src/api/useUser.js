@@ -39,7 +39,7 @@ const useUser = () => {
     const loginUser = async (user, cb) => {
         try {
             setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
