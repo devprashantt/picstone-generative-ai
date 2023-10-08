@@ -2,15 +2,21 @@ import { useState } from "react";
 
 import styles from "./Signup.module.scss";
 
+// TOAST
+import { toast } from "react-toastify";
+
 import { Input, Button } from "../../components";
 import { images } from "../../constant";
 
 // API
 import useUser from "../../api/useUser";
 
+// REACT ROUTER
+import { useNavigate } from "react-router-dom";
+
 // REDUX
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/reducers/userSlice";
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../../store/reducers/userSlice";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -20,10 +26,14 @@ const Signup = () => {
     confirmPassword: "",
   });
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { registerUser, loading } = useUser();
 
   const handleSubmit = (e) => {
+    console.log("formData-->", formData);
+    console.log("handleSubmit");
+
+    // PREVENT DEFAULT BEHAVIOUR OF FORM
     e.preventDefault();
 
     // CHECK IF BOTH PASSWORD IS ACTIVE AND MATCH
@@ -63,23 +73,29 @@ const Signup = () => {
     // REGISTER USER
     registerUser(formData, (responseData) => {
       console.log("responseData-->", responseData);
-      // UPDATE USER IN STATE
-      dispatch(setUser(responseData.user));
+
+      // TOAST
+      toast.success("Registered Successfully", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+
+      navigate("/signin");
     });
   };
   return (
     <div className={styles.signup}>
-      <div>
+      <div className={styles.image}>
         <img src={images.story} alt="story" />
       </div>
-      <div>
-        <img src={images.picstone} alt="logo" />
+      <div className={styles.right}>
+        <img src={images.picstone} alt="logo" className={styles.logo} />
+
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             type="text"
             placeholder="Enter your name.."
             label={"Name"}
-            isRequired="true"
             name={"name"}
             onChange={(e) => {
               setFormData({ ...formData, name: e.target.value });
@@ -114,6 +130,17 @@ const Signup = () => {
           />
           <Button isLoading={loading} type="submit" buttonText="Sign Up" />
         </form>
+
+        <p className={styles.link}>
+          Already have an account?{"  "}
+          <span
+            onClick={() => {
+              navigate("/signin");
+            }}
+          >
+            Sign In
+          </span>
+        </p>
       </div>
     </div>
   );
