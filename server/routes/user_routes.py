@@ -13,3 +13,7 @@ def create_users():
 def register_user():
     return UserController.register_user()
 
+@user_bp.route('/signon', methods=['GET', 'POST'])
+def sign_on_user():
+    return UserController.log_in_user()
+

@@ -31,8 +31,7 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         name = payload.get('name')
-        password = payload.get('password')
-        password = request.args.get('pass', 'mypassword', str)
+        password = payload.get('password')    
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
         try:
@@ -48,14 +47,19 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
+        # password = "password"
+        # email = "aidan@gmail.com"
         try:
-            query = 'SELECT password, password_hash FROM users where email = %s;'
-            stored_hash = ''
-            stored_salt = ''
+            query = 'SELECT password_hash, salt FROM user where email = %s;'
+            data = (email,)
+            values = db.engine.execute(query, data)
+            
+            row = values.fetchone()
+            stored_salt = row.salt
+            stored_hash = row.password_hash
             hashed_password = bcrypt.hashpw(
-                password.encode('utf-8'), stored_salt)
-            # TODO might be a type issue (bytes vs string)
-            if hashed_password == stored_hash:
+                password.encode('utf-8'), stored_salt.encode('utf-8'))
+            if hashed_password == stored_hash.encode('utf-8'):
                 session_token = str(uuid.uuid4())
                 # save this session token in DB
                 session_tools.establish_session(email, session_token)
@@ -65,5 +69,6 @@ class UserController:
                 return response
             else:
                 return 'invalid', 400
-        except:
-            return 'password invalid', 400
+        except Exception as e:
+            return f'invalid: {e}', 400
+        
