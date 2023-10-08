@@ -8,23 +8,6 @@ from utils import session_tools
 
 class UserController:
     # Create a new user
-    @classmethod
-    def create_user(cls):
-        name = 'prashant'
-        email = 'prashant@gmail.com'
-        password = 'password'
-        # Create a new user instance
-        new_user = User(name=name, email=email, password=password)
-
-        try:
-            # Add the new user to the database
-            db.session.add(new_user)
-            db.session.commit()
-            return jsonify({'message': 'User created successfully'}), 201
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
-
     # TODO sanitize password for validity ex: length, number, ...
     @classmethod
     def register_user(cls):

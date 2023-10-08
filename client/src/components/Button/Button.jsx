@@ -19,16 +19,16 @@ const Button = ({
   const buttonClass = `${styles.button} ${className || ""}`;
 
   return (
+    // <Link className={styles.link} to={`${to}`}>
     <button
       className={buttonClass}
       onClick={onClick}
       disabled={disabled || isLoading}
-      type={type || "button"}
+      type={type ? type : "button"}
     >
-      <Link className={styles.link} to={`${to}`}>
-        {isLoading ? "Loading..." : buttonText}
-      </Link>
+      {isLoading ? "Loading..." : buttonText}
     </button>
+    // </Link>
   );
 };
 
@@ -39,7 +39,7 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   className: PropTypes.string,
   to: PropTypes.string,
-  type: PropTypes.oneOf(["button", "submit", "reset"]),
+  type: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -49,7 +49,6 @@ Button.defaultProps = {
   isLoading: false,
   className: "",
   type: "button",
-  to: "/",
 };
 
 export default Button;
