@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 // CONSTANTS
 import styles from "./Button.module.scss";
 
+// LINK
+import { Link } from "react-router-dom";
+
 const Button = ({
   buttonText,
   onClick,
@@ -11,6 +14,7 @@ const Button = ({
   isLoading,
   className,
   type,
+  to,
 }) => {
   const buttonClass = `${styles.button} ${className || ""}`;
 
@@ -21,7 +25,9 @@ const Button = ({
       disabled={disabled || isLoading}
       type={type || "button"}
     >
-      {isLoading ? "Loading..." : buttonText}
+      <Link className={styles.link} to={`${to}`}>
+        {isLoading ? "Loading..." : buttonText}
+      </Link>
     </button>
   );
 };
@@ -32,6 +38,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   className: PropTypes.string,
+  to: PropTypes.string,
   type: PropTypes.oneOf(["button", "submit", "reset"]),
 };
 
@@ -42,6 +49,7 @@ Button.defaultProps = {
   isLoading: false,
   className: "",
   type: "button",
+  to: "/",
 };
 
 export default Button;

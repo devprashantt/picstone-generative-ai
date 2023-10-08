@@ -19,6 +19,9 @@ import mail from "../assets/icons/mail.svg";
 // IMAGES
 import map from "../assets/img/map.svg";
 
+// ASSETS
+import story from "../assets/story.svg";
+
 export default {
   picstone,
   picstone_white,
@@ -30,4 +33,5 @@ export default {
   call,
   mail,
   map,
+  story,
 };
