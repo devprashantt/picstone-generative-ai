@@ -26,9 +26,7 @@ const Button = ({
       disabled={disabled || isLoading}
       type={type ? type : "button"}
     >
-      <Link className={styles.link} to={`${to}`}>
-        {isLoading ? "Loading..." : buttonText}
-      </Link>
+      {isLoading ? "Loading..." : buttonText}
     </button>
     // </Link>
   );
@@ -51,7 +49,6 @@ Button.defaultProps = {
   isLoading: false,
   className: "",
   type: "button",
-  to: "/",
 };
 
 export default Button;
