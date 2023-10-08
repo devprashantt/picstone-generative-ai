@@ -65,10 +65,12 @@ class UserController:
                 session_tools.establish_session(email, session_token)
                 response = make_response('session established')
                 response.set_cookie(
-                    'session_token', session_token, max_age=36000)
+                    'session_token', session_token, max_age=36000, 
+                    secure=True, httponly=True, samesite='None',
+                    domain='.vercel.app')
                 return response
             else:
                 return 'invalid', 400
-        except Exception as e:
-            return f'invalid: {e}', 400
+        except:
+            return f'invalid', 400
         
