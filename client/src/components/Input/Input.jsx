@@ -22,6 +22,7 @@ const Input = ({
         onChange={onChange}
         name={name}
         className={styles.input_field}
+        required={isRequired}
       />
     </div>
   );
