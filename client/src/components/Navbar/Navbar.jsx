@@ -6,7 +6,10 @@ import { images } from "../../constant";
 import { Link } from "react-router-dom";
 
 // COMPONENTS
-// import { Button } from "./../index";
+import { Button } from "./../index";
+
+// REDUX
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   return (
@@ -28,17 +31,13 @@ const Navbar = () => {
             Contact
           </Link>
         </div>
+      </div>
 
-        {/* <Button buttonText="Sign In" /> */}
-        {/* ADD PEER-LIST PROFILE */}
-        <a className={styles.peerlist} href="https://peerlist.io/prashantkumar">
-          <img
-            src={
-              "https://github-readme-badge.peerlist.io/api/prashantkumar?style=social"
-            }
-            alt="peer-list"
-          />
-        </a>
+      <div className={styles.auth}>
+        <Link to={"signup"} className={styles.link}>
+          Signup
+        </Link>
+        <Button buttonText="Sign In" to={"signin"} />
       </div>
     </div>
   );

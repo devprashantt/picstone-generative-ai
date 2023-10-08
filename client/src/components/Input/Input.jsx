@@ -10,6 +10,7 @@ const Input = ({
   onChange,
   name,
   className,
+  isRequired,
 }) => {
   return (
     <div className={className ? `${styles.input} ${className}` : styles.input}>
@@ -34,6 +35,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   name: PropTypes.string,
   className: PropTypes.string,
+  isRequired: PropTypes.string,
 };
 
 export default Input;

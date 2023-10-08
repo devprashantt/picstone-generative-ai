@@ -3,7 +3,16 @@ CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    password_hash VARCHAR(255) NOT NULL,
+    salt VARCHAR(255) NOT NULL,
+    user_privledge VARCHAR(255) DEFAULT 'USER',
+    verification_id VARCHAR(255) NOT NULL,
+);
+-- Create the 'sessions' table (instead of redis)
+CREATE TABLE sessions (
+    email VARCHAR(255) NOT NULL,
+    session_token VARCHAR(255) NOT NULL UNIQUE,
+    FOREIGN KEY (email) REFERENCES user(email)
 );
 -- Create the 'images' table
 CREATE TABLE image (
@@ -31,7 +40,7 @@ CREATE TABLE music (
     image_id INT NOT NULL,
     music_content BLOB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (story_id) REFERENCES story(id),
     FOREIGN KEY (image_id) REFERENCES image(id)
 );
