@@ -40,7 +40,7 @@ CREATE TABLE music (
     image_id INT NOT NULL,
     music_content BLOB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (story_id) REFERENCES story(id),
     FOREIGN KEY (image_id) REFERENCES image(id)
 );

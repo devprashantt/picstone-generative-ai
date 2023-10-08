@@ -26,22 +26,25 @@ class UserController:
     
     #TODO sanitize password for validity ex: length, number, ...
     @classmethod
-    def register_user():
+    def register_user(cls):
         payload = request.get_json()
         email = payload.get('email')
         name = payload.get('name')
         password = payload.get('password')
+        password = request.args.get('pass', 'mypassword',str)
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
         try:
-            query = 'INSERT INTO users (email, name, password_hash, salt) VALUES (%s,%s,%s,%s)'
-            #TODO finish this 
+            query = 'INSERT INTO user (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
+            data = (email, name, hashed_password, salt, str(uuid.uuid4()))
+            db.engine.execute(query, data)
+            return 'success', 200
         except:
             return 'could not register user', 400
-        return 'user has been registered in', 200
+        
     
     @classmethod
-    def log_in_user():
+    def log_in_user(cls):
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
