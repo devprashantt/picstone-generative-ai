@@ -42,31 +42,31 @@ const Signup = () => {
       formData.password === "" ||
       formData.confirmPassword === ""
     ) {
-      alert("Password does not match");
+      toast.error("Password does not match");
       return;
     }
 
     // CHECK IF EMAIL IS VALID
     if (!formData.email.includes("@")) {
-      alert("Invalid email");
+      toast.error("Invalid email");
       return;
     }
 
     // CHECK IF NAME IS VALID
     if (formData.name === "") {
-      alert("Invalid name");
+      toast.error("Name is required");
       return;
     }
 
     // CHECK IF PASSWORD IS VALID
     if (formData.password.length < 6) {
-      alert("Password must be at least 6 characters");
+      toast.error("Password must be at least 6 characters");
       return;
     }
 
     // CHECK IF CONFIRM PASSWORD IS VALID
     if (formData.confirmPassword.length < 6) {
-      alert("Password must be at least 6 characters");
+      toast.error("Confirm Password must be at least 6 characters");
       return;
     }
 
