@@ -1,4 +1,6 @@
 from flask import request, jsonify
+from PIL import Image
+import pytesseract
 
 # UTILS
 from utils.upload_img import upload_image_to_cloudinary
@@ -25,85 +27,90 @@ class StoryController:
 
             file = request.files['file']
 
-            # Check if a file was selected
-            if file.filename == '':
-                return jsonify({'error': 'No selected file'})
+            text = pytesseract.image_to_string(Image.open(file))
 
-            # Tags for analysis
-            tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
-                    'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
+            # Return the extracted text as JSON
+            return jsonify({'text': text})
 
-            # Analyze the tags
-            tag_analysis = analyze_tags(tags)
+            # # Check if a file was selected
+            # if file.filename == '':
+            #     return jsonify({'error': 'No selected file'})
 
-            # Upload the image to Cloudinary
-            cloudinary_data = upload_image_to_cloudinary(file)
+            # # Tags for analysis
+            # tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
+            #         'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
 
-            # Extract tags from the Cloudinary metadata
-            cloudinary_tags = cloudinary_data['tags']
+            # # Analyze the tags
+            # tag_analysis = analyze_tags(tags)
 
-            # Join the tags into a string
-            tags_string = ','.join(cloudinary_tags)
+            # # Upload the image to Cloudinary
+            # cloudinary_data = upload_image_to_cloudinary(file)
 
-            if not cloudinary_tags:
-                return jsonify({'error': 'No Cloudinary-generated tags found'})
+            # # Extract tags from the Cloudinary metadata
+            # cloudinary_tags = cloudinary_data['tags']
 
-            # Generate a story based on the Cloudinary-generated tags
-            story = generate_story(
-                tags=cloudinary_tags, tag_analysis=tag_analysis)
+            # # Join the tags into a string
+            # tags_string = ','.join(cloudinary_tags)
 
-            # Save the image in the "images" table
-            new_image = Image(
-                user_id=1,
-                image_path=cloudinary_data['secure_url'],
-            )
+            # if not cloudinary_tags:
+            #     return jsonify({'error': 'No Cloudinary-generated tags found'})
 
-            try:
-                db.session.add(new_image)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+            # # Generate a story based on the Cloudinary-generated tags
+            # story = generate_story(
+            #     tags=cloudinary_tags, tag_analysis=tag_analysis)
 
-            # Retrieve the ID of the newly saved image
-            image_id = new_image.id
+            # # Save the image in the "images" table
+            # new_image = Image(
+            #     user_id=1,
+            #     image_path=cloudinary_data['secure_url'],
+            # )
 
-            # Create a new Story instance and set its attributes
-            new_story = Story(
-                user_id=1,  # Replace with the actual user_id
-                image_id=image_id,
-                story_content=story  # Set the generated story here
-            )
+            # try:
+            #     db.session.add(new_image)
+            #     db.session.commit()
+            # except Exception as e:
+            #     db.session.rollback()
+            #     return jsonify({'error': str(e)}), 500
 
-            try:
-                # Add the new story to the database
-                db.session.add(new_story)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+            # # Retrieve the ID of the newly saved image
+            # image_id = new_image.id
 
-            # Retrieve the ID of the newly saved story
-            story_id = new_story.id
+            # # Create a new Story instance and set its attributes
+            # new_story = Story(
+            #     user_id=1,  # Replace with the actual user_id
+            #     image_id=image_id,
+            #     story_content=story  # Set the generated story here
+            # )
 
-            # Store tags_string in the database
-            new_tags = Tags(
-                story_id=story_id,
-                image_id=image_id,
-                tags_string=tags_string
-            )
+            # try:
+            #     # Add the new story to the database
+            #     db.session.add(new_story)
+            #     db.session.commit()
+            # except Exception as e:
+            #     db.session.rollback()
+            #     return jsonify({'error': str(e)}), 500
 
-            try:
-                db.session.add(new_tags)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+            # # Retrieve the ID of the newly saved story
+            # story_id = new_story.id
 
-            return jsonify({
-                'story': story,
-                'cloudinary_data': cloudinary_data
-            })
+            # # Store tags_string in the database
+            # new_tags = Tags(
+            #     story_id=story_id,
+            #     image_id=image_id,
+            #     tags_string=tags_string
+            # )
+
+            # try:
+            #     db.session.add(new_tags)
+            #     db.session.commit()
+            # except Exception as e:
+            #     db.session.rollback()
+            #     return jsonify({'error': str(e)}), 500
+
+            # return jsonify({
+            #     'story': story,
+            #     'cloudinary_data': cloudinary_data
+            # })
 
         except Exception as e:
             # Handle exceptions and return an error response

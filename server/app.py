@@ -95,7 +95,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return jsonify({'message': 'Welcome to the Flask API!', "string": string})
+    return "Server is running, and the database is connected."
 
 
 app.register_blueprint(user_bp)
