@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 // COMPONENTS
 import { Button } from "./../index";
 
+// REDUX
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
   return (
     <div className={styles.navbar}>
@@ -28,8 +31,13 @@ const Navbar = () => {
             Contact
           </Link>
         </div>
+      </div>
 
-        <Button buttonText="Sign Up" to={"signup"} />
+      <div className={styles.auth}>
+        <Link to={"signup"} className={styles.link}>
+          Signup
+        </Link>
+        <Button buttonText="Sign In" to={"signin"} />
       </div>
     </div>
   );

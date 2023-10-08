@@ -62,3 +62,30 @@
         }
     }
 }
+
+// MOBILE
+@media (max-width: 768px) {
+    .signin {
+        flex-direction: column;
+
+        .left {
+            padding: 1.2rem;
+
+            .logo {
+                margin: 0.6rem;
+            }
+
+            .form {
+                gap: 0.6rem;
+            }
+
+            .link {
+                margin: 0.6rem;
+            }
+        }
+
+        .image {
+            display: none;
+        }
+    }
+}

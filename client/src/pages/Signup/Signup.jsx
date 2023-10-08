@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Signup.module.scss";
 
@@ -89,7 +90,9 @@ const Signup = () => {
         <img src={images.story} alt="story" />
       </div>
       <div className={styles.right}>
-        <img src={images.picstone} alt="logo" className={styles.logo} />
+        <Link to={"/"}>
+          <img src={images.picstone} alt="logo" className={styles.logo} />
+        </Link>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
