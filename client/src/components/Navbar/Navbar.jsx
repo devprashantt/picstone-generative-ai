@@ -6,7 +6,7 @@ import { images } from "../../constant";
 import { Link } from "react-router-dom";
 
 // COMPONENTS
-// import { Button } from "./../index";
+import { Button } from "./../index";
 
 const Navbar = () => {
   return (
@@ -29,16 +29,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* <Button buttonText="Sign In" /> */}
-        {/* ADD PEER-LIST PROFILE */}
-        <a className={styles.peerlist} href="https://peerlist.io/prashantkumar">
-          <img
-            src={
-              "https://github-readme-badge.peerlist.io/api/prashantkumar?style=social"
-            }
-            alt="peer-list"
-          />
-        </a>
+        <Button buttonText="Sign Up" to={"signup"} />
       </div>
     </div>
   );
