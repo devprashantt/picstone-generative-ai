@@ -3,6 +3,7 @@ from functools import wraps
 import uuid
 from config.database import db
 
+
 def requires_user_session(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -20,22 +21,24 @@ def requires_user_session(func):
             return "Invalid session", 401
     return wrapper
 
+
 def user_from_session(session_token):
     if not session_token:
         return None
     query = "SELECT email FROM sessions WHERE session_token = %s;"
-    values = db.engine.execute(query,(session_token)).fetchone()
+    values = db.engine.execute(query, (session_token)).fetchone()
     return values.email
 
-    #need to execute this query with correct sql system
+    # need to execute this query with correct sql system
+
 
 def establish_session(email, session_token):
-    #delete all sessions where email exists and then make new session
+    # delete all sessions where email exists and then make new session
     try:
         query_delete = "DELETE FROM sessions where email = %s;"
-        db.engine.execute(query_delete,(email))
+        db.engine.execute(query_delete, (email))
         query = "INSERT INTO sessions (email, session_token) VALUES (%s, %s);"
-        data = (email,session_token)
+        data = (email, session_token)
         db.engine.execute(query, data)
     except:
         raise ValueError('session could not be estalished')
