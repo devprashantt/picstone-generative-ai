@@ -7,6 +7,7 @@ from routes.user_routes import user_bp
 from routes.story_routes import story_bp
 from routes.message_routes import message_bp
 from routes.tags_routes import tags_bp
+from routes.message_routes import message_bp
 
 from config.database import db, database_url
 from config.cloudinary import cloudinary
