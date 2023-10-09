@@ -12,6 +12,7 @@ const Button = ({
   onClick,
   disabled,
   isLoading,
+  isLoadingText,
   className,
   type,
   to,
@@ -26,7 +27,7 @@ const Button = ({
       disabled={disabled || isLoading}
       type={type ? type : "button"}
     >
-      {isLoading ? "Loading..." : buttonText}
+      {isLoading ? isLoadingText : buttonText}
     </button>
     // </Link>
   );
@@ -37,6 +38,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
+  isLoadingText: PropTypes.string,
   className: PropTypes.string,
   to: PropTypes.string,
   type: PropTypes.string,
@@ -47,6 +49,7 @@ Button.defaultProps = {
   onClick: () => {},
   disabled: false,
   isLoading: false,
+  isLoadingText: "Loading...",
   className: "",
   type: "button",
 };
