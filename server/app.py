@@ -3,8 +3,6 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 
-# from config.flask_mail import MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USE_TLS, MAIL_USERNAME, MAIL_USE_DEFAULT_SENDER
-
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
 from routes.message_routes import message_bp
@@ -13,16 +11,15 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
-
 import os
 from dotenv import load_dotenv
+
 app = Flask(__name__)
 
 # Enable CORS
 CORS(app)
 
 load_dotenv()
-
 
 # Initialize SQLAlchemy (if needed)
 db = SQLAlchemy(app)
