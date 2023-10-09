@@ -21,8 +21,11 @@ class MessageController:
         # Get name from data
         sender_name = data.get('name')
 
+        # Get message from body
+        message_body = data.get('message')
+
         # Set recipients
-        recipients = "prashantkumarsingh.work@gmail.com"
+        recipients = "officialprashanttt@gmail.com"
 
         try:
             # Create a message
@@ -30,11 +33,11 @@ class MessageController:
                               sender=sender_email, recipients=[recipients])
 
             # Set the email body
-            message.body = data.get('message')
+            message.body = message_body
 
             # Send the email
             mail.send(message)
 
-            return jsonify({'message': 'Message sent successfully', "data": data}), 200
+            return jsonify({'message': 'Message sent successfully'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
