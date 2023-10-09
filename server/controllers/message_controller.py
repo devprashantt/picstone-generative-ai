@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 
 # FLASK_MAIL
 from flask_mail import Message
@@ -6,23 +6,26 @@ from flask_mail import Message
 
 # CONFIG
 from config.database import db
-from config.flask_mail import mail
+# s
 
 
 class MessageController:
     @staticmethod
     def send_message():
         # Get data from the request body
-        data = request.get_json()
+        # data = request.get_json()
 
-        # Get email from data
-        sender_email = data.get('email')
+        # # Get email from data
+        # sender_email = data.get('email')
 
-        # Get name from data
-        sender_name = data.get('name')
+        # # Get name from data
+        # sender_name = data.get('name')
+
+        sender_name = 'Aidan'
+        sender_email = 'picstoneai@gmail.com'
 
         # Set recipients
-        recipients = "prashantkumarsingh.work@gmail.com"
+        recipients = "aidan.canavan3@gmail.com"
 
         try:
             # Create a message
@@ -30,11 +33,11 @@ class MessageController:
                               sender=sender_email, recipients=[recipients])
 
             # Set the email body
-            message.body = data.get('message')
+            message.body = "hello this is a test"
 
             # Send the email
-            mail.send(message)
+            current_app.mail.send(message)
 
-            return jsonify({'message': 'Message sent successfully', "data": data}), 200
+            return jsonify({'message': 'Message sent successfully', "data": 'test'}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500

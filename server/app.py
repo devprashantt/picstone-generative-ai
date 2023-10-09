@@ -1,9 +1,9 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
+from flask_mail import Mail, Message
 
-from config.flask_mail import MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USE_SSL, MAIL_USE_TLS, MAIL_USERNAME
+# from config.flask_mail import MAIL_PASSWORD, MAIL_PORT, MAIL_SERVER, MAIL_USE_TLS, MAIL_USERNAME, MAIL_USE_DEFAULT_SENDER
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
@@ -14,25 +14,40 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
+
+import os
+from dotenv import load_dotenv
 app = Flask(__name__)
 
 # Enable CORS
 CORS(app)
 
-# Initialize Flask-Mail
-mail = Mail(app)
+load_dotenv()
+
 
 # Initialize SQLAlchemy (if needed)
 db = SQLAlchemy(app)
 
 # Configure Flask-Mail
-app.config['MAIL_SERVER'] = MAIL_SERVER
-app.config['MAIL_PORT'] = MAIL_PORT
-app.config['MAIL_USERNAME'] = MAIL_USERNAME
-app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
-app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
-app.config['MAIL_USE_SSL'] = MAIL_USE_SSL
-print("Connected to Mail successfully.")
+with app.app_context():
+    MAIL_SERVER = os.environ.get('MAIL_SERVER')
+    MAIL_PORT = os.environ.get('MAIL_PORT')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS')
+    MAIL_USE_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER')
+
+    app.config['MAIL_SERVER'] = MAIL_SERVER
+    app.config['MAIL_PORT'] = MAIL_PORT
+    app.config['MAIL_USERNAME'] = MAIL_USERNAME
+    app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
+    app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
+    app.config['MAIL_USE_DEFAULT_SENDER'] = MAIL_USE_DEFAULT_SENDER
+    print("Connected to Mail successfully.")
+
+    # Initialize Flask-Mail
+    mail = Mail(app)
+    app.mail = mail
 
 # Production mode
 app.debug = app.config.get('DEBUG', False)
