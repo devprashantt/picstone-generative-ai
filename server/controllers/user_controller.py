@@ -57,3 +57,7 @@ class UserController:
         except Exception as e:
             return f'invalid: {e}', 400
         
+    @classmethod
+    def verfiy_user():
+        print('verify user')
+        
