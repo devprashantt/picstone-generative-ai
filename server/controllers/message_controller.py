@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, current_app
 
 # FLASK_MAIL
 from flask_mail import Message
@@ -6,7 +6,6 @@ from flask_mail import Message
 
 # CONFIG
 from config.database import db
-from config.flask_mail import mail
 
 
 class MessageController:
@@ -36,7 +35,7 @@ class MessageController:
             message.body = message_body
 
             # Send the email
-            mail.send(message)
+            current_app.mail.send(message)
 
             return jsonify({'message': 'Message sent successfully'}), 200
         except Exception as e:
