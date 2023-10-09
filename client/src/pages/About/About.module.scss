@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: space-between;
+  // height: 100vh;
   width: 100%;
   color: white;
+  padding: 4rem;
+  gap: 5rem;
 }
 
 .intro {
@@ -62,4 +64,11 @@
     align-self: center;
     max-width: 30%;
   }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.2rem;
 }
