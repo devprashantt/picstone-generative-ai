@@ -11,7 +11,7 @@ def requires_user_session(func):
         if not session_token:
             return "Invalid session", 401
         try:
-            uuid.UUID(session_token)  # Try to parse the token as a UUID
+            uuid.UUID(session_token)
         except:
             return 'Invalid token', 401
         validated_user = user_from_session(session_token)
@@ -29,11 +29,8 @@ def user_from_session(session_token):
     values = db.engine.execute(query, (session_token)).fetchone()
     return values.email
 
-    # need to execute this query with correct sql system
-
-
 def establish_session(email, session_token):
-    # delete all sessions where email exists and then make new session
+    # TODO check verification status
     try:
         query_delete = "DELETE FROM sessions where email = %s;"
         db.engine.execute(query_delete, (email))
