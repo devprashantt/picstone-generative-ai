@@ -1,5 +1,4 @@
 // COMPONENTS
-// import { images } from "../../constant";
 import { Hero } from "../../components";
 import AboutList from "./components/AboutList";
 import AboutData from "./AboutData";
@@ -18,7 +17,6 @@ const About = () => {
       />
       <div className={styles.list}>
         {AboutData.map((dataItem) => {
-          console.log(!!(dataItem.id % 2 === 1));
           const pos = !!(dataItem.id % 2 === 1);
           return (
             <AboutList

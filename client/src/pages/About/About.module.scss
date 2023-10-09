@@ -3,67 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  // height: 100vh;
   width: 100%;
-  color: white;
   padding: 4rem;
   gap: 5rem;
-}
-
-.intro {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 40%;
-  gap: 2rem;
-
-  .text {
-    color: var(--neutral-800, #170f49);
-    text-align: center;
-    font-feature-settings: "clig" off, "liga" off;
-    font-family: DM Sans;
-    font-size: 1.2rem;
-    font-style: normal;
-    font-weight: 700;
-    //   line-height: 2.1875rem; /* 109.375% */
-  }
-
-  .heading {
-    background: linear-gradient(
-      90deg,
-      #702dff 33.02%,
-      #702dff 33.02%,
-      #9747ff 83.25%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    text-align: center;
-    font-feature-settings: "clig" off, "liga" off;
-    font-family: DM Sans;
-    font-size: 3.6rem;
-    font-style: normal;
-    font-weight: 700;
-    //   line-height: 3.875rem; /* 96.875% */
-  }
-
-  .desc {
-    color: var(--neutral-800, #170f49);
-    text-align: center;
-    font-feature-settings: "clig" off, "liga" off;
-    font-family: DM Sans;
-    font-size: 0.8rem;
-    font-style: italic;
-    font-weight: 500;
-    //   line-height: 1.75rem; /* 127.273% */
-  }
-
-  .button {
-    align-self: center;
-    max-width: 30%;
-  }
 }
 
 .list {
