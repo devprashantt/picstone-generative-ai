@@ -93,11 +93,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    x = request.cookies.get('session_token')
-    if x:
-        return str(x) , 200
-    else:
-        return 'no cookie found', 200
+    return 'application is running...', 200
 
 
 app.register_blueprint(user_bp)

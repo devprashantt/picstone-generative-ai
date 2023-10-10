@@ -41,8 +41,6 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
-        # password = "password"
-        # email = "aidan@gmail.com"
         if not cls.is_user_verified(email):
             return 'user is not verified', 400
 
@@ -50,7 +48,6 @@ class UserController:
             query = 'SELECT password_hash, salt FROM user where email = %s;'
             data = (email,)
             values = db.engine.execute(query, data)
-
             row = values.fetchone()
             stored_salt = row.salt
             stored_hash = row.password_hash
@@ -58,7 +55,6 @@ class UserController:
                 password.encode('utf-8'), stored_salt.encode('utf-8'))
             if hashed_password == stored_hash.encode('utf-8'):
                 session_token = str(uuid.uuid4())
-                # save this session token in DB
                 session_tools.establish_session(email, session_token)
                 response = make_response('session established')
                 response.set_cookie(
@@ -101,5 +97,3 @@ class UserController:
             return True
         else:
             return False
-
-        
