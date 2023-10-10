@@ -13,6 +13,9 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
+import os
+from dotenv import load_dotenv
+
 app = Flask(__name__)
 
 # Enable CORS
