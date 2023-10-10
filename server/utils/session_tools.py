@@ -30,7 +30,6 @@ def user_from_session(session_token):
     return values.email
 
 def establish_session(email, session_token):
-    # TODO check verification status
     try:
         query_delete = "DELETE FROM sessions where email = %s;"
         db.engine.execute(query_delete, (email))

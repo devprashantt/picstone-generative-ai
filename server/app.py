@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 
 # Enable CORS
-CORS(app)
+CORS(app, origins='*', supports_credentials=True)
 
 load_dotenv()
 
@@ -93,7 +93,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return "Server is running, and the database is connected."
+    return 'application is running...', 200
 
 
 app.register_blueprint(user_bp)

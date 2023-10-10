@@ -12,3 +12,8 @@ def register_user():
 @user_bp.route('/signin', methods=['GET', 'POST'])
 def sign_in_user():
     return UserController.log_in_user()
+
+
+@user_bp.route('/verify', methods=['GET', 'POST'])
+def verify_user():
+    return UserController.verfiy_user()
