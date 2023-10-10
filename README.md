@@ -81,7 +81,13 @@ Before you begin, ensure you have met the following requirements:
 
 ## Contributing
 
+### People
+
 [![Peerlist](https://github-readme-badge.peerlist.io/api/prashantkumar?style=social)](https://peerlist.io/prashantkumar)
+
+### Community
+
+Discrod: https://discord.gg/rWdx8TXrXh
 
 ## License
 
