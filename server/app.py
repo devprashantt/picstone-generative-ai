@@ -13,8 +13,6 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
-from utils.image_analysis import string
-
 import os
 from dotenv import load_dotenv
 
