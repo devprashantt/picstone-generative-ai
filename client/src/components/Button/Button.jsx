@@ -20,16 +20,16 @@ const Button = ({
   const buttonClass = `${styles.button} ${className || ""}`;
 
   return (
-    // <Link className={styles.link} to={`${to}`}>
-    <button
-      className={buttonClass}
-      onClick={onClick}
-      disabled={disabled || isLoading}
-      type={type ? type : "button"}
-    >
-      {isLoading ? isLoadingText : buttonText}
-    </button>
-    // </Link>
+    <Link className={styles.link} to={`${to}`}>
+      <button
+        className={buttonClass}
+        onClick={onClick}
+        disabled={disabled || isLoading}
+        type={type ? type : "button"}
+      >
+        {isLoading ? isLoadingText : buttonText}
+      </button>
+    </Link>
   );
 };
 

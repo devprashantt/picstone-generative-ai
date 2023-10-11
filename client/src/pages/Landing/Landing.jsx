@@ -13,7 +13,7 @@ const Landing = () => {
   return (
     <div className={styles.landing}>
       {/* HERO */}
-      <Hero warning={true} img_btn={true} />
+      <Hero warning={true} img_btn={false} btn={true} btn_text={"Generate story"} to={"generate-story"} />
       {/* GAP */}
       <div
         style={{

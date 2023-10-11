@@ -14,6 +14,7 @@ import {
   StoryPage,
   Signin,
   Signup,
+  GenerateStory
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/story" element={<Story />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/story/:id" element={<StoryPage />} />
+        <Route path="/generate-story" element={<GenerateStory />} />
 
         {/* ABOUT AND CONTACT */}
         <Route path="/about" element={<About />} />

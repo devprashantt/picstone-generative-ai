@@ -17,6 +17,7 @@ const Hero = ({
   btn,
   img_btn,
   btn_text,
+  to
 }) => {
   return (
     <div className={styles.hero}>
@@ -43,7 +44,7 @@ const Hero = ({
       {img_btn ? (
         <ImageUploader />
       ) : btn ? (
-        <Button buttonText={btn_text} />
+        <Button buttonText={btn_text} to={to} />
       ) : null}
       {/* WARNING */}
       {warning && (
@@ -74,6 +75,7 @@ Hero.propTypes = {
   img_btn: PropTypes.bool,
   btn_text: PropTypes.string,
   btn: PropTypes.bool,
+  to: PropTypes.string, 
 };
 
 export default Hero;
