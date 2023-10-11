@@ -42,6 +42,8 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
+        email= 'aidan.canavan3@gmail.com'
+        password='password'
         if not cls.is_user_verified(email):
             return 'user is not verified', 400
 
@@ -50,11 +52,8 @@ class UserController:
             data = (email,)
             values = db.engine.execute(query, data)
             row = values.fetchone()
-            stored_salt = row.salt
             stored_hash = row.password_hash
-            hashed_password = bcrypt.hashpw(
-                password.encode('utf-8'), stored_salt.encode('utf-8'))
-            if hashed_password == stored_hash.encode('utf-8'):
+            if bcrypt.checkpw(password.encode('utf-8'),stored_hash.encode('utf-8')):
                 session_token = str(uuid.uuid4())
                 session_tools.establish_session(email, session_token)
                 response = make_response('session established')
