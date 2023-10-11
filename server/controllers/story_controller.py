@@ -1,4 +1,8 @@
 from flask import request, jsonify
+import requests
+from io import BytesIO
+import PIL.Image
+import pytesseract
 
 # UTILS
 from utils.upload_img import upload_image_to_cloudinary
@@ -39,18 +43,31 @@ class StoryController:
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
 
+            # Get the secure link from cloudinary
+            cloudinary_link = cloudinary_data['secure_url']
+
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
 
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
 
+            # Get text from image
+            response = requests.get(cloudinary_link)
+
+            if response.status_code == 200:
+                image = PIL.Image.open(BytesIO(response.content))
+                image_text = pytesseract.image_to_string(image)
+
             if not cloudinary_tags:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
 
             # Generate a story based on the Cloudinary-generated tags
             story = generate_story(
-                tags=cloudinary_tags, tag_analysis=tag_analysis)
+                tags=cloudinary_tags,
+                tag_analysis=tag_analysis,
+                image_text=image_text
+            )
 
             # Save the image in the "images" table
             new_image = Image(

@@ -93,7 +93,7 @@ if app.debug:
 def index():
     # You can access the database within this route function
     # Your database operations should be here
-    return 'application is running...', 200
+    return "Server is running, and the database is connected."
 
 
 app.register_blueprint(user_bp)

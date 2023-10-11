@@ -1,8 +1,8 @@
-# DOCS
+# VS CODE SETTINGS
+.vscode
+
+# DOCUMENTS
 picstone.txt
 
-# SQL
+# OTHERS
 database/query.sql
-
-# VS CODE SETTING
-.vscode
