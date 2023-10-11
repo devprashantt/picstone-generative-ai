@@ -1,27 +1,28 @@
-.button {
+// LINK
+.link {
+    width: 100%;
     display: flex;
-    padding: 0.625rem 1.25rem;
     justify-content: center;
     align-items: center;
-    gap: 0.625rem;
-
-    // COLOR
-    border-radius: 0.625rem;
-    background: #702dff;
-
-    // TYPOGRAPHY
     color: #fff;
-    text-align: center;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
+    text-decoration: none;
 
-    // LINK
-    .link {
+    .button {
         display: flex;
+        padding: 0.625rem 1.25rem;
         justify-content: center;
         align-items: center;
+        gap: 0.625rem;
+
+        // COLOR
+        border-radius: 0.625rem;
+        background: #702dff;
+
+        // TYPOGRAPHY
         color: #fff;
-        text-decoration: none;
+        text-align: center;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
     }
 }

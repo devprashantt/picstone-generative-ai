@@ -14,7 +14,7 @@ import {
   StoryPage,
   Signin,
   Signup,
-  GenerateStory
+  GenerateStory,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
