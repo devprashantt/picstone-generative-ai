@@ -7,6 +7,7 @@ CREATE TABLE user (
     salt VARCHAR(255) NOT NULL,
     user_privledge VARCHAR(255) DEFAULT 'USER',
     verification_id VARCHAR(255) NOT NULL,
+    forgot_password_token VARCHAR(255)
 );
 -- Create the 'sessions' table (instead of redis)
 CREATE TABLE sessions (
