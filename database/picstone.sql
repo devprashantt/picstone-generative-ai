@@ -1,5 +1,5 @@
 -- Create the 'users' table
-CREATE TABLE user (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE user (
 CREATE TABLE sessions (
     email VARCHAR(255) NOT NULL,
     session_token VARCHAR(255) NOT NULL UNIQUE,
-    FOREIGN KEY (email) REFERENCES user(email)
+    FOREIGN KEY (email) REFERENCES users(email)
 );
 -- Create the 'images' table
 CREATE TABLE image (
@@ -21,7 +21,7 @@ CREATE TABLE image (
     user_id INT NOT NULL,
     image_path VARCHAR(255) NOT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 -- Create the 'stories' table
 CREATE TABLE story (
@@ -30,7 +30,7 @@ CREATE TABLE story (
     image_id INT NOT NULL,
     story_content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (image_id) REFERENCES image(id)
 );
 -- Create the 'music' table
@@ -41,7 +41,7 @@ CREATE TABLE music (
     image_id INT NOT NULL,
     music_content BLOB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (story_id) REFERENCES story(id),
     FOREIGN KEY (image_id) REFERENCES image(id)
 );
