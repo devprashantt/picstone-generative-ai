@@ -21,7 +21,7 @@ class UserController:
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
         try:
-            query = 'INSERT INTO user (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
+            query = 'INSERT INTO users (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
             verification_key = str(uuid.uuid4())
             data = (email, name, hashed_password, salt, verification_key)
             db.engine.execute(query, data)
@@ -46,7 +46,7 @@ class UserController:
             return 'user is not verified', 400
 
         try:
-            query = 'SELECT password_hash, salt FROM user where email = %s;'
+            query = 'SELECT password_hash, salt FROM users where email = %s;'
             data = (email,)
             values = db.engine.execute(query, data)
             row = values.fetchone()
@@ -68,7 +68,7 @@ class UserController:
             return f'invalid: {e}', 400
         
     def is_user_verified(email):
-        query = 'SELECT verification_id from user where email = %s;'
+        query = 'SELECT verification_id from users where email = %s;'
         data = (email,)
         values = db.engine.execute(query, data)
         row = values.fetchone()
@@ -84,7 +84,7 @@ class UserController:
         if not verification_token:
             return 'could not verify user', 400
         try:
-            query = 'SELECT email from user where verification_id = %s;'
+            query = 'SELECT email from users where verification_id = %s;'
             data = (verification_token)
             values = db.engine.execute(query, data)
             row = values.fetchone()
@@ -93,7 +93,7 @@ class UserController:
         if not row:
             return 'invalid token', 400
         try:
-            query = "UPDATE user SET verification_id = 'verified' where email = %s;"
+            query = "UPDATE users SET verification_id = 'verified' where email = %s;"
             data = (row.email)
             db.engine.execute(query, data)
             return 'user verified', 200
@@ -111,7 +111,7 @@ class UserController:
         hasher.update(forgot_password_key.encode('utf-8'))
         forgot_password_hash = hasher.hexdigest()
         try:
-            query =  "UPDATE user SET forgot_password_token = %s WHERE email = %s;"
+            query =  "UPDATE users SET forgot_password_token = %s WHERE email = %s;"
             db.engine.execute(query,(forgot_password_hash,email))
         except:
             return 'connection error', 400
@@ -143,7 +143,7 @@ class UserController:
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), salt)
         try:
-            query = "UPDATE user SET password_hash = %s, salt = %s, forgot_password_token = NULL WHERE forgot_password_token = %s;"
+            query = "UPDATE users SET password_hash = %s, salt = %s, forgot_password_token = NULL WHERE forgot_password_token = %s;"
             db.engine.execute(query,(hashed_password, salt, token_hash))
             return 'password updated',200
         except:
