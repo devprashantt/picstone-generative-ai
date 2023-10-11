@@ -9,6 +9,7 @@ const useUser = () => {
             setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/register`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -41,6 +42,7 @@ const useUser = () => {
             setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/signin`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
