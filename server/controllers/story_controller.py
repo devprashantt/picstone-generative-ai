@@ -1,5 +1,7 @@
 from flask import request, jsonify
-from PIL import Image
+import requests
+from io import BytesIO
+import PIL.Image
 import pytesseract
 
 # UTILS
@@ -27,90 +29,98 @@ class StoryController:
 
             file = request.files['file']
 
-            text = pytesseract.image_to_string(Image.open(file))
+            # Check if a file was selected
+            if file.filename == '':
+                return jsonify({'error': 'No selected file'})
 
-            # Return the extracted text as JSON
-            return jsonify({'text': text})
+            # Tags for analysis
+            tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
+                    'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
 
-            # # Check if a file was selected
-            # if file.filename == '':
-            #     return jsonify({'error': 'No selected file'})
+            # Analyze the tags
+            tag_analysis = analyze_tags(tags)
 
-            # # Tags for analysis
-            # tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
-            #         'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
+            # Upload the image to Cloudinary
+            cloudinary_data = upload_image_to_cloudinary(file)
 
-            # # Analyze the tags
-            # tag_analysis = analyze_tags(tags)
+            # Get the secure link from cloudinary
+            cloudinary_link = cloudinary_data['secure_url']
 
-            # # Upload the image to Cloudinary
-            # cloudinary_data = upload_image_to_cloudinary(file)
+            # Extract tags from the Cloudinary metadata
+            cloudinary_tags = cloudinary_data['tags']
 
-            # # Extract tags from the Cloudinary metadata
-            # cloudinary_tags = cloudinary_data['tags']
+            # Join the tags into a string
+            tags_string = ','.join(cloudinary_tags)
 
-            # # Join the tags into a string
-            # tags_string = ','.join(cloudinary_tags)
+            # Get text from image
+            response = requests.get(cloudinary_link)
 
-            # if not cloudinary_tags:
-            #     return jsonify({'error': 'No Cloudinary-generated tags found'})
+            if response.status_code == 200:
+                image = PIL.Image.open(BytesIO(response.content))
+                image_text = pytesseract.image_to_string(image)
 
-            # # Generate a story based on the Cloudinary-generated tags
-            # story = generate_story(
-            #     tags=cloudinary_tags, tag_analysis=tag_analysis)
+            if not cloudinary_tags:
+                return jsonify({'error': 'No Cloudinary-generated tags found'})
 
-            # # Save the image in the "images" table
-            # new_image = Image(
-            #     user_id=1,
-            #     image_path=cloudinary_data['secure_url'],
-            # )
+            # Generate a story based on the Cloudinary-generated tags
+            story = generate_story(
+                tags=cloudinary_tags,
+                tag_analysis=tag_analysis,
+                image_text=image_text
+            )
 
-            # try:
-            #     db.session.add(new_image)
-            #     db.session.commit()
-            # except Exception as e:
-            #     db.session.rollback()
-            #     return jsonify({'error': str(e)}), 500
+            # Save the image in the "images" table
+            new_image = Image(
+                user_id=1,
+                image_path=cloudinary_data['secure_url'],
+            )
 
-            # # Retrieve the ID of the newly saved image
-            # image_id = new_image.id
+            try:
+                db.session.add(new_image)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
 
-            # # Create a new Story instance and set its attributes
-            # new_story = Story(
-            #     user_id=1,  # Replace with the actual user_id
-            #     image_id=image_id,
-            #     story_content=story  # Set the generated story here
-            # )
+            # Retrieve the ID of the newly saved image
+            image_id = new_image.id
 
-            # try:
-            #     # Add the new story to the database
-            #     db.session.add(new_story)
-            #     db.session.commit()
-            # except Exception as e:
-            #     db.session.rollback()
-            #     return jsonify({'error': str(e)}), 500
+            # Create a new Story instance and set its attributes
+            new_story = Story(
+                user_id=1,  # Replace with the actual user_id
+                image_id=image_id,
+                story_content=story  # Set the generated story here
+            )
 
-            # # Retrieve the ID of the newly saved story
-            # story_id = new_story.id
+            try:
+                # Add the new story to the database
+                db.session.add(new_story)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
 
-            # # Store tags_string in the database
-            # new_tags = Tags(
-            #     story_id=story_id,
-            #     image_id=image_id,
-            #     tags_string=tags_string
-            # )
+            # Retrieve the ID of the newly saved story
+            story_id = new_story.id
 
-            # try:
-            #     db.session.add(new_tags)
-            #     db.session.commit()
-            # except Exception as e:
-            #     db.session.rollback()
-            #     return jsonify({'error': str(e)}), 500
+            # Store tags_string in the database
+            new_tags = Tags(
+                story_id=story_id,
+                image_id=image_id,
+                tags_string=tags_string
+            )
 
-            # return jsonify({
-            #     'story': story,
-            #     'cloudinary_data': cloudinary_data
-            # })
+            try:
+                db.session.add(new_tags)
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({'error': str(e)}), 500
+
+            return jsonify({
+                'story': story,
+                'cloudinary_data': cloudinary_data
+            })
 
         except Exception as e:
             # Handle exceptions and return an error response
