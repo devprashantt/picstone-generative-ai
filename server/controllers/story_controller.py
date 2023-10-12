@@ -22,16 +22,24 @@ class StoryController:
     # generate story from image
     @staticmethod
     def generate_story_from_image():
-        try:
-            # Check if 'file' is in the request files
-            if 'file' not in request.files:
-                return jsonify({'error': 'No file part'})
+        try:    
+            payload = request.get_json()
 
-            file = request.files['file']
+            # Get the base64 image from the request body
+            file = payload['file']
 
-            # Check if a file was selected
-            if file.filename == '':
-                return jsonify({'error': 'No selected file'})
+            # Get theme from the request body: themes {romance: true, horror: false, comedy: false}
+            themes = payload['themes']
+
+            # Create an array of themes where the value is true
+            selected_themes = [theme for theme, value in themes.items() if value]
+
+            # Get the desc from the request body
+            desc = payload['description']
+
+            # Get the title from the request body
+            title = payload['title']
+
 
             # Tags for analysis
             tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
@@ -66,7 +74,10 @@ class StoryController:
             story = generate_story(
                 tags=cloudinary_tags,
                 tag_analysis=tag_analysis,
-                image_text=image_text
+                image_text=image_text,
+                story_title= title,
+                desc= desc,
+                themes= selected_themes,
             )
 
             # Save the image in the "images" table

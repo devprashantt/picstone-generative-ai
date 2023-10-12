@@ -8,6 +8,7 @@ import { images } from "../../constant";
 // COMPONENTS
 import ImageUploader from "../ImageUploader/ImageUploader";
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
 const Hero = ({
   subHeading,
@@ -17,6 +18,7 @@ const Hero = ({
   btn,
   img_btn,
   btn_text,
+  to,
 }) => {
   return (
     <div className={styles.hero}>
@@ -43,7 +45,15 @@ const Hero = ({
       {img_btn ? (
         <ImageUploader />
       ) : btn ? (
-        <Button buttonText={btn_text} />
+        // TODO: Add link
+        <Link
+          to={to}
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          <Button buttonText={btn_text} />
+        </Link>
       ) : null}
       {/* WARNING */}
       {warning && (
@@ -74,6 +84,7 @@ Hero.propTypes = {
   img_btn: PropTypes.bool,
   btn_text: PropTypes.string,
   btn: PropTypes.bool,
+  to: PropTypes.string,
 };
 
 export default Hero;

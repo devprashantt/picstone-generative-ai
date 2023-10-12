@@ -8,7 +8,10 @@ const useStory = () => {
             setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story`, {
                 method: 'POST',
-                body: payload,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
             });
 
             if (!response.ok) {

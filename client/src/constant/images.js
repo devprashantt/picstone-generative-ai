@@ -19,6 +19,8 @@ import generative_ai from "../assets/generative-ai.png";
 import location from "../assets/icons/location.svg";
 import call from "../assets/icons/call.svg";
 import mail from "../assets/icons/mail.svg";
+import bulb from "../assets/icons/bulb.svg";
+import upload from "../assets/icons/upload.svg";
 
 // IMAGES
 import map from "../assets/img/map.svg";
@@ -42,4 +44,6 @@ export default {
   triangle_2,
   star,
   story,
+  bulb,
+  upload
 };
