@@ -75,13 +75,13 @@ const Signup = () => {
     registerUser(formData, (responseData) => {
       console.log("responseData-->", responseData);
 
+      navigate("/signin");
+
       // TOAST
       toast.success("Registered Successfully", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
       });
-
-      navigate("/signin");
     });
   };
   return (
@@ -94,7 +94,7 @@ const Signup = () => {
           <img src={images.picstone} alt="logo" className={styles.logo} />
         </Link>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form className={styles.form}>
           <Input
             type="text"
             placeholder="Enter your name.."
@@ -131,7 +131,12 @@ const Signup = () => {
               setFormData({ ...formData, confirmPassword: e.target.value });
             }}
           />
-          <Button isLoading={loading} type="submit" buttonText="Sign Up" />
+          <Button
+            isLoading={loading}
+            type="submit"
+            buttonText="Sign Up"
+            onClick={handleSubmit}
+          />
         </form>
 
         <p className={styles.link}>

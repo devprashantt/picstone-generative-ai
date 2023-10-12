@@ -1,28 +1,18 @@
-// LINK
-.link {
-    width: 100%;
+.button {
     display: flex;
+    padding: 0.625rem 1.25rem;
     justify-content: center;
     align-items: center;
+    gap: 0.625rem;
+
+    // COLOR
+    border-radius: 0.625rem;
+    background: #702dff;
+
+    // TYPOGRAPHY
     color: #fff;
-    text-decoration: none;
-
-    .button {
-        display: flex;
-        padding: 0.625rem 1.25rem;
-        justify-content: center;
-        align-items: center;
-        gap: 0.625rem;
-
-        // COLOR
-        border-radius: 0.625rem;
-        background: #702dff;
-
-        // TYPOGRAPHY
-        color: #fff;
-        text-align: center;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 500;
-    }
+    text-align: center;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
 }

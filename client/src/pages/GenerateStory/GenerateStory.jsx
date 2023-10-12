@@ -58,23 +58,66 @@ const GenerateStory = () => {
 
   const handleGenerateStory = async () => {
     try {
-      console.log("Uploading image...", storyData);
+      if (storyData.file) {
+        // Convert the image to base64
+        const reader = new FileReader();
 
-      setIsUploading(true);
+        reader.onload = async (event) => {
+          try {
+            const base64Image = event.target.result;
 
-      await uploadImage(storyData, (responseData) => {
-        console.log("Response data:", responseData);
-        dispatch(setStory(responseData.story));
-        dispatch(setCloudinaryData(responseData.cloudinary_data));
-        navigate("/story");
-      });
+            console.log("Uploading image...", storyData);
 
-      setIsUploading(false);
+            setIsUploading(true);
+
+            // Create a new object with the base64 image data
+            const base64Data = { ...storyData, file: base64Image };
+
+            await uploadImage(base64Data, (responseData) => {
+              console.log("Response data:", responseData);
+              dispatch(setStory(responseData.story));
+              dispatch(setCloudinaryData(responseData.cloudinary_data));
+              navigate("/story");
+            });
+
+            setIsUploading(false);
+          } catch (error) {
+            console.error("Error converting image to base64:", error);
+            setIsUploading(false);
+          }
+        };
+
+        // Read the image file as a data URL (base64 format)
+        reader.readAsDataURL(storyData.file);
+      } else {
+        // Handle the case where no file is selected
+        console.error("No file selected for upload");
+      }
     } catch (error) {
       console.error("Error uploading image:", error);
       setIsUploading(false);
     }
   };
+
+  // const handleGenerateStory = async () => {
+  //   try {
+  //     console.log("Uploading image...", storyData);
+
+  //     setIsUploading(true);
+
+  //     await uploadImage(storyData, (responseData) => {
+  //       console.log("Response data:", responseData);
+  //       dispatch(setStory(responseData.story));
+  //       dispatch(setCloudinaryData(responseData.cloudinary_data));
+  //       navigate("/story");
+  //     });
+
+  //     setIsUploading(false);
+  //   } catch (error) {
+  //     console.error("Error uploading image:", error);
+  //     setIsUploading(false);
+  //   }
+  // };
 
   return (
     <div className={styles.generate_story}>
@@ -128,19 +171,25 @@ const GenerateStory = () => {
         <p className={styles.label}>{"Theme"}</p>
         <div className={styles.themes}>
           <Theme
-            img_link={images.nature}
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697145296/picstone/themes/eofca5n25mtlxuudhfkv.png"
+            }
             title={"Romance"}
             isSelected={storyData.themes.romance}
             onClick={() => handleThemeSelection("romance")}
           />
           <Theme
-            img_link={images.nature}
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697145296/picstone/themes/yyp6lqubhqdw64o3nisx.jpg"
+            }
             title={"Horror"}
             isSelected={storyData.themes.horror}
             onClick={() => handleThemeSelection("horror")}
           />
           <Theme
-            img_link={images.nature}
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697145552/picstone/themes/nvz2olgc5otz2ogtia75.jpg"
+            }
             title={"Sci-Fi"}
             isSelected={storyData.themes.scifi}
             onClick={() => handleThemeSelection("scifi")}
@@ -151,6 +200,8 @@ const GenerateStory = () => {
         onClick={handleGenerateStory}
         buttonText="Generate Story"
         className={styles.button}
+        isLoading={isUploading}
+        isLoadingText={"Generating Story..."}
       />
     </div>
   );

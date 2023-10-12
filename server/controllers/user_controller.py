@@ -42,8 +42,6 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
-        email= 'aidan.canavan3@gmail.com'
-        password='password'
         if not cls.is_user_verified(email):
             return 'user is not verified', 400
 

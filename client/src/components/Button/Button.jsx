@@ -4,9 +4,6 @@ import PropTypes from "prop-types";
 // CONSTANTS
 import styles from "./Button.module.scss";
 
-// LINK
-import { Link } from "react-router-dom";
-
 const Button = ({
   buttonText,
   onClick,
@@ -15,21 +12,18 @@ const Button = ({
   isLoadingText,
   className,
   type,
-  to,
 }) => {
   const buttonClass = `${styles.button} ${className || ""}`;
 
   return (
-    <Link className={styles.link} to={`${to}`}>
-      <button
-        className={buttonClass}
-        onClick={onClick}
-        disabled={disabled || isLoading}
-        type={type ? type : "button"}
-      >
-        {isLoading ? isLoadingText : buttonText}
-      </button>
-    </Link>
+    <button
+      className={buttonClass}
+      onClick={onClick}
+      disabled={disabled || isLoading}
+      type={type ? type : "button"}
+    >
+      {isLoading ? isLoadingText : buttonText}
+    </button>
   );
 };
 
@@ -40,7 +34,6 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   isLoadingText: PropTypes.string,
   className: PropTypes.string,
-  to: PropTypes.string,
   type: PropTypes.string,
 };
 
