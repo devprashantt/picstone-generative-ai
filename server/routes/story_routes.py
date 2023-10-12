@@ -17,3 +17,7 @@ def generate_story_get():
 @story_bp.route('/generate-story/<story_id>', methods=['GET'])
 def get_story(story_id):
     return StoryController.get_story(story_id)
+
+@story_bp.route('/story-ids', methods=['GET'])
+def get_story_ids():
+    return StoryController.get_all_story_ids()
