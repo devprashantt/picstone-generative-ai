@@ -63,9 +63,11 @@ class StoryController:
             # Get text from image
             response = requests.get(cloudinary_link)
 
-            if response.status_code == 200:
-                image = PIL.Image.open(BytesIO(response.content))
-                image_text = pytesseract.image_to_string(image)
+            # if response.status_code == 200:
+            #     image = PIL.Image.open(BytesIO(response.content))
+            #     image_text = pytesseract.image_to_string(image)
+
+            image_text = ""
 
             if not cloudinary_tags:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
