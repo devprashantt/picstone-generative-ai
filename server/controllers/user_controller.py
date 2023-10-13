@@ -69,9 +69,12 @@ class UserController:
         data = (email,)
         values = db.engine.execute(query, data)
         row = values.fetchone()
-        if row.verification_id == 'verified':
-            return True
-        else:
+        try:
+            if row.verification_id == 'verified':
+                return True
+            else:
+                return False
+        except:
             return False
         
     @classmethod
@@ -145,3 +148,7 @@ class UserController:
             return 'password updated',200
         except:
             'could not update password', 400
+
+    @classmethod
+    def user_access(cls, validated_user):
+        return session_tools.get_privledge(validated_user), 200
