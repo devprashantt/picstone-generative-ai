@@ -37,7 +37,9 @@ const Navbar = () => {
         <Link to={"signup"} className={styles.link}>
           Signup
         </Link>
-        <Button buttonText="Sign In" to={"signin"} />
+        <Link to={"/signin"}>
+          <Button buttonText="Sign In" />
+        </Link>
       </div>
     </div>
   );

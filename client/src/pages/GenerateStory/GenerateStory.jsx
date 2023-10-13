@@ -1,10 +1,15 @@
 import { Input, Button, ImageUploader, Textarea } from "../../components";
-import Theme from "./components/Theme/Theme";
-import styles from "./GenerateStory.module.scss";
-import { useState } from "react";
 
-// ROUTER DOM
+import Theme from "./components/Theme/Theme";
+import Suggestion from "./components/Suggestion/Suggestion";
+
+import styles from "./GenerateStory.module.scss";
+import { images } from "../../constant";
+
+// REACT IMPORTS
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // USE APIS
 import useStory from "../../api/useStory";
@@ -12,7 +17,6 @@ import useStory from "../../api/useStory";
 // REDUX STATE
 import { useDispatch } from "react-redux";
 import { setStory, setCloudinaryData } from "../../store/reducers/storySlice";
-import { images } from "../../constant";
 
 const GenerateStory = () => {
   // REDUX DISPATCH
@@ -35,6 +39,10 @@ const GenerateStory = () => {
       romance: false,
       horror: false,
       scifi: false,
+      fantasy: false,
+      survival: false,
+      mystery: false,
+      biography: false,
     },
   });
 
@@ -77,11 +85,14 @@ const GenerateStory = () => {
               console.log("Response data:", responseData);
               dispatch(setStory(responseData.story));
               dispatch(setCloudinaryData(responseData.cloudinary_data));
+
+              toast.success("Story generated successfully");
               navigate("/story");
             });
 
             setIsUploading(false);
           } catch (error) {
+            toast.error("Error uploading image");
             console.error("Error converting image to base64:", error);
             setIsUploading(false);
           }
@@ -91,33 +102,13 @@ const GenerateStory = () => {
         reader.readAsDataURL(storyData.file);
       } else {
         // Handle the case where no file is selected
-        console.error("No file selected for upload");
+        toast.error("No file selected for upload");
       }
     } catch (error) {
       console.error("Error uploading image:", error);
       setIsUploading(false);
     }
   };
-
-  // const handleGenerateStory = async () => {
-  //   try {
-  //     console.log("Uploading image...", storyData);
-
-  //     setIsUploading(true);
-
-  //     await uploadImage(storyData, (responseData) => {
-  //       console.log("Response data:", responseData);
-  //       dispatch(setStory(responseData.story));
-  //       dispatch(setCloudinaryData(responseData.cloudinary_data));
-  //       navigate("/story");
-  //     });
-
-  //     setIsUploading(false);
-  //   } catch (error) {
-  //     console.error("Error uploading image:", error);
-  //     setIsUploading(false);
-  //   }
-  // };
 
   return (
     <div className={styles.generate_story}>
@@ -153,7 +144,7 @@ const GenerateStory = () => {
             setStoryData({ ...storyData, title: event.target.value })
           }
           placeholder={"Title"}
-          label={"Title"}
+          label={"Story Title"}
           className={styles.input}
         />
 
@@ -166,13 +157,14 @@ const GenerateStory = () => {
           placeholder={"Description"}
           label={"Description"}
         />
+        <Suggestion />
       </div>
       <div className={styles.theme}>
         <p className={styles.label}>{"Theme"}</p>
         <div className={styles.themes}>
           <Theme
             img_link={
-              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697145296/picstone/themes/eofca5n25mtlxuudhfkv.png"
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208046/picstone/themes/btkyu0z3xasnqssw6mwp.jpg"
             }
             title={"Romance"}
             isSelected={storyData.themes.romance}
@@ -193,6 +185,38 @@ const GenerateStory = () => {
             title={"Sci-Fi"}
             isSelected={storyData.themes.scifi}
             onClick={() => handleThemeSelection("scifi")}
+          />
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208046/picstone/themes/w0bh9ezersy2teynrexl.webp"
+            }
+            title={"Fantasy"}
+            isSelected={storyData.themes.fantasy}
+            onClick={() => handleThemeSelection("fantasy")}
+          />
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208047/picstone/themes/nhwuzljbvr07lgevtk9j.jpg"
+            }
+            title={"Survival"}
+            isSelected={storyData.themes.survival}
+            onClick={() => handleThemeSelection("survival")}
+          />
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208047/picstone/themes/t8uqfwbgw0ri2hsl0x76.jpg"
+            }
+            title={"Mystery"}
+            isSelected={storyData.themes.mystery}
+            onClick={() => handleThemeSelection("mystery")}
+          />
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208046/picstone/themes/icmogpttkhmkgc4btit6.jpg"
+            }
+            title={"Biography"}
+            isSelected={storyData.themes.biography}
+            onClick={() => handleThemeSelection("biography")}
           />
         </div>
       </div>
