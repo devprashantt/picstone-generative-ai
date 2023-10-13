@@ -5,6 +5,10 @@ import { useEffect } from "react";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
+// TOAST
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // CONSTANTS
 import {
   About,
@@ -39,6 +43,7 @@ const App = () => {
         justifyContent: "space-between",
       }}
     >
+      <ToastContainer />
       {location.pathname !== "/signin" && location.pathname !== "/signup" && (
         <Navbar />
       )}

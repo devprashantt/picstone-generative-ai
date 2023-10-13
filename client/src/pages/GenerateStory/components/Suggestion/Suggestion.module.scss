@@ -1,0 +1,38 @@
+.suggestion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+
+    .logo {
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        justify-content: center;
+        align-items: center;
+
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 0.3125rem;
+        border: 1px solid var(--neutral-400, #d9dbe9);
+        background: #fff;
+    }
+
+    .desc {
+        flex: 1 0 0;
+        font-feature-settings:
+            "clig" off,
+            "liga" off;
+        font-family: DM Sans;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
