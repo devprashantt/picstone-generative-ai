@@ -67,7 +67,21 @@ const App = () => {
         {/* AUTH ROUTES */}
         {user && (
           <>
-            <Route path="/profile" element={<Landing />} />
+            <Route
+              path="/profile"
+              element={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                  }}
+                >
+                  {user}
+                </div>
+              }
+            />
             <Route path="/profile/:id" element={<Landing />} />
           </>
         )}

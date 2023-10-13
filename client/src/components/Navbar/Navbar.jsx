@@ -12,6 +12,15 @@ import { Button } from "./../index";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  // REDUX GET USER
+  const user = useSelector((state) => state.user.user);
+
+  if (user) {
+    console.log("user", user);
+  } else {
+    console.log("user not found");
+  }
+
   return (
     <div className={styles.navbar}>
       {/* LOGO */}
@@ -34,12 +43,24 @@ const Navbar = () => {
       </div>
 
       <div className={styles.auth}>
-        <Link to={"signup"} className={styles.link}>
-          Signup
-        </Link>
-        <Link to={"/signin"}>
-          <Button buttonText="Sign In" />
-        </Link>
+        {
+          // IF USER IS NOT LOGGED IN
+          !user ? (
+            <>
+              <Link to={"signup"} className={styles.link}>
+                Signup
+              </Link>
+              <Link to={"/signin"}>
+                <Button buttonText="Sign In" />
+              </Link>
+            </>
+          ) : (
+            // IF USER IS LOGGED IN
+            <Link to={"/profile"} className={styles.profile}>
+              Profile
+            </Link>
+          )
+        }
       </div>
     </div>
   );

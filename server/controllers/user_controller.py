@@ -1,7 +1,6 @@
 from flask import request, jsonify, make_response, render_template, current_app
 from flask_mail import Message
 from config.database import db
-from models.user import User
 import uuid
 import bcrypt
 import os
@@ -54,7 +53,9 @@ class UserController:
             if bcrypt.checkpw(password.encode('utf-8'),stored_hash.encode('utf-8')):
                 session_token = str(uuid.uuid4())
                 session_tools.establish_session(email, session_token)
-                response = make_response('session established')
+                response = make_response(
+                    jsonify({'session_token': session_token, 'msg': "session established", "user": email}), 200
+                )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000, 
                     secure=True, httponly=True, samesite='None')

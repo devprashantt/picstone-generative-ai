@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 import styles from "./Contact.module.scss";
 
@@ -104,6 +105,8 @@ const Contact = () => {
             onClick={() => {
               console.log("formData", formData);
               handleSubmit();
+
+              toast.success("Message sent successfully");
 
               // RESET FORM
               setFormData({

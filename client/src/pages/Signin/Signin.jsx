@@ -40,11 +40,12 @@ const Signin = () => {
 
     loginUser(formData, (responseData) => {
       console.log("responseData-->", responseData);
-      if (responseData?.data?.user) {
-        dispatch(setUser(responseData.data.user));
+      if (responseData?.user) {
+        console.log("responseData-->", responseData);
+        dispatch(setUser(responseData.user));
         navigate("/");
       } else {
-        toast.error(responseData?.data?.message);
+        toast.error(responseData?.msg);
       }
     });
   };

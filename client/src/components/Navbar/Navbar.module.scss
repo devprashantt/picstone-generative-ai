@@ -65,6 +65,16 @@
             font-weight: 600;
             cursor: pointer;
         }
+
+        .profile {
+            background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
     }
 }
 

@@ -24,7 +24,7 @@ class MessageController:
         message_body = data.get('message')
 
         # Set recipients
-        recipients = "officialprashanttt@gmail.com"
+        recipients = "picstoneai@gmail.com"
 
         try:
             # Create a message
