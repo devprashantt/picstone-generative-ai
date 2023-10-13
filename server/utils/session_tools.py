@@ -38,3 +38,11 @@ def establish_session(email, session_token):
         db.engine.execute(query, data)
     except:
         raise ValueError('session could not be estalished')
+
+def get_privledge(email):
+    try:
+        query = "SELECT user_privledge FROM users where email = %s;"
+        return db.engine.execute(query, (email)).fetchone().user_privledge
+
+    except:
+        raise ValueError('session could not be estalished')
