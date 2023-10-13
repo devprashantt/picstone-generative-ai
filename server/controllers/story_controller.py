@@ -204,5 +204,5 @@ class StoryController:
         
     @staticmethod
     def get_all_story_ids():
-        query = "select id from story order by created_at asc;" 
+        query = "SELECT id FROM story ORDER BY created_at DESC;" 
         return db.engine.execute(query).fetchall()
