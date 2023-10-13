@@ -212,3 +212,8 @@ class StoryController:
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
+        
+    @staticmethod
+    def get_all_story_ids():
+        query = "SELECT id FROM story ORDER BY created_at DESC;" 
+        return db.engine.execute(query).fetchall()
