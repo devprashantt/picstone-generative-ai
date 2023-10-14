@@ -29,17 +29,18 @@ const Navbar = () => {
       </Link>
 
       <div className={styles.action}>
-        <div className={styles.menus}>
-          <Link to={"/explore"} className={styles.menu}>
-            Explore
-          </Link>
-          <Link to={"/about"} className={styles.menu}>
-            About
-          </Link>
-          <Link to={"/contact"} className={styles.menu}>
-            Contact
-          </Link>
-        </div>
+        <Link to={"/explore"} className={styles.menu}>
+          Explore
+        </Link>
+        <Link to={"/theme"} className={styles.menu}>
+          Theme
+        </Link>
+        <Link to={"/about"} className={styles.menu}>
+          About
+        </Link>
+        <Link to={"/contact"} className={styles.menu}>
+          Contact
+        </Link>
       </div>
 
       <div className={styles.auth}>

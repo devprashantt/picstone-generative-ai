@@ -56,6 +56,23 @@ const App = () => {
         <Route path="/story/:id" element={<StoryPage />} />
         <Route path="/generate-story" element={<GenerateStory />} />
 
+        {/* THEME */}
+        <Route
+          path="/theme"
+          element={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              Coming soon
+            </div>
+          }
+        />
+
         {/* ABOUT AND CONTACT */}
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

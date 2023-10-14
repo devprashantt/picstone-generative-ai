@@ -1,4 +1,4 @@
-import { Hero } from "../../components";
+import { Hero, Theme } from "../../components";
 import styles from "./Landing.module.scss";
 
 // UTILS
@@ -13,8 +13,23 @@ const Landing = () => {
   return (
     <div className={styles.landing}>
       {/* HERO */}
-      <Hero warning={true} img_btn={false} btn={true} btn_text={"Generate story"} to={"generate-story"} />
+      <Hero
+        warning={true}
+        img_btn={false}
+        btn={true}
+        btn_text={"Generate story"}
+        to={"generate-story"}
+      />
       {/* GAP */}
+      <div
+        style={{
+          height: "1rem",
+          width: "100%",
+        }}
+      />
+
+      <Theme />
+
       <div
         style={{
           height: "1rem",

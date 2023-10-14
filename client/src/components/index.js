@@ -8,5 +8,6 @@ import Story from "./Story/Story";
 import Footer from "./Footer/Footer";
 import Input from "./Input/Input";
 import Textarea from "./Textarea/Textarea";
+import Theme from "./Theme/Theme";
 
-export { Card, Button, Navbar, Hero, ImageUploader, Skeleton, Input, Story, Footer, Textarea };
+export { Card, Button, Navbar, Hero, ImageUploader, Skeleton, Input, Story, Footer, Textarea, Theme };
