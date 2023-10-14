@@ -19,6 +19,7 @@ import os
 from dotenv import load_dotenv
 import time
 import threading
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -124,4 +125,5 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    serve(app, host="localhost", port=80, url_scheme='https', threads=16,
+          connection_limit=1100, max_request_header_size=65536)
