@@ -13,8 +13,12 @@ from config.database import db, database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
+from utils.log_tools import RequestLogCopy, push_request_to_log
+
 import os
 from dotenv import load_dotenv
+import time
+import threading
 
 app = Flask(__name__)
 
@@ -100,6 +104,18 @@ app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
+
+@app.before_request
+def before_request():
+    request.start_time = time.time()
+
+@app.after_request
+def after_request(response):
+    request_copy = RequestLogCopy(request)
+    thread = threading.Thread(target=push_request_to_log, args=(request_copy, response, app))
+    thread.start()
+    return response
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

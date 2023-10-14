@@ -22,4 +22,5 @@ pytesseract==0.3.10
 Pillow==9.5.0
 bcrypt==4.0.1
 Flask-Mail==0.9.1
+psycopg2==2.9.6
 
