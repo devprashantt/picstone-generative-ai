@@ -37,7 +37,7 @@ def push_request_to_log(request, response, app):
         pass
 
     with app.app_context():
-        if response.status_code <= 500:
+        if response.status_code >= 500:
             msg = Message('Picstone, 500 Error Code', recipients=['picstoneai@gmail.com'], sender='picstoneai@gmail.com')
             msg.body =  f"""
                             Error occured for: {user_id} @ {client_ip}
