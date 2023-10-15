@@ -1,21 +1,13 @@
-name: On PR Merge to Main
+name: Push to Main
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
-  on_merge:
-    if: github.event.pull_request.merged == true
+  push-to-main:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set Secrets as Environment Variables
-        run: |
-          echo "SECRET1=${{ secrets.SECRET1 }}" >> .env
-          echo "SECRET2=${{ secrets.SECRET2 }}" >> .env
-          echo "SECRET3=${{ secrets.SECRET3 }}" >> .env
-          echo "SECRET4=${{ secrets.SECRET4 }}" >> .env
-          echo "SECRET5=${{ secrets.SECRET5 }}" >> .env
-      - name: Move .env to Docker Deployment Folder
-        run: mv .env /path/to/deployment/folder
+      - name: Create Image
