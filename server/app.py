@@ -119,4 +119,4 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    serve(app, host="localhost", port=80, url_scheme='https', threads=16, connection_limit=1100, max_request_header_size=65536)
+    serve(app, host='0.0.0.0', port=80)

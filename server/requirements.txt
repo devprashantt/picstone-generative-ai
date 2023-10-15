@@ -24,5 +24,4 @@ bcrypt==4.0.1
 Flask-Mail==0.9.1
 psycopg2==2.9.6
 waitress==2.1.2
-mysqlclient==2.2.0
 
