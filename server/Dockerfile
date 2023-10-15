@@ -7,6 +7,7 @@ RUN apt-get update && \
         python3 \
         python3-pip 
 
+RUN apt-get install -y libmysqlclient-dev
 
 RUN apt-get update \
     && apt-get install -y libpq-dev
@@ -21,6 +22,5 @@ RUN pip3 install --upgrade pip && \
 
 COPY . .
 
-
-CMD ["waitress-serve", "--port=80", "--call", "app:create_app"]
+CMD ["python3", "app.py"]
 
