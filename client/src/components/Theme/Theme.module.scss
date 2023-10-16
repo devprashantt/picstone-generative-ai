@@ -8,7 +8,7 @@
 
     .heading {
         text-align: center;
-        font-size: 3rem;
+        font-size: 2.4rem;
         font-style: normal;
         font-weight: 700;
         width: 100%;
@@ -22,16 +22,15 @@
     .img_container {
         display: flex;
         width: 100%;
-        height: 22rem;
-        width: 26rem;
+
         justify-content: center;
         align-items: flex-start;
         gap: 1.8085rem;
         border-radius: 1.25rem;
 
         img {
-            width: 100%;
-            height: 100%;
+            height: 22rem;
+            width: 26rem;
             object-fit: cover;
             border-radius: 1.25rem;
         }
@@ -48,7 +47,7 @@
 
         .theme_name {
             text-align: center;
-            font-size: 3rem;
+            font-size: 2rem;
             font-style: normal;
             font-weight: 700;
             background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
@@ -80,6 +79,30 @@
             right: 4%;
             object-fit: cover;
             z-index: -1;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .theme {
+        flex-direction: column;
+
+        .heading {
+            font-size: 2rem;
+        }
+
+        .img_container {
+            flex-direction: column;
+        }
+
+        .content {
+            .theme_name {
+                font-size: 2rem;
+            }
+
+            .theme_desc {
+                font-size: 0.875rem;
+            }
         }
     }
 }

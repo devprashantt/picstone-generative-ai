@@ -31,6 +31,10 @@ class StoryController:
             # Split the session into the bearer and the user email
             user_email = user.split(' ')[1]
 
+             # Get user_id from email
+            query = "SELECT id FROM users WHERE email = %s;"
+            user_id = db.engine.execute(query, (user_email)).fetchone().id
+
             # Get the base64 image from the request body
             file = payload['file']
 
@@ -66,13 +70,6 @@ class StoryController:
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
 
-            # Get text from image
-            response = requests.get(cloudinary_link)
-
-            # if response.status_code == 200:
-            #     image = PIL.Image.open(BytesIO(response.content))
-            #     image_text = pytesseract.image_to_string(image)
-
             image_text = ""
 
             if not cloudinary_tags:
@@ -103,10 +100,6 @@ class StoryController:
 
             # Retrieve the ID of the newly saved image
             image_id = new_image.id
-
-            # Get user_id from email
-            query = "SELECT id FROM users WHERE email = %s;"
-            user_id = db.engine.execute(query, (user_email)).fetchone().id
 
             # Create a new Story instance and set its attributes
             new_story = Story(
@@ -148,7 +141,7 @@ class StoryController:
 
         except Exception as e:
             # Handle exceptions and return an error response
-            return jsonify({'error': str(e)})
+            return jsonify({'error': str(e)}), 500
 
     # get all stories
     @staticmethod
@@ -182,7 +175,7 @@ class StoryController:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
 
-    # get story by id
+    # Get story by id
     @staticmethod
     def get_story(story_id):
         print("Getting story with id: ", story_id)

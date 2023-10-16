@@ -16,7 +16,7 @@ const Suggestion = ({ suggestion }) => {
 };
 
 Suggestion.propTypes = {
-  suggestion: PropTypes.string.isRequired,
+  suggestion: PropTypes.string,
 };
 
 export default Suggestion;
