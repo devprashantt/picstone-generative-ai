@@ -6,6 +6,9 @@ import AboutData from "./AboutData";
 // STYLES
 import styles from "./About.module.scss";
 
+//CONSTANTS
+// import { images } from "../../constant";
+
 const About = () => {
   return (
     <div className={styles.about}>
@@ -29,6 +32,12 @@ const About = () => {
           );
         })}
       </div>
+      {/* <div>
+        <img style={styles.in_page_icon1} src={images.ellipse_2} />
+      </div> */}
+      {/* <img style={styles.inpage_Icon2} src={images.star} />
+      <img style={styles.inpage_Icon1} src={images.triangle_1} />
+      <img style={styles.inpage_Icon2} src={images.triangle_2} /> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@
   .list_text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: flex-start;
     gap: 1.2rem;
 
@@ -41,8 +41,8 @@
   }
 
   .image {
-    height: 20rem;
-    width: 20.8rem;
+    height: 15rem;
+    width: 15.6rem !important;
     border-radius: 1.25rem;
   }
 
