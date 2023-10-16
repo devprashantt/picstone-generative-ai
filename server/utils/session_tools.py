@@ -21,7 +21,6 @@ def requires_user_session(func):
             return "Invalid session", 401
     return wrapper
 
-
 def user_from_session(session_token):
     if not session_token:
         return None

@@ -29,6 +29,7 @@ def update_password():
     return UserController.update_password()
 
 @user_bp.route('/userstatus', methods=['POST','GET'])
+
 @session_tools.requires_user_session
 def user_access(validated_user):
     return UserController.user_access(validated_user)
