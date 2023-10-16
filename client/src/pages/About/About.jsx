@@ -1,7 +1,9 @@
 // COMPONENTS
 import { Hero } from "../../components";
 import AboutList from "./components/AboutList";
-import AboutData from "./AboutData";
+
+// CONSTANTS
+import { about } from "./../../constant";
 
 // STYLES
 import styles from "./About.module.scss";
@@ -16,7 +18,7 @@ const About = () => {
         btn_text="Contact"
       />
       <div className={styles.list}>
-        {AboutData.map((dataItem) => {
+        {about.map((dataItem) => {
           const pos = !!(dataItem.id % 2 === 1);
           return (
             <AboutList
