@@ -14,7 +14,7 @@ const Theme = () => {
   return (
     <div className={styles.theme}>
       <h1 className={styles.heading}>
-        Fresh & Relevant: <br /> Themed Prompts for Every Occasion
+        Fresh & Relevant: <br /> Themed Story for Every Occasion
       </h1>
       <div className={styles.img_container}>
         <img
