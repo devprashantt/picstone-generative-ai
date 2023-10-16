@@ -100,8 +100,6 @@ class UserController:
             return 'user verified', 200
         except:
             return 'invalid token', 400
-
-
     
     @classmethod
     def forgot_password(cls):

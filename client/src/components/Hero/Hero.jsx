@@ -24,7 +24,9 @@ const Hero = ({
     <div className={styles.hero}>
       <div className={styles.hero__content}>
         <h2 className={styles.hero__subHeading}>
-          {subHeading ? subHeading : "Explore Limitless Possibilities"}
+          {subHeading
+            ? subHeading
+            : "Explore Limitless Possibilities Through Pictures"}
         </h2>{" "}
         {heading ? (
           <h1 className={styles.hero__heading}>{heading}</h1>

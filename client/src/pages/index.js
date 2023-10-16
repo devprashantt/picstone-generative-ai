@@ -6,5 +6,6 @@ import Contact from "./Contact/Contact";
 import Signin from "./Signin/Signin";
 import Signup from "./Signup/Signup";
 import GenerateStory from "./GenerateStory/GenerateStory";
+import StoryByTag from "./StoryByTag/StoryByTag";
 
-export { Landing, Explore, About, StoryPage, Contact, Signin, Signup, GenerateStory };
+export { Landing, Explore, About, StoryPage, Contact, Signin, Signup, GenerateStory, StoryByTag };

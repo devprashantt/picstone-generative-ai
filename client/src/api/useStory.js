@@ -1,7 +1,11 @@
 import { useState } from "react";
 
+import { useSelector } from "react-redux";
+
 const useStory = () => {
     const [loading, setLoading] = useState(false);
+    const user = useSelector((state) => state.user);
+
     // UPLOAD IMAGE
     const uploadImage = async (payload, cb) => {
         try {
@@ -9,7 +13,8 @@ const useStory = () => {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.user}`
                 },
                 body: JSON.stringify(payload),
             });

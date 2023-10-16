@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import styles from "./StoryPage.module.scss";
@@ -12,6 +12,8 @@ import useStory from "../../api/useStory";
 import replaceNewlinesWithBr from "../../utility/replaceNewLineWithBr";
 
 const StoryPage = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const { getStoryById, loading } = useStory();
 
@@ -24,6 +26,11 @@ const StoryPage = () => {
       setStoryData(responseData?.story);
       setStory(replaceNewlinesWithBr(responseData?.story?.story_content));
     });
+
+  const handleTagClick = (e) => {
+    const tag = e.target.textContent;
+    navigate(`/tags/${tag}`);
+  };
 
   useEffect(() => {
     fetchStory();
@@ -40,7 +47,7 @@ const StoryPage = () => {
         <div className={styles.tags}>
           {storyData?.tags?.map((tag) => {
             return (
-              <p key={tag} className={styles.tag}>
+              <p key={tag} className={styles.tag} onClick={handleTagClick}>
                 {tag}
               </p>
             );

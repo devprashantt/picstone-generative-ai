@@ -22,8 +22,18 @@ class StoryController:
     # generate story from image
     @staticmethod
     def generate_story_from_image():
-        try:    
+        try:
             payload = request.get_json()
+
+            # Get user from headers authorization
+            user = request.headers.get('Authorization')
+
+            # Split the session into the bearer and the user email
+            user_email = user.split(' ')[1]
+
+             # Get user_id from email
+            query = "SELECT id FROM users WHERE email = %s;"
+            user_id = db.engine.execute(query, (user_email)).fetchone().id
 
             # Get the base64 image from the request body
             file = payload['file']
@@ -32,14 +42,14 @@ class StoryController:
             themes = payload['themes']
 
             # Create an array of themes where the value is true
-            selected_themes = [theme for theme, value in themes.items() if value]
+            selected_themes = [theme for theme,
+                               value in themes.items() if value]
 
             # Get the desc from the request body
             desc = payload['description']
 
             # Get the title from the request body
             title = payload['title']
-
 
             # Tags for analysis
             tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
@@ -60,13 +70,6 @@ class StoryController:
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
 
-            # Get text from image
-            response = requests.get(cloudinary_link)
-
-            # if response.status_code == 200:
-            #     image = PIL.Image.open(BytesIO(response.content))
-            #     image_text = pytesseract.image_to_string(image)
-
             image_text = ""
 
             if not cloudinary_tags:
@@ -77,14 +80,14 @@ class StoryController:
                 tags=cloudinary_tags,
                 tag_analysis=tag_analysis,
                 image_text=image_text,
-                story_title= title,
-                desc= desc,
-                themes= selected_themes,
+                story_title=title,
+                desc=desc,
+                themes=selected_themes,
             )
 
             # Save the image in the "images" table
             new_image = Image(
-                user_id=1,
+                user_id=user_id,
                 image_path=cloudinary_data['secure_url'],
             )
 
@@ -100,9 +103,10 @@ class StoryController:
 
             # Create a new Story instance and set its attributes
             new_story = Story(
-                user_id=1,  # Replace with the actual user_id
+                user_id=user_id,
                 image_id=image_id,
-                story_content=story  # Set the generated story here
+                story_content=story,
+                story_title=title
             )
 
             try:
@@ -137,7 +141,7 @@ class StoryController:
 
         except Exception as e:
             # Handle exceptions and return an error response
-            return jsonify({'error': str(e)})
+            return jsonify({'error': str(e)}), 500
 
     # get all stories
     @staticmethod
@@ -159,7 +163,8 @@ class StoryController:
                 stories_list.append({
                     'id': story.id,
                     'user_id': story.user_id,
-                    'image_url': image_url,  # Send the image URL here
+                    'story_title': story.story_title,
+                    'image_url': image_url,
                     'story_content': story.story_content,
                     'created_at': story.created_at
                 })
@@ -170,7 +175,7 @@ class StoryController:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
 
- # get story by id
+    # Get story by id
     @staticmethod
     def get_story(story_id):
         print("Getting story with id: ", story_id)
@@ -214,8 +219,8 @@ class StoryController:
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
-        
+
     @staticmethod
     def get_all_story_ids():
-        query = "SELECT id FROM story ORDER BY created_at DESC;" 
+        query = "SELECT id FROM story ORDER BY created_at DESC;"
         return db.engine.execute(query).fetchall()

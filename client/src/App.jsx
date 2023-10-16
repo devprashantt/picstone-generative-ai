@@ -35,6 +35,25 @@ const App = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  function getSessionToken() {
+    const cookies = document.cookie.split("; ");
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split("=");
+      if (cookieName === "session_token") {
+        return decodeURIComponent(cookieValue); // Decode the cookie value if needed
+      }
+    }
+    return null; // Cookie not found
+  }
+
+  const sessionToken = getSessionToken();
+
+  if (sessionToken) {
+    console.log("Session Token: " + sessionToken);
+  } else {
+    console.log("Session Token cookie not found.");
+  }
+
   return (
     <div
       style={{
@@ -55,6 +74,40 @@ const App = () => {
         <Route path="/explore" element={<Explore />} />
         <Route path="/story/:id" element={<StoryPage />} />
         <Route path="/generate-story" element={<GenerateStory />} />
+
+        {/* THEME */}
+        <Route
+          path="/theme"
+          element={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              Coming soon
+            </div>
+          }
+        />
+
+        {/* TAG */}
+        <Route
+          path="/tags/:tag"
+          element={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              Coming soon
+            </div>
+          }
+        />
 
         {/* ABOUT AND CONTACT */}
         <Route path="/about" element={<About />} />
