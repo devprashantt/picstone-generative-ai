@@ -7,16 +7,19 @@ const AboutList = ({ title, description, imgLink, position }) => {
     <div className={styles.list_item}>
       {position ? (
         <>
-          {" "}
           <div className={styles.list_text}>
             <p className={styles.heading}>{title}</p>
             <p className={styles.paragraph}>{description}</p>
           </div>
-          <img className={styles.image} src={imgLink} />
+          <div className={styles.image}>
+            <img src={imgLink} />
+          </div>
         </>
       ) : (
         <>
-          <img className={styles.image} src={imgLink} />
+          <div className={styles.image}>
+            <img src={imgLink} />
+          </div>
           <div className={styles.list_text}>
             <p className={styles.heading}>{title}</p>
             <p className={styles.paragraph}>{description}</p>

@@ -1,13 +1,12 @@
 // COMPONENTS
 import { Hero } from "../../components";
 import AboutList from "./components/AboutList";
-import AboutData from "./AboutData";
+
+// CONSTANTS
+import { about } from "./../../constant";
 
 // STYLES
 import styles from "./About.module.scss";
-
-//CONSTANTS
-// import { images } from "../../constant";
 
 const About = () => {
   return (
@@ -19,7 +18,7 @@ const About = () => {
         btn_text="Contact"
       />
       <div className={styles.list}>
-        {AboutData.map((dataItem) => {
+        {about.map((dataItem) => {
           const pos = !!(dataItem.id % 2 === 1);
           return (
             <AboutList
@@ -32,12 +31,6 @@ const About = () => {
           );
         })}
       </div>
-      {/* <div>
-        <img style={styles.in_page_icon1} src={images.ellipse_2} />
-      </div> */}
-      {/* <img style={styles.inpage_Icon2} src={images.star} />
-      <img style={styles.inpage_Icon1} src={images.triangle_1} />
-      <img style={styles.inpage_Icon2} src={images.triangle_2} /> */}
     </div>
   );
 };

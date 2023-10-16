@@ -1,37 +1,34 @@
 .list_item {
   display: flex;
   justify-content: space-between;
-  gap: 3.2rem;
+  gap: 2.4rem;
 
   .list_text {
     display: flex;
     flex-direction: column;
-
-    align-items: flex-start;
-    gap: 1.2rem;
+    gap: 1rem;
+    width: 80%;
 
     .heading {
       align-self: stretch;
-      font-feature-settings: "clig" off, "liga" off;
-      font-family: DM Sans;
+      font-feature-settings:
+        "clig" off,
+        "liga" off;
       font-size: 2.4rem;
       font-style: normal;
       font-weight: 700;
-      background: linear-gradient(
-        90deg,
-        #702dff 33.02%,
-        #702dff 33.02%,
-        #9747ff 83.25%
-      );
+      background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .paragraph {
       color: var(--neutral-800, #170f49);
       text-align: justify;
-      font-feature-settings: "clig" off, "liga" off;
-      font-family: DM Sans;
+      font-feature-settings:
+        "clig" off,
+        "liga" off;
       font-size: 1.2rem;
       font-style: normal;
       font-weight: 500;
@@ -42,17 +39,26 @@
 
   .image {
     height: 15rem;
-    width: 15.6rem !important;
+    width: 15rem;
     border-radius: 1.25rem;
-  }
 
-  @media (max-width: 768px) {
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 1.25rem;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .list_item {
     flex-direction: column;
     align-items: center;
 
     .image {
       order: -1;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
     }
     .heading {
       text-align: center;
