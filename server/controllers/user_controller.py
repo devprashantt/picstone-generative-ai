@@ -54,7 +54,7 @@ class UserController:
                 session_token = str(uuid.uuid4())
                 session_tools.establish_session(email, session_token)
                 response = make_response(
-                    jsonify({'session_token': session_token, 'msg': "session established", "user": email}), 200
+                    jsonify({'session_token': session_token, 'msg': "session established", "email": email}), 200
                 )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000, 

@@ -19,14 +19,15 @@ import {
   Signin,
   Signup,
   GenerateStory,
+  StoryByTag,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
 const App = () => {
   // REDUCERS SELECTORS
-  const { user } = useSelector((state) => state.user);
+  const { auth_data } = useSelector((state) => state.user);
 
-  console.log("user", user);
+  console.log("auth_data", auth_data);
 
   // USE LOCATION
   const location = useLocation();
@@ -34,25 +35,6 @@ const App = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  function getSessionToken() {
-    const cookies = document.cookie.split("; ");
-    for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split("=");
-      if (cookieName === "session_token") {
-        return decodeURIComponent(cookieValue); // Decode the cookie value if needed
-      }
-    }
-    return null; // Cookie not found
-  }
-
-  const sessionToken = getSessionToken();
-
-  if (sessionToken) {
-    console.log("Session Token: " + sessionToken);
-  } else {
-    console.log("Session Token cookie not found.");
-  }
 
   return (
     <div
@@ -93,21 +75,7 @@ const App = () => {
         />
 
         {/* TAG */}
-        <Route
-          path="/tags/:tag"
-          element={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-              }}
-            >
-              Coming soon
-            </div>
-          }
-        />
+        <Route path="/tags/:tag" element={<StoryByTag />} />
 
         {/* ABOUT AND CONTACT */}
         <Route path="/about" element={<About />} />
@@ -118,7 +86,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
 
         {/* AUTH ROUTES */}
-        {user && (
+        {auth_data?.session_token && (
           <>
             <Route
               path="/profile"
@@ -131,7 +99,7 @@ const App = () => {
                     height: "100vh",
                   }}
                 >
-                  {user}
+                  Coming soon
                 </div>
               }
             />
