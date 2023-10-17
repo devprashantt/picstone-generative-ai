@@ -13,13 +13,9 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   // REDUX GET USER
-  const user = useSelector((state) => state.user.user);
+  const { auth_data } = useSelector((state) => state.user);
 
-  if (user) {
-    console.log("user", user);
-  } else {
-    console.log("user not found");
-  }
+  console.log("user", auth_data);
 
   return (
     <div className={styles.navbar}>
@@ -46,7 +42,7 @@ const Navbar = () => {
       <div className={styles.auth}>
         {
           // IF USER IS NOT LOGGED IN
-          !user ? (
+          !auth_data?.session_token ? (
             <>
               <Link to={"signup"} className={styles.link}>
                 Signup
@@ -57,7 +53,7 @@ const Navbar = () => {
                   textDecoration: "none",
                 }}
               >
-                <Button buttonText="Sign In" />
+                <Button buttonText="Login" />
               </Link>
             </>
           ) : (

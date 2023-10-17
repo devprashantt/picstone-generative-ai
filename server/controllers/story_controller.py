@@ -25,13 +25,18 @@ class StoryController:
         try:
             payload = request.get_json()
 
-            # Get user from headers authorization
-            user = request.headers.get('Authorization')
+            # Get session token from cookie
+            session_token = request.cookies.get('session_token')
 
-            # Split the session into the bearer and the user email
-            user_email = user.split(' ')[1]
+            # Verify user session
+            if not session_token:
+                return jsonify({'error': 'Unauthorized'}), 401
+            
+            # Get email from session
+            query = "SELECT email FROM sessions WHERE session_token = %s;"
+            user_email = db.engine.execute(query, (session_token)).fetchone().email
 
-             # Get user_id from email
+            # Get user_id from email
             query = "SELECT id FROM users WHERE email = %s;"
             user_id = db.engine.execute(query, (user_email)).fetchone().id
 

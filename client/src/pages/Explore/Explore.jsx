@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Explore.module.scss";
 import PropTypes from "prop-types";
@@ -94,10 +95,19 @@ const Explore = ({ storyLength }) => {
                 ))
               : tags?.slice(0, 5)?.map((tag) => {
                   return (
-                    <div className={styles.tag} key={tag?.id}>
+                    <Link
+                      className={styles.tag}
+                      key={tag?.id}
+                      to={{
+                        pathname: `/tags/${tag}`,
+                        state: {
+                          tag_name: tag,
+                        },
+                      }}
+                    >
                       {/* MAKE FIRST LETTER UPPERCASE AND WHOLE SHOULD NOT ME GREATER THAN 11 CHAR */}
                       {tag}
-                    </div>
+                    </Link>
                   );
                 })
           }
@@ -123,7 +133,9 @@ const Explore = ({ storyLength }) => {
                     <Card
                       key={story?.id}
                       img={story?.image_url}
-                      heading={"Picstone"}
+                      heading={
+                        story?.story_title ? story?.story_title : "Picstone"
+                      }
                       description={story?.story_content}
                       link={`/story/${story?.id}`}
                     />
