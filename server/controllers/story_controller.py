@@ -229,3 +229,9 @@ class StoryController:
     def get_all_story_ids():
         query = "SELECT id FROM story ORDER BY created_at DESC;"
         return db.engine.execute(query).fetchall()
+
+    @staticmethod
+    def get_user_stories():
+        # Fetch all stories of user from stories table using user_id
+        query = "SELECT id FROM story ORDER BY created_at DESC;"
+        return db.engine.execute(query).fetchall()
