@@ -229,3 +229,38 @@ class StoryController:
     def get_all_story_ids():
         query = "SELECT id FROM story ORDER BY created_at DESC;"
         return db.engine.execute(query).fetchall()
+
+    @staticmethod
+    def get_user_stories(validated_user):
+        # EDIT: The validated user is passed through the authentication decorator in router
+        user_email = validated_user
+
+        # Get user id from user table through email
+        query = "SELECT id FROM users WHERE email = %s;"
+        user_id = db.engine.execute(query, (user_email)).fetchone().id
+
+        # Get stories from story table using id of user
+        query = "SELECT * FROM story WHERE user_id = %s;"
+        stories = db.engine.execute(query, (user_id)).fetchall()
+
+        # Convert the stories into the format we want
+        stories_list = []
+
+        for story in stories:
+            # Retrieve the associated image for each story
+            image = Image.query.get(story.image_id)
+            if image:
+                image_url = image.image_path
+            else:
+                image_url = None
+
+            stories_list.append({
+                'id': story.id,
+                'user_id': story.user_id,
+                'story_title': story.story_title,
+                'image_url': image_url,
+                'story_content': story.story_content,
+                'created_at': story.created_at
+            })
+
+        return jsonify({'stories': stories_list})
