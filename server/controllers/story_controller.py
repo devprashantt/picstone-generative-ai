@@ -231,13 +231,9 @@ class StoryController:
         return db.engine.execute(query).fetchall()
 
     @staticmethod
-    def get_user_stories():
-        # Get user session_id from cookies
-        session_token = request.cookies.get('session_token')
-
-        # Query session table to get user email
-        query = "SELECT email FROM sessions WHERE session_token = %s;"
-        user_email = db.engine.execute(query, (session_token)).fetchone().email
+    def get_user_stories(validated_user):
+        # EDIT: The validated user is passed through the authentication decorator in router
+        user_email = validated_user
 
         # Get user id from user table through email
         query = "SELECT id FROM users WHERE email = %s;"
