@@ -232,6 +232,39 @@ class StoryController:
 
     @staticmethod
     def get_user_stories():
-        # Fetch all stories of user from stories table using user_id
-        query = "SELECT id FROM story ORDER BY created_at DESC;"
-        return db.engine.execute(query).fetchall()
+        # Get user session_id from cookies
+        session_token = request.cookies.get('session_token')
+
+        # Query session table to get user email
+        query = "SELECT email FROM sessions WHERE session_token = %s;"
+        user_email = db.engine.execute(query, (session_token)).fetchone().email
+
+        # Get user id from user table through email
+        query = "SELECT id FROM users WHERE email = %s;"
+        user_id = db.engine.execute(query, (user_email)).fetchone().id
+
+        # Get stories from story table using id of user
+        query = "SELECT * FROM story WHERE user_id = %s;"
+        stories = db.engine.execute(query, (user_id)).fetchall()
+
+        # Convert the stories into the format we want
+        stories_list = []
+
+        for story in stories:
+            # Retrieve the associated image for each story
+            image = Image.query.get(story.image_id)
+            if image:
+                image_url = image.image_path
+            else:
+                image_url = None
+
+            stories_list.append({
+                'id': story.id,
+                'user_id': story.user_id,
+                'story_title': story.story_title,
+                'image_url': image_url,
+                'story_content': story.story_content,
+                'created_at': story.created_at
+            })
+
+        return jsonify({'stories': stories_list})
