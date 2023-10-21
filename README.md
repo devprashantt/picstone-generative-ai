@@ -1,5 +1,3 @@
-![Generative AI Hackathon Peerlist X Replit](https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156522/picstone/ads/unnamed_1_qlgyhj.png)
-
 <div align="center">
   <img src="https://res.cloudinary.com/dfa9vxyte/image/upload/v1696156964/picstone/favicon/android-chrome-512x512_pytdfx.png" width="100" alt="Picstone Logo">
 </div>
