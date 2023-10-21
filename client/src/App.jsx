@@ -20,6 +20,8 @@ import {
   Signup,
   GenerateStory,
   StoryByTag,
+  Profile,
+  ThemePage,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
@@ -39,9 +41,11 @@ const App = () => {
   return (
     <div
       style={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        alignContent: "center",
+        justifyContent: "center",
       }}
     >
       <ToastContainer />
@@ -58,21 +62,7 @@ const App = () => {
         <Route path="/generate-story" element={<GenerateStory />} />
 
         {/* THEME */}
-        <Route
-          path="/theme"
-          element={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-              }}
-            >
-              Coming soon
-            </div>
-          }
-        />
+        <Route path="/theme" element={<ThemePage />} />
 
         {/* TAG */}
         <Route path="/tags/:tag" element={<StoryByTag />} />
@@ -91,16 +81,10 @@ const App = () => {
             <Route
               path="/profile"
               element={
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh",
-                  }}
-                >
-                  Coming soon
-                </div>
+                <Profile
+                  user_id={auth_data?.user_id}
+                  session_token={auth_data?.session_token}
+                />
               }
             />
             <Route path="/profile/:id" element={<Landing />} />

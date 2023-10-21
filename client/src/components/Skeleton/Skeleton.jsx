@@ -78,6 +78,26 @@ const Skeleton = ({ type }) => {
             ></div>
           </div>
         );
+      case "text":
+        return (
+          <div
+            className={styles.skeleton}
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: "0",
+              boxShadow: "none",
+            }}
+          >
+            <div
+              className={styles.loadingAnimation}
+              style={{
+                width: "100%",
+                height: "2rem",
+              }}
+            ></div>
+          </div>
+        );
       default:
         return (
           <div className={styles.skeleton}>

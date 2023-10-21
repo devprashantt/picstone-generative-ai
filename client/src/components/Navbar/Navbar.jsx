@@ -58,9 +58,15 @@ const Navbar = () => {
             </>
           ) : (
             // IF USER IS LOGGED IN
-            <Link to={"/profile"} className={styles.profile}>
-              Profile
-            </Link>
+            <>
+              {" "}
+              <Link to={"/generate-story"} className={styles.profile}>
+                Create
+              </Link>
+              <Link to={"/profile"} className={styles.profile}>
+                Profile
+              </Link>
+            </>
           )
         }
       </div>

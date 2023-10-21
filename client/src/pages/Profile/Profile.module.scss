@@ -1,0 +1,128 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 2% 4%;
+    gap: 2rem;
+
+    .profile_info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        gap: 0.4rem;
+
+        .profile_img {
+            height: 8rem;
+            width: 8rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+
+            .name {
+                align-self: stretch;
+
+                color: var(--color-gray-100, #202020);
+                text-align: center;
+                font-family: DM Sans;
+                font-size: 2.25rem;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+            }
+
+            .bio {
+                align-self: stretch;
+
+                color: var(--color-gray-70, #7e7e7e);
+                text-align: center;
+                font-family: DM Sans;
+                font-size: 1.25rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+
+        .action {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 20%;
+            gap: 0.6rem;
+            margin: 0.4rem 0;
+
+            .follow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 1 0 0;
+                width: 100%;
+            }
+
+            .edit {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 1 0 0;
+                width: 100%;
+
+                background-color: white;
+                color: var(--purple, #702dff);
+
+                border: 1px solid var(--purple, #702dff);
+            }
+        }
+    }
+
+    .profile_body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        .profile_body_nav {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+            gap: 10rem;
+
+            .nav_items {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                width: 70%;
+                gap: 0.4rem;
+            }
+
+            .input {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+                width: 40%;
+                gap: 1rem;
+            }
+        }
+    }
+}

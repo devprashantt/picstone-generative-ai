@@ -40,12 +40,19 @@ const StoryPage = () => {
     <div className={styles.story}>
       <div className={styles.left}>
         {loading ? (
-          <Skeleton type="img" />
+          <>
+            <Skeleton type="img" />
+
+            <Skeleton type="text" />
+            <Skeleton type="text" />
+            <Skeleton type="text" />
+            <Skeleton type="text" />
+          </>
         ) : (
           <img src={storyData?.image_url} alt="img-picstone" />
         )}
         <div className={styles.tags}>
-          {storyData?.tags?.map((tag) => {
+          {storyData?.tags?.slice(0, 10).map((tag) => {
             return (
               <p key={tag} className={styles.tag} onClick={handleTagClick}>
                 {tag}
