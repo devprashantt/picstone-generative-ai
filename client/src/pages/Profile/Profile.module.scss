@@ -5,7 +5,7 @@
     justify-content: center;
     height: 100%;
     margin: 2% 4%;
-    gap: 2rem;
+    gap: 5rem;
 
     .profile_info {
         display: flex;
@@ -14,7 +14,6 @@
         justify-content: center;
         height: 100%;
         width: 100%;
-        gap: 0.4rem;
 
         .profile_img {
             height: 8rem;
@@ -36,7 +35,6 @@
 
                 color: var(--color-gray-100, #202020);
                 text-align: center;
-                font-family: DM Sans;
                 font-size: 2.25rem;
                 font-style: normal;
                 font-weight: 700;
@@ -44,6 +42,7 @@
             }
 
             .bio {
+                margin-top: 0.6rem;
                 align-self: stretch;
 
                 color: var(--color-gray-70, #7e7e7e);
@@ -57,6 +56,7 @@
         }
 
         .action {
+            margin-top: 1rem;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -64,7 +64,6 @@
             height: 100%;
             width: 20%;
             gap: 0.6rem;
-            margin: 0.4rem 0;
 
             .follow {
                 display: flex;
@@ -120,9 +119,15 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-end;
+                height: 2.8rem !important;
                 width: 40%;
                 gap: 1rem;
             }
+        }
+
+        .profile_body_view {
+            width: 100%;
+            margin-top: 1.6rem;
         }
     }
 }

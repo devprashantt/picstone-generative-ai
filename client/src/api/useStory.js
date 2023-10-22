@@ -29,8 +29,6 @@ const useStory = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary
@@ -57,8 +55,6 @@ const useStory = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary
@@ -85,8 +81,6 @@ const useStory = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary
@@ -96,11 +90,18 @@ const useStory = () => {
   };
 
   // GET USER STORIES
-  const getUserStories = async (user_id, cb) => {
+  const getUserStories = async (cb) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/generate-story/${user_id}`
+        `${import.meta.env.VITE_BACKEND_URL}/user-stories`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       if (!response.ok) {
@@ -113,8 +114,6 @@ const useStory = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
     } finally {

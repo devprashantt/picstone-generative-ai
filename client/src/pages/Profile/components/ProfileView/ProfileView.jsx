@@ -1,21 +1,15 @@
 import styles from "./ProfileView.module.scss";
 
+// COMPONENTS
+import Work from "./Work/Work";
+
 import PropTypes from "prop-types";
 
 const ProfileView = ({ option }) => {
   return (
     <div>
       {/* DELIVER DATA ON BASIS OF SELECTED OPTION, MAKE SWITCH CASES */}
-      {option === "work" && (
-        <div className={styles.profile_view}>
-          <div className={styles.profile_view_header}>
-            <h1>Work</h1>
-          </div>
-          <div className={styles.profile_view_content}>
-            <p>Work</p>
-          </div>
-        </div>
-      )}
+      {option === "work" && <Work />}
       {option === "boosted_shots" && (
         <div className={styles.profile_view}>
           <div className={styles.profile_view_header}>

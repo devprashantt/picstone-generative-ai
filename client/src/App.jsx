@@ -29,8 +29,6 @@ const App = () => {
   // REDUCERS SELECTORS
   const { auth_data } = useSelector((state) => state.user);
 
-  console.log("auth_data", auth_data);
-
   // USE LOCATION
   const location = useLocation();
 

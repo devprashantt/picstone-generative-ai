@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 
 // COMPONENTS
-import { Button, Input } from "./../../components";
+import { Button, Skeleton } from "./../../components";
 
 import ProfileOption from "./components/ProfileOption/ProfileOption";
 import ProfileView from "./components/ProfileView/ProfileView";
@@ -26,11 +26,9 @@ const Profile = () => {
   const [activeOption, setActiveOption] = useState(profileTabOption.work);
   const [userData, setUserData] = useState({});
 
-  const { getUserData } = useUser();
+  const { getUserData, loading } = useUser();
 
-  const handleEditProfile = () => {
-    console.log("Edit profile");
-  };
+  const handleEditProfile = () => {};
 
   useEffect(() => {
     getUserData((userResponse) => {
@@ -45,16 +43,30 @@ const Profile = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log("profile component");
+  }, []);
+
   return (
     <div className={styles.profile}>
       <div className={styles.profile_info}>
-        <img src={images.nature} className={styles.profile_img} alt="" />
+        <img src={images.profile} className={styles.profile_img} alt="" />
         <div className={styles.detail}>
-          <h1 className={styles.name}>{userData?.name}</h1>
+          <h1 className={styles.name}>
+            {loading ? (
+              <Skeleton type="text" width={"10rem"} />
+            ) : (
+              userData?.name
+            )}
+          </h1>
           <p className={styles.bio}>
-            {userData?.bio
-              ? userData?.bio
-              : "UI / Visual Design, Product Design, UX Design / Research"}
+            {loading ? (
+              <Skeleton type="text" width={"30rem"} />
+            ) : userData?.bio ? (
+              userData?.bio
+            ) : (
+              "UI / Visual Design, Product Design, UX Design / Research"
+            )}
           </p>
         </div>
         <div className={styles.action}>
@@ -82,7 +94,7 @@ const Profile = () => {
               />
             ))}
           </div>
-          <Input className={styles.input} placeholder={"Search item here..."} />
+          <div className={styles.filter}>Filter</div>
         </div>
         <div className={styles.profile_body_view}>
           <ProfileView option={activeOption} />

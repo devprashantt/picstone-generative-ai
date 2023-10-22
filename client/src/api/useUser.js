@@ -29,8 +29,6 @@ const useUser = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary
@@ -65,8 +63,6 @@ const useUser = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary
@@ -97,8 +93,6 @@ const useUser = () => {
       if (cb && typeof cb === "function") {
         cb(data);
       }
-
-      console.log(data);
     } catch (err) {
       console.error(err);
       // Handle errors if necessary

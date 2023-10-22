@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./Skeleton.module.scss";
 
-const Skeleton = ({ type }) => {
+const Skeleton = ({ type, width }) => {
   const renderSkeletonByType = () => {
     switch (type) {
       case "card":
@@ -63,6 +63,9 @@ const Skeleton = ({ type }) => {
           <div
             className={styles.skeleton}
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               width: "100%",
               height: "100%",
               padding: "0",
@@ -83,6 +86,9 @@ const Skeleton = ({ type }) => {
           <div
             className={styles.skeleton}
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               width: "100%",
               height: "100%",
               padding: "0",
@@ -92,8 +98,11 @@ const Skeleton = ({ type }) => {
             <div
               className={styles.loadingAnimation}
               style={{
-                width: "100%",
-                height: "2rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: width ? width : "100%",
+                height: "2.4rem",
               }}
             ></div>
           </div>

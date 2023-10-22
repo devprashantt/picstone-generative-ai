@@ -1,4 +1,4 @@
-import { Hero, Theme } from "../../components";
+import { Hero } from "../../components";
 import styles from "./Landing.module.scss";
 
 const Landing = () => {
@@ -20,7 +20,7 @@ const Landing = () => {
         }}
       />
 
-      <Theme />
+      {/* <Theme /> */}
     </div>
   );
 };

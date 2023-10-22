@@ -3,7 +3,6 @@ import styles from "./ProfileOption.module.scss";
 import PropTypes from "prop-types";
 
 const ProfileOption = ({ option, activeOption, setActiveOption }) => {
-  console.log("option profile", option);
   return (
     <div
       className={`${styles.profile_option} ${
