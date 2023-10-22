@@ -7,5 +7,19 @@ import Signin from "./Signin/Signin";
 import Signup from "./Signup/Signup";
 import GenerateStory from "./GenerateStory/GenerateStory";
 import StoryByTag from "./StoryByTag/StoryByTag";
+import Profile from "./Profile/Profile";
+import ThemePage from "./ThemePage/ThemePage";
 
-export { Landing, Explore, About, StoryPage, Contact, Signin, Signup, GenerateStory, StoryByTag };
+export {
+  Landing,
+  Explore,
+  About,
+  StoryPage,
+  Contact,
+  Signin,
+  Signup,
+  GenerateStory,
+  StoryByTag,
+  Profile,
+  ThemePage,
+};

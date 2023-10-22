@@ -14,6 +14,10 @@ def register_user():
 def sign_in_user():
     return UserController.log_in_user()
 
+@user_bp.route('/user-data', methods=['GET'])
+@session_tools.requires_user_session
+def get_user(validated_user):
+    return UserController.get_user(validated_user)
 
 @user_bp.route('/verify', methods=['GET', 'POST'])
 def verify_user():

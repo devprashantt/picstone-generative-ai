@@ -15,8 +15,6 @@ const Navbar = () => {
   // REDUX GET USER
   const { auth_data } = useSelector((state) => state.user);
 
-  console.log("user", auth_data);
-
   return (
     <div className={styles.navbar}>
       {/* LOGO */}
@@ -58,9 +56,16 @@ const Navbar = () => {
             </>
           ) : (
             // IF USER IS LOGGED IN
-            <Link to={"/profile"} className={styles.profile}>
-              Profile
-            </Link>
+            <>
+              {" "}
+              {/* <Link to={"/generate-story"} className={styles.profile}>
+                Create
+              </Link> */}
+              <Link to={"/profile"} className={styles.profile}>
+                {/* <img src={images.profile} alt="profile" /> */}
+                Profile
+              </Link>
+            </>
           )
         }
       </div>

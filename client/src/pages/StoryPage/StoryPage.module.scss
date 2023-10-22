@@ -10,7 +10,7 @@
     width: 100%;
 
     img {
-        max-width: 100%;
+        width: 80%;
         height: 24rem;
         border-radius: 1rem;
         object-fit: cover;
@@ -27,7 +27,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            max-width: 100%;
+            max-width: 80%;
             flex-wrap: wrap;
 
             gap: 0.4rem;
@@ -61,6 +61,7 @@
     }
 
     .story_content {
-        width: 100%;
+        width: 80%;
+        text-align: justify;
     }
 }

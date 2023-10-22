@@ -3,7 +3,6 @@ from functools import wraps
 import uuid
 from config.database import db
 
-
 def requires_user_session(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -16,7 +15,7 @@ def requires_user_session(func):
             return 'Invalid token', 401
         validated_user = user_from_session(session_token)
         if validated_user:
-            return func(validated_user, *args, **kwargs)
+            return func(validated_user, *args, **kwargs) 
         else:
             return "Invalid session", 401
     return wrapper
