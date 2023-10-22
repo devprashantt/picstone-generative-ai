@@ -30,8 +30,8 @@ const Work = () => {
             .map((userStory) => {
               return (
                 <Card
-                  key={userStory._id}
-                  link={userStory._id}
+                  key={userStory.id}
+                  link={`/story/${userStory.id}`}
                   img={userStory.image_url}
                   heading={userStory.story_title}
                   description={userStory.story_content}
