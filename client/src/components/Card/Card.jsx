@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 // REACT IMPORTS
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // CONSTANTS
 import styles from "./Card.module.scss";
@@ -12,7 +13,11 @@ const MAX_CHARACTERS = 110;
 
 const Card = ({ img, heading, description, link }) => {
   return (
-    <div className={styles.card}>
+    <motion.div
+      className={styles.card}
+      whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+      transition={{ duration: 0.5 }}
+    >
       <img src={img} alt="" className={styles.img} />
       <h3 className={styles.heading}>{heading}</h3>
       <p className={styles.description}>
@@ -23,7 +28,7 @@ const Card = ({ img, heading, description, link }) => {
       <Link to={`${link}`} className={styles.link}>
         Read more
       </Link>
-    </div>
+    </motion.div>
   );
 };
 
