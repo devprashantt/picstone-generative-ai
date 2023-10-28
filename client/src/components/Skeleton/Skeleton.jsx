@@ -1,12 +1,18 @@
 import PropTypes from "prop-types";
 import styles from "./Skeleton.module.scss";
 
+import { motion } from "framer-motion";
+
 const Skeleton = ({ type, width }) => {
   const renderSkeletonByType = () => {
     switch (type) {
       case "card":
         return (
-          <div className={styles.skeleton}>
+          <motion.div
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
+            className={styles.skeleton}
+          >
             <div
               className={styles.loadingAnimation}
               style={{
@@ -36,11 +42,13 @@ const Skeleton = ({ type, width }) => {
                 borderRadius: "0.4rem",
               }}
             ></div>
-          </div>
+          </motion.div>
         );
       case "img":
         return (
-          <div
+          <motion.div
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
             className={styles.skeleton}
             style={{
               width: "100%",
@@ -56,11 +64,16 @@ const Skeleton = ({ type, width }) => {
                 height: "25rem",
               }}
             ></div>
-          </div>
+          </motion.div>
         );
       case "tags":
         return (
-          <div
+          <motion.div
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{
+              duration: 0.5,
+              delay: 0.5,
+            }}
             className={styles.skeleton}
             style={{
               display: "flex",
@@ -79,11 +92,13 @@ const Skeleton = ({ type, width }) => {
                 height: "2.8rem",
               }}
             ></div>
-          </div>
+          </motion.div>
         );
       case "text":
         return (
-          <div
+          <motion.div
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
             className={styles.skeleton}
             style={{
               display: "flex",
@@ -105,11 +120,15 @@ const Skeleton = ({ type, width }) => {
                 height: "2.4rem",
               }}
             ></div>
-          </div>
+          </motion.div>
         );
       default:
         return (
-          <div className={styles.skeleton}>
+          <motion.div
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
+            className={styles.skeleton}
+          >
             <div
               className={styles.loadingAnimation}
               style={{
@@ -139,7 +158,7 @@ const Skeleton = ({ type, width }) => {
                 borderRadius: "0.4rem",
               }}
             ></div>
-          </div>
+          </motion.div>
         );
     }
   };

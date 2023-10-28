@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import styles from "./Explore.module.scss";
 import PropTypes from "prop-types";
@@ -95,19 +96,27 @@ const Explore = ({ storyLength }) => {
                 ))
               : tags?.slice(0, 5)?.map((tag) => {
                   return (
-                    <Link
-                      className={styles.tag}
+                    <motion.div
                       key={tag?.id}
-                      to={{
-                        pathname: `/tags/${tag}`,
-                        state: {
-                          tag_name: tag,
-                        },
+                      whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.5,
                       }}
                     >
-                      {/* MAKE FIRST LETTER UPPERCASE AND WHOLE SHOULD NOT ME GREATER THAN 11 CHAR */}
-                      {tag}
-                    </Link>
+                      <Link
+                        className={styles.tag}
+                        to={{
+                          pathname: `/tags/${tag}`,
+                          state: {
+                            tag_name: tag,
+                          },
+                        }}
+                      >
+                        {/* MAKE FIRST LETTER UPPERCASE AND WHOLE SHOULD NOT ME GREATER THAN 11 CHAR */}
+                        {tag}
+                      </Link>
+                    </motion.div>
                   );
                 })
           }
