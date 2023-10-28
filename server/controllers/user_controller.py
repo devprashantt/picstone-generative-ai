@@ -19,12 +19,17 @@ class UserController:
         password = payload.get('password')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+        
         try:
             query = 'INSERT INTO users (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
             verification_key = str(uuid.uuid4())
             data = (email, name, hashed_password, salt, verification_key)
+            
             db.engine.execute(query, data)
-
+        except:
+            return 'the email supplied is alread in use', 400
+        
+        try:
             parameterized_url = f"{os.environ.get('BACKEND_URL')}/verify?token={verification_key}"
             email_content = render_template('verification_email.html', name=name, path=parameterized_url )
             msg = Message("Picstone: Verify Email",
@@ -34,6 +39,7 @@ class UserController:
             current_app.mail.send(msg)
             return 'success', 200
         except:
+            db.engine.execute("delete from users where email = %s;",(email)) 
             return 'could not register user', 400
     
     @classmethod
