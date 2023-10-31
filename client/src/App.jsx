@@ -19,14 +19,15 @@ import {
   Signin,
   Signup,
   GenerateStory,
+  StoryByTag,
+  Profile,
+  ThemePage,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
 const App = () => {
   // REDUCERS SELECTORS
-  const { user } = useSelector((state) => state.user);
-
-  console.log("user", user);
+  const { auth_data } = useSelector((state) => state.user);
 
   // USE LOCATION
   const location = useLocation();
@@ -35,31 +36,14 @@ const App = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  function getSessionToken() {
-    const cookies = document.cookie.split("; ");
-    for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split("=");
-      if (cookieName === "session_token") {
-        return decodeURIComponent(cookieValue); // Decode the cookie value if needed
-      }
-    }
-    return null; // Cookie not found
-  }
-
-  const sessionToken = getSessionToken();
-
-  if (sessionToken) {
-    console.log("Session Token: " + sessionToken);
-  } else {
-    console.log("Session Token cookie not found.");
-  }
-
   return (
     <div
       style={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
+        alignContent: "center",
+        justifyContent: "center",
       }}
     >
       <ToastContainer />
@@ -76,38 +60,10 @@ const App = () => {
         <Route path="/generate-story" element={<GenerateStory />} />
 
         {/* THEME */}
-        <Route
-          path="/theme"
-          element={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-              }}
-            >
-              Coming soon
-            </div>
-          }
-        />
+        <Route path="/theme" element={<ThemePage />} />
 
         {/* TAG */}
-        <Route
-          path="/tags/:tag"
-          element={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-              }}
-            >
-              Coming soon
-            </div>
-          }
-        />
+        <Route path="/tags/:tag" element={<StoryByTag />} />
 
         {/* ABOUT AND CONTACT */}
         <Route path="/about" element={<About />} />
@@ -118,21 +74,15 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
 
         {/* AUTH ROUTES */}
-        {user && (
+        {auth_data?.session_token && (
           <>
             <Route
               path="/profile"
               element={
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh",
-                  }}
-                >
-                  {user}
-                </div>
+                <Profile
+                  user_id={auth_data?.user_id}
+                  session_token={auth_data?.session_token}
+                />
               }
             />
             <Route path="/profile/:id" element={<Landing />} />

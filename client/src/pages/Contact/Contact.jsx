@@ -19,8 +19,6 @@ const Contact = () => {
   });
 
   const handleSubmit = async () => {
-    console.log("formData", formData);
-
     // CHECK IF NOT EMPTY
     if (!formData.name || !formData.email || !formData.message) {
       alert("Please fill in all fields");

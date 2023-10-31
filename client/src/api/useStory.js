@@ -1,102 +1,133 @@
 import { useState } from "react";
 
-import { useSelector } from "react-redux";
-
 const useStory = () => {
-    const [loading, setLoading] = useState(false);
-    const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
 
-    // UPLOAD IMAGE
-    const uploadImage = async (payload, cb) => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user.user}`
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error || 'Some error occurred, please try again');
-            }
-
-            const data = await response.json();
-
-            if (cb && typeof cb === 'function') {
-                cb(data);
-            }
-
-            console.log(data);
-        } catch (err) {
-            console.error(err);
-            // Handle errors if necessary
-        } finally {
-            setLoading(false);
+  // UPLOAD IMAGE
+  const uploadImage = async (payload, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/generate-story`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
         }
-    };
+      );
 
-    // GET ALL STORIES
-    const getAllStories = async (cb) => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story`);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
 
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error || 'Some error occurred, please try again');
-            }
+      const data = await response.json();
 
-            const data = await response.json();
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+      // Handle errors if necessary
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            if (cb && typeof cb === 'function') {
-                cb(data);
-            }
+  // GET ALL STORIES
+  const getAllStories = async (cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/generate-story`
+      );
 
-            console.log(data);
-        } catch (err) {
-            console.error(err);
-            // Handle errors if necessary
-        } finally {
-            setLoading(false);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+
+      const data = await response.json();
+
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+      // Handle errors if necessary
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // GET STORY BY ID
+  const getStoryById = async (story_id, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/generate-story/${story_id}`
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+
+      const data = await response.json();
+
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+      // Handle errors if necessary
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // GET USER STORIES
+  const getUserStories = async (cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/user-stories`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-    };
+      );
 
-    // GET STORY BY ID
-    const getStoryById = async (story_id, cb) => {
-        try {
-            setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/generate-story/${story_id}`);
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
 
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error || 'Some error occurred, please try again');
-            }
+      const data = await response.json();
 
-            const data = await response.json();
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            if (cb && typeof cb === 'function') {
-                cb(data);
-            }
-
-            console.log(data);
-        } catch (err) {
-            console.error(err);
-            // Handle errors if necessary
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return {
-        loading,
-        uploadImage,
-        getAllStories,
-        getStoryById
-    };
+  return {
+    loading,
+    uploadImage,
+    getAllStories,
+    getStoryById,
+    getUserStories,
+  };
 };
 
 export default useStory;

@@ -39,10 +39,9 @@ const Signin = () => {
     }
 
     loginUser(formData, (responseData) => {
-      console.log("responseData-->", responseData);
-      if (responseData?.user) {
+      if (responseData?.session_token) {
         console.log("responseData-->", responseData);
-        dispatch(setUser(responseData.user));
+        dispatch(setUser(responseData));
         navigate("/");
       } else {
         toast.error(responseData?.msg);

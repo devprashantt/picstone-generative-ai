@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from controllers.story_controller import StoryController
+from utils.session_tools import requires_user_session
 
 story_bp = Blueprint('generate-story', __name__)
 
@@ -21,3 +22,8 @@ def get_story(story_id):
 @story_bp.route('/story-ids', methods=['GET'])
 def get_story_ids():
     return StoryController.get_all_story_ids()
+
+@story_bp.route('/user-stories', methods=['GET'])
+@requires_user_session  
+def get_user_stories(validated_user):
+    return StoryController.get_user_stories(validated_user)

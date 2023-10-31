@@ -43,6 +43,7 @@ const GenerateStory = () => {
       survival: false,
       mystery: false,
       biography: false,
+      halloween: false,
     },
   });
 
@@ -162,6 +163,14 @@ const GenerateStory = () => {
       <div className={styles.theme}>
         <p className={styles.label}>{"Theme"}</p>
         <div className={styles.themes}>
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1697917569/picstone/themes/ddcvlnzdfbzambf357ba.jpg"
+            }
+            title={"Halloween"}
+            isSelected={storyData.themes.halloween}
+            onClick={() => handleThemeSelection("halloween")}
+          />
           <Theme
             img_link={
               "https://res.cloudinary.com/dixoiunbw/image/upload/v1697208046/picstone/themes/btkyu0z3xasnqssw6mwp.jpg"

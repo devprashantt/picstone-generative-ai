@@ -24,6 +24,7 @@ import upload from "../assets/icons/upload.svg";
 
 // IMAGES
 import map from "../assets/img/map.svg";
+import profile from "../assets/img/profile.svg";
 
 // ASSETS
 import story from "../assets/story.svg";
@@ -45,5 +46,6 @@ export default {
   star,
   story,
   bulb,
-  upload
+  upload,
+  profile,
 };

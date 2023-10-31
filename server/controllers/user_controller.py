@@ -54,7 +54,7 @@ class UserController:
                 session_token = str(uuid.uuid4())
                 session_tools.establish_session(email, session_token)
                 response = make_response(
-                    jsonify({'session_token': session_token, 'msg': "session established", "user": email}), 200
+                    jsonify({'session_token': session_token, 'msg': "session established", "email": email}), 200
                 )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000, 
@@ -64,7 +64,23 @@ class UserController:
                 return 'invalid', 400
         except Exception as e:
             return f'invalid: {e}', 400
-        
+    
+    @staticmethod
+    def get_user(validated_user):
+        # Get info from validated user
+        query = "SELECT * FROM users WHERE email = %s;"
+        user = db.engine.execute(query, (validated_user)).fetchone()
+
+        # Convert the user into the format we want
+        user_data = {
+            'id': user.id,
+            'email': user.email,
+            'name': user.name,
+            'user_privledge': user.user_privledge
+        }
+
+        return jsonify({'user': user_data, 'msg': "Successfully fetched all data!!"}), 200
+
     def is_user_verified(email):
         query = 'SELECT verification_id from users where email = %s;'
         data = (email,)
