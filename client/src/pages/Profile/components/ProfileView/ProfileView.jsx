@@ -9,7 +9,7 @@ const ProfileView = ({ option }) => {
   return (
     <div>
       {/* DELIVER DATA ON BASIS OF SELECTED OPTION, MAKE SWITCH CASES */}
-      {option === "work" && <Work />}
+      {option === "Work" && <Work />}
       {option === "boosted_shots" && (
         <div className={styles.profile_view}>
           <div className={styles.profile_view_header}>
@@ -20,7 +20,7 @@ const ProfileView = ({ option }) => {
           </div>
         </div>
       )}
-      {option === "collections" && (
+      {option === "Collections" && (
         <div className={styles.profile_view}>
           <div className={styles.profile_view_header}>
             <h1>Collections</h1>
@@ -40,7 +40,7 @@ const ProfileView = ({ option }) => {
           </div>
         </div>
       )}
-      {option === "about" && (
+      {option === "About" && (
         <div className={styles.profile_view}>
           <div className={styles.profile_view_header}>
             <h1>About</h1>

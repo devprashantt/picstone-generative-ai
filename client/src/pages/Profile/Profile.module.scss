@@ -42,7 +42,7 @@
             }
 
             .bio {
-                margin-top: 0.6rem;
+                margin-top: 0.2rem;
                 align-self: stretch;
 
                 color: var(--color-gray-70, #7e7e7e);
@@ -110,17 +110,16 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-start;
-                width: 70%;
+                width: 40%;
                 gap: 0.4rem;
             }
 
-            .input {
+            .filter {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-end;
-                height: 2.8rem !important;
-                width: 40%;
+                width: 30%;
                 gap: 1rem;
             }
         }

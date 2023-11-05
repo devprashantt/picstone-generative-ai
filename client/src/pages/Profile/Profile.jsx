@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 
 // COMPONENTS
-import { Button, Skeleton } from "./../../components";
+import { Button, Input, Skeleton } from "./../../components";
 
 import ProfileOption from "./components/ProfileOption/ProfileOption";
 import ProfileView from "./components/ProfileView/ProfileView";
@@ -15,11 +15,9 @@ import useUser from "../../api/useUser";
 import { images } from "../../constant";
 
 const profileTabOption = {
-  work: "work",
-  liked_shots: "liked_shots",
-  boosted_shots: "boosted_shots",
-  collections: "collections",
-  about: "about",
+  work: "Work",
+  collections: "Collections",
+  about: "About",
 };
 
 const Profile = () => {
@@ -94,7 +92,9 @@ const Profile = () => {
               />
             ))}
           </div>
-          <div className={styles.filter}>Filter</div>
+          <div className={styles.filter}>
+            <Input placeholder="Search" className={styles.search} />
+          </div>
         </div>
         <div className={styles.profile_body_view}>
           <ProfileView option={activeOption} />
