@@ -26,9 +26,7 @@ const Contact = () => {
     }
 
     // SEND MESSAGE
-    await sendMessage(formData, (responseData) => {
-      console.log("responseData", responseData);
-    });
+    await sendMessage(formData, (responseData) => {});
   };
 
   return (
@@ -101,11 +99,8 @@ const Contact = () => {
             isLoading={loading}
             isLoadingText={"Sending message..."}
             onClick={() => {
-              console.log("formData", formData);
               handleSubmit();
-
               toast.success("Message sent successfully");
-
               // RESET FORM
               setFormData({
                 name: "",

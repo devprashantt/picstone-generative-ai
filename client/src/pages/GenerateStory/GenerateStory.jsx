@@ -55,7 +55,6 @@ const GenerateStory = () => {
   };
 
   const handleThemeSelection = (theme) => {
-    console.log("Theme:", theme);
     const updatedThemes = { ...storyData.themes };
     updatedThemes[theme] = !updatedThemes[theme];
     setStoryData({ ...storyData, themes: updatedThemes });
@@ -75,15 +74,12 @@ const GenerateStory = () => {
           try {
             const base64Image = event.target.result;
 
-            console.log("Uploading image...", storyData);
-
             setIsUploading(true);
 
             // Create a new object with the base64 image data
             const base64Data = { ...storyData, file: base64Image };
 
             await uploadImage(base64Data, (responseData) => {
-              console.log("Response data:", responseData);
               dispatch(setStory(responseData.story));
               dispatch(setCloudinaryData(responseData.cloudinary_data));
 

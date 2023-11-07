@@ -31,9 +31,6 @@ const Signup = () => {
   const { registerUser, loading } = useUser();
 
   const handleSubmit = (e) => {
-    console.log("formData-->", formData);
-    console.log("handleSubmit");
-
     // PREVENT DEFAULT BEHAVIOUR OF FORM
     e.preventDefault();
 
@@ -73,8 +70,6 @@ const Signup = () => {
 
     // REGISTER USER
     registerUser(formData, (responseData) => {
-      console.log("responseData-->", responseData);
-
       navigate("/signin");
 
       // TOAST

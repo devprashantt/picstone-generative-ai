@@ -99,6 +99,41 @@
             gap: 1rem;
         }
     }
+
+    .page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 4rem;
+
+        .current {
+            font-feature-settings:
+                "clig" off,
+                "liga" off;
+            font-size: 1.2rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            color: #702dff;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #702dff;
+            padding: 1rem;
+            cursor: pointer;
+
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+                object-fit: contain;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 768px) {

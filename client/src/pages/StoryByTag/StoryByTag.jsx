@@ -15,7 +15,6 @@ const StoryByTag = () => {
 
   const fetchStoryByTag = async () => {
     await getStoryByTag(tag, (responseData) => {
-      console.log("responseData", responseData);
       setStoryByTag(responseData.stories);
     });
   };

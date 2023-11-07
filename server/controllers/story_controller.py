@@ -31,10 +31,11 @@ class StoryController:
             # Verify user session
             if not session_token:
                 return jsonify({'error': 'Unauthorized'}), 401
-            
+
             # Get email from session
             query = "SELECT email FROM sessions WHERE session_token = %s;"
-            user_email = db.engine.execute(query, (session_token)).fetchone().email
+            user_email = db.engine.execute(
+                query, (session_token)).fetchone().email
 
             # Get user_id from email
             query = "SELECT id FROM users WHERE email = %s;"
@@ -141,7 +142,10 @@ class StoryController:
 
             return jsonify({
                 'story': story,
-                'cloudinary_data': cloudinary_data
+                'cloudinary_data': {
+                    'secure_url': cloudinary_link,
+                    'tags': cloudinary_tags
+                }
             })
 
         except Exception as e:
@@ -154,6 +158,72 @@ class StoryController:
         try:
             # Retrieve all stories from the database
             stories = Story.query.all()
+
+            # Convert the stories into the format we want
+            stories_list = []
+            for story in stories:
+                # Retrieve the associated image for each story
+                image = Image.query.get(story.image_id)
+                if image:
+                    image_url = image.image_path
+                else:
+                    image_url = None
+
+                stories_list.append({
+                    'id': story.id,
+                    'user_id': story.user_id,
+                    'story_title': story.story_title,
+                    'image_url': image_url,
+                    'story_content': story.story_content,
+                    'created_at': story.created_at
+                })
+
+            return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
+
+    # get story page
+    @staticmethod
+    def get_story_page(page):
+        try:
+            # Retrieve all stories from the database in desc by date
+            stories = Story.query.order_by(
+                Story.created_at.desc()).paginate(page=page, per_page=9).items
+
+            # Convert the stories into the format we want
+            stories_list = []
+            for story in stories:
+                # Retrieve the associated image for each story
+                image = Image.query.get(story.image_id)
+                if image:
+                    image_url = image.image_path
+                else:
+                    image_url = None
+
+                stories_list.append({
+                    'id': story.id,
+                    'user_id': story.user_id,
+                    'story_title': story.story_title,
+                    'image_url': image_url,
+                    'story_content': story.story_content,
+                    'created_at': story.created_at
+                })
+
+            return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
+
+    # search story
+    @staticmethod
+    def search_story(search_term):
+        try:
+            # Retrieve all stories from the database in desc by date
+            stories = Story.query.filter(
+                Story.story_title.ilike(f'%{search_term}%')).all()
 
             # Convert the stories into the format we want
             stories_list = []

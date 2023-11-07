@@ -19,11 +19,23 @@ def generate_story_get():
 def get_story(story_id):
     return StoryController.get_story(story_id)
 
+
 @story_bp.route('/story-ids', methods=['GET'])
 def get_story_ids():
     return StoryController.get_all_story_ids()
 
+
+@story_bp.route('/generate-story/<int:page>', methods=['GET'])
+def get_story_page(page):
+    return StoryController.get_story_page(page)
+
+
+@story_bp.route('/generate-story/search/<search_term>', methods=['GET'])
+def search_story(search_term):
+    return StoryController.search_story(search_term)
+
+
 @story_bp.route('/user-stories', methods=['GET'])
-@requires_user_session  
+@requires_user_session
 def get_user_stories(validated_user):
     return StoryController.get_user_stories(validated_user)

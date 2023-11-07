@@ -11,44 +11,42 @@ import { Card, Skeleton, Hero, Input } from "../../components";
 // API's
 import useStory from "../../api/useStory";
 import useTags from "../../api/useTags";
+import { images } from "../../constant";
 
 const Explore = ({ storyLength }) => {
-  const { getAllStories, loading } = useStory();
+  const { getStoriesByPage, searchStory, loading } = useStory();
   const { getAllTags, tagLoading } = useTags();
 
-  //   STATE TO MANAGE ALL STORIES
+  // STATE TO MANAGE ALL STORIES
   const [story, setStory] = useState([]);
   const [tags, setTags] = useState([]);
+  const [page, setPage] = useState(0);
 
   // STATE VARIABLE FOR SEARCH QUERY
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredStories, setFilteredStories] = useState([]);
 
   const fetchStories = async () => {
-    await getAllStories((responseData) => {
-      console.log("responseData", responseData.stories);
+    await getStoriesByPage(page + 1, (responseData) => {
       setStory(responseData.stories);
-      setFilteredStories(responseData.stories);
     });
   };
 
   const fetchTags = async () => {
     await getAllTags((responseData) => {
-      console.log("responseData", responseData.tags);
       setTags(responseData.tags);
-      console.log("tags", tags);
     });
   };
 
-  // FILTER STORIES BASED ON SEARCH QUERY
-  const filterStories = () => {
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    const filtered = story.filter((story) => {
-      const story_content = story.story_content.toLowerCase();
-
-      return story_content.includes(lowerCaseQuery);
-    });
-    setFilteredStories(filtered);
+  // FILTER STORIES BASED ON SEARCH QUERY USING SEARCH STORY SUCH THAT INITIALLY SHOW ALL
+  const filterStories = async () => {
+    // CALL ONLY WHEN INPUT CHANGES NOT INITIALLY
+    if (searchQuery) {
+      await searchStory(searchQuery, (responseData) => {
+        setStory(responseData.stories);
+      });
+    } else {
+      fetchStories();
+    }
   };
 
   //  USE EFFECT TO FILTER STORIES BASED ON SEARCH QUERY
@@ -62,9 +60,12 @@ const Explore = ({ storyLength }) => {
     fetchTags();
   }, []);
 
+  useEffect(() => {}, [story]);
+
+  // WHENEVER RENDER NEW PAGE SCROLL TO STORY CONTAINER START
   useEffect(() => {
-    console.log("stories", story);
-  }, [story]);
+    window.scrollTo(0, 0);
+  }, [page]);
 
   return (
     <div className={styles.explore}>
@@ -131,12 +132,11 @@ const Explore = ({ storyLength }) => {
                 <Skeleton key={index} />
               ))
             : // Display the actual content when data is available
-              filteredStories
+              story
                 ?.slice(
                   storyLength ? story?.length - storyLength : 0,
                   story?.length
                 )
-                .reverse()
                 .map((story) => {
                   return (
                     <Card
@@ -150,6 +150,30 @@ const Explore = ({ storyLength }) => {
                     />
                   );
                 })}
+        </div>
+      </div>
+      <div className={styles.page}>
+        <div
+          className={styles.btn}
+          onClick={() => {
+            // DON'T GO DOWN IF ALREADY ON FIRST PAGE
+            if (page <= 0) return;
+            setPage((prevPage) => prevPage - 1);
+            fetchStories();
+          }}
+        >
+          <img src={images.arrow_left} alt="left" />
+        </div>
+        {/* SHOW CURRENT */}
+        <div className={styles.current}>{page + 1}</div>
+        <div
+          className={styles.btn}
+          onClick={() => {
+            setPage((prevPage) => prevPage + 1);
+            fetchStories();
+          }}
+        >
+          <img src={images.arrow_right} alt="right" />
         </div>
       </div>
     </div>

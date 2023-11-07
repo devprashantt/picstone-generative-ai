@@ -63,6 +63,60 @@ const useStory = () => {
     }
   };
 
+  // GET STORIES BY PAGE
+  const getStoriesByPage = async (page, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/generate-story/${page}`
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+
+      const data = await response.json();
+
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+      // Handle errors if necessary
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // SEARCH STORY
+  const searchStory = async (search_term, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/generate-story/search/${search_term}`
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+
+      const data = await response.json();
+
+      if (cb && typeof cb === "function") {
+        cb(data);
+      }
+    } catch (err) {
+      console.error(err);
+      // Handle errors if necessary
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // GET STORY BY ID
   const getStoryById = async (story_id, cb) => {
     try {
@@ -127,6 +181,8 @@ const useStory = () => {
     getAllStories,
     getStoryById,
     getUserStories,
+    getStoriesByPage,
+    searchStory,
   };
 };
 

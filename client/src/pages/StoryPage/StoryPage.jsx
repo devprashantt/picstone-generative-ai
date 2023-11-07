@@ -22,7 +22,6 @@ const StoryPage = () => {
 
   const fetchStory = async () =>
     await getStoryById(id, (responseData) => {
-      console.log("responseData", responseData);
       setStoryData(responseData?.story);
       setStory(replaceNewlinesWithBr(responseData?.story?.story_content));
     });

@@ -12,7 +12,6 @@ const Work = () => {
 
   useEffect(() => {
     getUserStories((userStories) => {
-      console.log("userStories->", userStories.stories);
       setUserStories(userStories.stories);
     });
   }, []);

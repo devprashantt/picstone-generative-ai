@@ -21,6 +21,8 @@ import call from "../assets/icons/call.svg";
 import mail from "../assets/icons/mail.svg";
 import bulb from "../assets/icons/bulb.svg";
 import upload from "../assets/icons/upload.svg";
+import arrow_left from "../assets/icons/arrow_left.svg";
+import arrow_right from "../assets/icons/arrow_right.svg";
 
 // IMAGES
 import map from "../assets/img/map.svg";
@@ -48,4 +50,6 @@ export default {
   bulb,
   upload,
   profile,
+  arrow_left,
+  arrow_right,
 };

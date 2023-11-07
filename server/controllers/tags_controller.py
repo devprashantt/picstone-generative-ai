@@ -9,13 +9,14 @@ from models.image import Image
 # CONFIG
 from config.database import db
 
+
 class TagsController:
     # Get all tags from the database
     @staticmethod
     def get_all_tags():
         try:
-            # Get all tags from the "tags" table
-            tags = Tags.query.all()
+            # Get all tags from the "tags" table limiting it to 6
+            tags = Tags.query.limit(6).all()
 
             # Initialize an empty list to store all tags
             all_tags = []
@@ -34,7 +35,7 @@ class TagsController:
             return jsonify({'tags': sorted_tags, "message": "Tags fetched successfully!"}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-    
+
     # Get story by tag name
     @staticmethod
     def get_story_by_tag(tag_name):

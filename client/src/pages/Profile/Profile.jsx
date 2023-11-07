@@ -41,9 +41,7 @@ const Profile = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log("profile component");
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className={styles.profile}>
