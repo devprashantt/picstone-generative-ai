@@ -10,6 +10,9 @@ import ImageUploader from "../ImageUploader/ImageUploader";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 
+// MOTIONS
+import { motion } from "framer-motion";
+
 const Hero = ({
   subHeading,
   heading,
@@ -23,25 +26,43 @@ const Hero = ({
   return (
     <div className={styles.hero}>
       <div className={styles.hero__content}>
-        <h2 className={styles.hero__subHeading}>
+        <motion.h2
+          whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+          transition={{ duration: 0.5 }}
+          className={styles.hero__subHeading}
+        >
           {subHeading
             ? subHeading
             : "Explore Limitless Possibilities Through Pictures"}
-        </h2>{" "}
+        </motion.h2>{" "}
         {heading ? (
-          <h1 className={styles.hero__heading}>{heading}</h1>
+          <motion.h1
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
+            className={styles.hero__heading}
+          >
+            {heading}
+          </motion.h1>
         ) : (
-          <h1 className={styles.hero__heading}>
+          <motion.h1
+            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+            transition={{ duration: 0.5 }}
+            className={styles.hero__heading}
+          >
             <span>Picstone</span>
             <br />
             Where Image Paints Thousand Stories
-          </h1>
+          </motion.h1>
         )}
-        <p className={styles.hero__description}>
+        <motion.p
+          whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+          transition={{ duration: 0.5 }}
+          className={styles.hero__description}
+        >
           {description
             ? description
             : "Picstone is an innovative platform designed to revolutionize the way you interact with images and stories. With Picstone, your photos come to life with captivating narratives. Whether you're a photography enthusiast, a storyteller, or simply looking to add an extra layer of magic to your images, Picstone has you covered."}
-        </p>
+        </motion.p>
       </div>
       {/* IMAGE UPLOADER */}
       {img_btn ? (
@@ -72,8 +93,20 @@ const Hero = ({
         </div>
       )}
       {/* SHAPES */}
-      <img src={images.rectangle} alt="rectangle" className={styles.shape1} />
-      <img src={images.ellipse} alt="ellipse" className={styles.shape2} />
+      <motion.img
+        // MAKE MOTION FROM LEFT TO RIGHT
+        whileInView={{ x: [-120, -50, 0], opacity: [0, 0, 1] }}
+        src={images.rectangle}
+        alt="rectangle"
+        className={styles.shape1}
+      />
+      <motion.img
+        // MAKE MOTION FROM RIGHT TO LEFT
+        whileInView={{ x: [120, 50, 0], opacity: [0, 0, 1] }}
+        src={images.ellipse}
+        alt="ellipse"
+        className={styles.shape2}
+      />
     </div>
   );
 };

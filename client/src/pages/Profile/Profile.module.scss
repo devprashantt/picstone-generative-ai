@@ -130,3 +130,41 @@
         }
     }
 }
+
+// SET MEDIA QUERY
+@media (max-width: 768px) {
+    .profile {
+        gap: 4rem;
+        .profile_info {
+            .detail {
+                .name {
+                    font-size: 1.5rem;
+                }
+
+                .bio {
+                    font-size: 1rem;
+                }
+            }
+
+            .action {
+                width: 40%;
+            }
+        }
+
+        .profile_body {
+            .profile_body_nav {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                .nav_items {
+                    width: 100%;
+                }
+
+                .filter {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

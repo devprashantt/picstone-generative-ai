@@ -44,6 +44,7 @@ const App = () => {
         flexDirection: "column",
         alignContent: "center",
         justifyContent: "center",
+        overflowX: "hidden",
       }}
     >
       <ToastContainer />

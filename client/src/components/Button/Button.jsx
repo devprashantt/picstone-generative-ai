@@ -1,6 +1,9 @@
 // PROP-VALIDATION
 import PropTypes from "prop-types";
 
+// IMPORT FRAMER MOTION
+import { motion } from "framer-motion";
+
 // CONSTANTS
 import styles from "./Button.module.scss";
 
@@ -16,14 +19,18 @@ const Button = ({
   const buttonClass = `${styles.button} ${className || ""}`;
 
   return (
-    <button
+    <motion.button
+      // SET MOTION PROPS
+      whileTap={{ scale: 0.95 }}
+      whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
+      transition={{ duration: 0.5 }}
       className={buttonClass}
       onClick={onClick}
       disabled={disabled || isLoading}
       type={type ? type : "button"}
     >
       {isLoading ? isLoadingText : buttonText}
-    </button>
+    </motion.button>
   );
 };
 
