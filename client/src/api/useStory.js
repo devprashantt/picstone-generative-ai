@@ -122,7 +122,7 @@ const useStory = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/generate-story/${story_id}`
+        `${import.meta.env.VITE_BACKEND_URL}/generate-story/story/${story_id}`
       );
 
       if (!response.ok) {

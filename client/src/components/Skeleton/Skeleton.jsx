@@ -60,7 +60,11 @@ const Skeleton = ({ type, width }) => {
             <div
               className={styles.loadingAnimation}
               style={{
-                width: "40rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+
+                width: "100%",
                 height: "25rem",
               }}
             ></div>
@@ -167,7 +171,8 @@ const Skeleton = ({ type, width }) => {
 };
 
 Skeleton.propTypes = {
-  type: PropTypes.oneOf(["card", "img"]).isRequired,
+  type: PropTypes.string,
+  width: PropTypes.string,
 };
 
 export default Skeleton;

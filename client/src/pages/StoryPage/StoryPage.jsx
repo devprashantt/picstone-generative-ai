@@ -39,25 +39,27 @@ const StoryPage = () => {
     <div className={styles.story}>
       <div className={styles.left}>
         {loading ? (
-          <>
+          <div className={styles.image}>
             <Skeleton type="img" />
-
-            <Skeleton type="text" />
-            <Skeleton type="text" />
-            <Skeleton type="text" />
-            <Skeleton type="text" />
-          </>
+          </div>
         ) : (
-          <img src={storyData?.image_url} alt="img-picstone" />
+          <div className={styles.image}>
+            <img src={storyData?.image_url} alt="img-picstone" />
+          </div>
         )}
         <div className={styles.tags}>
-          {storyData?.tags?.slice(0, 10).map((tag) => {
-            return (
-              <p key={tag} className={styles.tag} onClick={handleTagClick}>
-                {tag}
-              </p>
-            );
-          })}
+          {loading
+            ? // SHOW 6 TAGS
+              Array.from(Array(6).keys()).map((_, i) => {
+                return <Skeleton key={i} type="text" />;
+              })
+            : storyData?.tags?.slice(0, 10).map((tag) => {
+                return (
+                  <p key={tag} className={styles.tag} onClick={handleTagClick}>
+                    {tag}
+                  </p>
+                );
+              })}
         </div>
       </div>
       <p

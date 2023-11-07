@@ -3,34 +3,52 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     gap: 2rem;
     padding: 2rem 4rem;
-
     width: 100%;
 
-    img {
-        width: 80%;
-        height: 24rem;
-        border-radius: 1rem;
-        object-fit: cover;
-    }
-
     .left {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 1.6rem;
 
+        .image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 24rem;
+            border-radius: 1rem !important;
+
+            img {
+                height: 100%;
+                width: 100%;
+
+                border-radius: 1rem !important;
+                object-fit: contain;
+            }
+        }
+
         .tags {
             display: flex;
             align-items: center;
             justify-content: center;
-            max-width: 80%;
+            width: 100%;
             flex-wrap: wrap;
 
             gap: 0.4rem;
+
+            .skeleton {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                flex-wrap: wrap;
+            }
 
             .tag {
                 display: flex;

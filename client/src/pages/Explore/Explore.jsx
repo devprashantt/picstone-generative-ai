@@ -92,7 +92,7 @@ const Explore = ({ storyLength }) => {
             tagLoading
               ? Array.from({ length: 5 }).map((_, index) => (
                   <div key={index}>
-                    <Skeleton type="tags" />
+                    <Skeleton type="tags" key={index} />
                   </div>
                 ))
               : tags?.slice(0, 5)?.map((tag) => {
