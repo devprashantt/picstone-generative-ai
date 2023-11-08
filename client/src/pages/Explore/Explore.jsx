@@ -51,7 +51,15 @@ const Explore = ({ storyLength }) => {
 
   //  USE EFFECT TO FILTER STORIES BASED ON SEARCH QUERY
   useEffect(() => {
-    filterStories();
+    // SET DEBOUNCING
+    const timer = setTimeout(() => {
+      filterStories();
+    }, 1000);
+
+    // CLEAN UP FUNCTION
+    return () => {
+      clearTimeout(timer);
+    };
   }, [searchQuery]);
 
   //  FETCH ALL STORIES
