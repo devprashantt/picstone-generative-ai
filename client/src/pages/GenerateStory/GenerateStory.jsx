@@ -44,6 +44,7 @@ const GenerateStory = () => {
       mystery: false,
       biography: false,
       halloween: false,
+      festive: false,
     },
   });
 
@@ -222,6 +223,14 @@ const GenerateStory = () => {
             title={"Biography"}
             isSelected={storyData.themes.biography}
             onClick={() => handleThemeSelection("biography")}
+          />
+          <Theme
+            img_link={
+              "https://res.cloudinary.com/dixoiunbw/image/upload/v1699783744/picstone/themes/mvcsl771af8qpdojxbch.jpg"
+            }
+            title={"Festive"}
+            isSelected={storyData.themes.festive}
+            onClick={() => handleThemeSelection("festive")}
           />
         </div>
       </div>

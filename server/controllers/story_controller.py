@@ -28,18 +28,19 @@ class StoryController:
             # Get session token from cookie
             session_token = request.cookies.get('session_token')
 
+            # Initialize user_id to 0
+            user_id = 240001
+
             # Verify user session
-            if not session_token:
-                return jsonify({'error': 'Unauthorized'}), 401
+            if session_token:
+                # Get email from session
+                query = "SELECT email FROM sessions WHERE session_token = %s;"
+                user_email = db.engine.execute(
+                    query, (session_token)).fetchone().email
 
-            # Get email from session
-            query = "SELECT email FROM sessions WHERE session_token = %s;"
-            user_email = db.engine.execute(
-                query, (session_token)).fetchone().email
-
-            # Get user_id from email
-            query = "SELECT id FROM users WHERE email = %s;"
-            user_id = db.engine.execute(query, (user_email)).fetchone().id
+                # Get user_id from email
+                query = "SELECT id FROM users WHERE email = %s;"
+                user_id = db.engine.execute(query, (user_email)).fetchone().id
 
             # Get the base64 image from the request body
             file = payload['file']

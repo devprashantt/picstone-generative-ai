@@ -1,49 +1,34 @@
-import { useNavigate } from "react-router-dom";
-
 import styles from "./Theme.module.scss";
 import Button from "./../Button/Button";
+import PropTypes from "prop-types";
 import { images } from "../../constant";
 
-const Theme = () => {
-  const navigate = useNavigate();
-
-  const handleTheme = () => {
-    navigate("/theme");
-  };
-
+const Theme = ({
+  imagesLinks,
+  heading,
+  subHeading,
+  description,
+  handleTheme,
+}) => {
   return (
     <div className={styles.theme}>
-      <h1 className={styles.heading}>
-        Fresh & Relevant: <br /> Themed Story for Every Occasion
-      </h1>
+      <h1 className={styles.heading}>{subHeading}</h1>
       <div className={styles.img_container}>
-        <img
-          src={
-            "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/ux5vrsotrgyuneve7ntn.svg"
-          }
-          alt="picstone"
-        />
-        <img
-          src={
-            "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/dfzow8yomxtolpq6ex9k.svg"
-          }
-          alt="picstone"
-        />
-        <img
-          src={
-            "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297414/picstone/season/b2ic2fyvxsvsfdxtg43e.svg"
-          }
-          alt="picstone"
-        />
+        {imagesLinks.map((image, index) => (
+          <img
+            src={image}
+            alt={index}
+            key={index}
+            className={styles.theme_img}
+          />
+        ))}
       </div>
 
       <div className={styles.content}>
         <img src={images.triangle_2} className={styles.shape1} alt="" />
         <img src={images.ellipse_2} className={styles.shape2} alt="" />
-        <h1 className={styles.theme_name}>Winter Wonders</h1>
-        <p
-          className={styles.theme_desc}
-        >{`Embrace the enchantment of the winter season with our "Winter Wonders" themed story. Capture the essence of snowy landscapes, cozy moments by the fireplace, or the magic of holiday festivities. Write a poem, paint a wintry scene, or create any form of art that celebrates the beauty and emotions of winter. Let the chill in the air inspire your creativity and transport you to a world of winter wonders.`}</p>
+        <h1 className={styles.theme_name}>{heading}</h1>
+        <p className={styles.theme_desc}>{description}</p>
         <Button
           className={styles.theme_btn}
           buttonText="Explore"
@@ -52,6 +37,14 @@ const Theme = () => {
       </div>
     </div>
   );
+};
+
+Theme.propTypes = {
+  imagesLinks: PropTypes.arrayOf(PropTypes.string),
+  heading: PropTypes.string,
+  subHeading: PropTypes.string,
+  description: PropTypes.string,
+  handleTheme: PropTypes.func,
 };
 
 export default Theme;

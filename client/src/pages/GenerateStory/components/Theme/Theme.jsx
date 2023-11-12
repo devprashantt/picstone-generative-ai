@@ -29,7 +29,7 @@ Theme.propTypes = {
   img_link: PropTypes.string,
   title: PropTypes.string,
   isSelected: PropTypes.bool,
-  onClick: PropTypes.func, // Add an onClick prop for handling clicks
+  onClick: PropTypes.func,
 };
 
 export default Theme;
