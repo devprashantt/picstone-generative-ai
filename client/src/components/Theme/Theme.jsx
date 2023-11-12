@@ -9,6 +9,7 @@ const Theme = ({
   subHeading,
   description,
   handleTheme,
+  isLoading,
 }) => {
   return (
     <div className={styles.theme}>
@@ -31,7 +32,7 @@ const Theme = ({
         <p className={styles.theme_desc}>{description}</p>
         <Button
           className={styles.theme_btn}
-          buttonText="Explore"
+          buttonText={isLoading ? "Generating..." : "Generate story"}
           onClick={handleTheme}
         />
       </div>
@@ -45,6 +46,7 @@ Theme.propTypes = {
   subHeading: PropTypes.string,
   description: PropTypes.string,
   handleTheme: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default Theme;

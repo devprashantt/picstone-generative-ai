@@ -8,6 +8,7 @@ import pytesseract
 from utils.upload_img import upload_image_to_cloudinary
 from utils.generate_story import generate_story
 from utils.analyze_tags import analyze_tags
+from utils.themed_story import generate_themed_story
 
 # CONFIG
 from config.database import db
@@ -152,6 +153,52 @@ class StoryController:
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)}), 500
+
+    # generate story from theme
+    @staticmethod
+    def generate_story_from_theme(theme):
+        # Get images link from payload
+        images_link = request.get_json()['images_link'][0]
+
+        # Generate story
+        story = generate_themed_story(theme)
+
+        # Store image in database
+        new_image = Image(
+            user_id=240001,
+            image_path=images_link,
+        )
+
+        try:
+            db.session.add(new_image)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
+
+        # Store story in database
+        new_story = Story(
+            user_id=240001,
+            image_id=new_image.id,
+            story_content=story,
+            story_title=theme,
+            theme=theme
+        )
+
+        try:
+            db.session.add(new_story)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
+
+        return jsonify({
+            'story': story,
+            'cloudinary_data': {
+                'secure_url': images_link,
+                'tags': [theme]
+            }
+        })
 
     # get all stories
     @staticmethod

@@ -10,6 +10,11 @@ def generate_story():
     return StoryController.generate_story_from_image()
 
 
+@story_bp.route('/generate-story/theme/<theme>', methods=['POST'])
+def generate_story_from_theme(theme):
+    return StoryController.generate_story_from_theme(theme)
+
+
 @story_bp.route('/generate-story', methods=['GET'])
 def generate_story_get():
     return StoryController.get_all_stories()
