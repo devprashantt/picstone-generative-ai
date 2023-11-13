@@ -1,21 +1,52 @@
+<div style="text-align: center">
+  <img
+    src="https://res.cloudinary.com/dixoiunbw/image/upload/v1699884232/picstone/logo/moojsoi5mvnv7gwtp69x.png"
+    alt="logo"
+    style="
+      width: 100%;
+      max-width: 200px;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    "
+  />
 
+  <div style="text-align: left">
+    <p>Hello {{name}},</p>
 
+    <div>Thank you for signing up for Picstone!</div>
 
-<p>Hello {{name}},
+    <div>
+      <p>
+        Please click the following button to confirm your email to access our
+        website.
+      </p>
 
-    <div>Thank you for signing up for picstone. </div>
-    
-    Please click the following button to confirm your email to access our website.
+      <a
+        href="{{path}}"
+        style="
+          display: inline-block;
+          background-color: #833aff;
+          text-decoration: none;
+          color: white;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          margin-top: 1rem;
+        "
+        >Click Here</a
+      >
+    </div>
 
-    <a href="{{path}}">Click Here</a>
-
-    If the button does not work please copy and paste the following link into your browser.
-
-    {{path}}
-
-    Thank you,
-
-    Picstone Team
-
-</p>
-
+    <br />
+    <br />
+    If the button does not work, please copy and paste the following link into
+    your browser.<br />{{path}}
+    <br />
+    <br />
+    <div>
+      <p>
+        Thank you,<br />
+        Picstone Team
+      </p>
+    </div>
+  </div>
+</div>
