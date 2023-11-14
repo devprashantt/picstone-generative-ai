@@ -114,7 +114,8 @@ class StoryController:
                 user_id=user_id,
                 image_id=image_id,
                 story_content=story,
-                story_title=title
+                story_title=title,
+                theme=','.join(selected_themes)
             )
 
             try:

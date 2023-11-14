@@ -40,8 +40,8 @@ class UserController:
             current_app.mail.send(msg)
             return 'success', 200
         except:
-            db.engine.execute("delete from users where email = %s;", (email))
-            return 'could not register user', 400
+            db.engine.execute("Delete from users where email = %s;", (email))
+            return 'Could not register user', 400
 
     @classmethod
     def log_in_user(cls):
