@@ -388,14 +388,19 @@ class StoryController:
 
     # get public stories
     @staticmethod
-    def get_public_user_stories(user_id):
-        # Get stories from story table using id of user
-        query = "SELECT * FROM story WHERE user_id = %s;"
-        stories = db.engine.execute(query, (user_id)).fetchall()
+    def get_public_user_stories(story_id):
+        # Get user id from story table using story id
+        query = "SELECT user_id FROM story WHERE id = %s;"
+        user_id = db.engine.execute(query, (story_id)).fetchone().user_id
 
-        # Get user details from user table using id of user
-        query = "SELECT * FROM users WHERE id = %s;"
+        # Get user details from user table using user id
+        query = "SELECT name, email FROM users WHERE id = %s;"
         user = db.engine.execute(query, (user_id)).fetchone()
+
+        # Get stories from story table using user id and limit to 3
+        query = "SELECT * FROM story WHERE user_id = %s;"
+        # limit stories to 3
+        stories = db.engine.execute(query, (user_id)).fetchmany(3)
 
         # Send user name, email and number of stories to frontend
         user_details = {

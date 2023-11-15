@@ -81,4 +81,55 @@
         width: 80%;
         text-align: justify;
     }
+
+    .user {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+
+        h1 {
+            background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user_detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            .profile {
+                height: 4rem;
+                width: 4rem;
+                border-radius: 50%;
+                overflow: hidden;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .details {
+                .name {
+                }
+
+                .email {
+                }
+            }
+        }
+
+        .user_stories {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+    }
 }

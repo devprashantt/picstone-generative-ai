@@ -46,6 +46,6 @@ def get_user_stories(validated_user):
     return StoryController.get_user_stories(validated_user)
 
 
-@story_bp.route('/user-stories/public/<user_id>', methods=['GET'])
-def get_public_user_stories(user_id):
-    return StoryController.get_public_user_stories(user_id)
+@story_bp.route('/user-stories/public/<story_id>', methods=['GET'])
+def get_public_user_stories(story_id):
+    return StoryController.get_public_user_stories(story_id)

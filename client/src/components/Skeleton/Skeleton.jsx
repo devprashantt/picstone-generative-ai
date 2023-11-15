@@ -46,9 +46,7 @@ const Skeleton = ({ type, width }) => {
         );
       case "img":
         return (
-          <motion.div
-            whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
-            transition={{ duration: 0.5 }}
+          <div
             className={styles.skeleton}
             style={{
               width: "100%",
@@ -68,7 +66,7 @@ const Skeleton = ({ type, width }) => {
                 height: "25rem",
               }}
             ></div>
-          </motion.div>
+          </div>
         );
       case "tags":
         return (
