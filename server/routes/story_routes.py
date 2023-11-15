@@ -16,7 +16,7 @@ def generate_story_from_theme(theme):
 
 
 @story_bp.route('/generate-story', methods=['GET'])
-def generate_story_get():
+def get_all_stories():
     return StoryController.get_all_stories()
 
 
@@ -44,3 +44,8 @@ def search_story(search_term):
 @requires_user_session
 def get_user_stories(validated_user):
     return StoryController.get_user_stories(validated_user)
+
+
+@story_bp.route('/user-stories/public/<user_id>', methods=['GET'])
+def get_public_user_stories(user_id):
+    return StoryController.get_public_user_stories(user_id)

@@ -57,6 +57,9 @@ app.debug = app.config.get('DEBUG', False)
 # Set SQLALCHEMY_DATABASE_URI to your TiDB URI
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
+# Disbale SQLALCHEMY_BINDS warning
+app.config['SQLALCHEMY_BINDS'] = False
+
 # Disable SQLALCHEMY_TRACK_MODIFICATIONS warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -105,14 +108,17 @@ app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 
+
 @app.before_request
 def before_request():
     request.start_time = time.time()
 
+
 @app.after_request
 def after_request(response):
     request_copy = RequestLogCopy(request)
-    thread = threading.Thread(target=push_request_to_log, args=(request_copy, response, app))
+    thread = threading.Thread(
+        target=push_request_to_log, args=(request_copy, response, app))
     thread.start()
     return response
 

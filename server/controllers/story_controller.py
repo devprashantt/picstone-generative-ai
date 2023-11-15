@@ -344,11 +344,13 @@ class StoryController:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
 
+    # get number of stories
     @staticmethod
     def get_all_story_ids():
         query = "SELECT id FROM story ORDER BY created_at DESC;"
         return db.engine.execute(query).fetchall()
 
+    # get user stories
     @staticmethod
     def get_user_stories(validated_user):
         # EDIT: The validated user is passed through the authentication decorator in router
@@ -383,3 +385,42 @@ class StoryController:
             })
 
         return jsonify({'stories': stories_list})
+
+    # get public stories
+    @staticmethod
+    def get_public_user_stories(user_id):
+        # Get stories from story table using id of user
+        query = "SELECT * FROM story WHERE user_id = %s;"
+        stories = db.engine.execute(query, (user_id)).fetchall()
+
+        # Get user details from user table using id of user
+        query = "SELECT * FROM users WHERE id = %s;"
+        user = db.engine.execute(query, (user_id)).fetchone()
+
+        # Send user name, email and number of stories to frontend
+        user_details = {
+            'name': user.name,
+            'email': user.email,
+        }
+
+        # Convert the stories into the format we want
+        stories_list = []
+
+        for story in stories:
+            # Retrieve the associated image for each story
+            image = Image.query.get(story.image_id)
+            if image:
+                image_url = image.image_path
+            else:
+                image_url = None
+
+            stories_list.append({
+                'id': story.id,
+                'user_id': story.user_id,
+                'story_title': story.story_title,
+                'image_url': image_url,
+                'story_content': story.story_content,
+                'created_at': story.created_at
+            })
+
+        return jsonify({'stories': stories_list, 'user_details': user_details})

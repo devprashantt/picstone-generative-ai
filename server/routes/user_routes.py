@@ -14,10 +14,12 @@ def register_user():
 def sign_in_user():
     return UserController.log_in_user()
 
+
 @user_bp.route('/user-data', methods=['GET'])
 @session_tools.requires_user_session
 def get_user(validated_user):
     return UserController.get_user(validated_user)
+
 
 @user_bp.route('/verify', methods=['GET', 'POST'])
 def verify_user():
@@ -28,11 +30,13 @@ def verify_user():
 def forgot_password():
     return UserController.forgot_password()
 
-@user_bp.route('/updatepassword', methods=[ 'POST'])
+
+@user_bp.route('/updatepassword', methods=['POST'])
 def update_password():
     return UserController.update_password()
 
-@user_bp.route('/userstatus', methods=['POST','GET'])
+
+@user_bp.route('/userstatus', methods=['POST', 'GET'])
 @session_tools.requires_user_session
 def user_access(validated_user):
     return UserController.user_access(validated_user)
