@@ -59,6 +59,10 @@ class StoryController:
             # Get the title from the request body
             title = payload['title']
 
+            # If sex word found in title return
+            if 'sex' in title.lower():
+                return jsonify({'error': f"Found '{title}' in title. Can't generate using this title"}), 500
+
             # Tags for analysis
             tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
                     'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
@@ -74,6 +78,18 @@ class StoryController:
 
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
+
+            # List of keywords to check
+            keywords_to_check = ['Sex', 'Brassiere']
+
+            # Check if any of the keywords are present in the tags
+            for keyword in keywords_to_check:
+                if keyword.lower() in [tag.lower() for tag in cloudinary_tags]:
+                    # Handle the case when the keyword is found
+                    print(
+                        f"Warning: Found '{keyword}' in tags. Handle accordingly.")
+                    # You can add your logic here to handle the specific keyword found
+                    return jsonify({'error': f"Found '{keyword}' in tags. Can't generate using these tags"}), 500
 
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
