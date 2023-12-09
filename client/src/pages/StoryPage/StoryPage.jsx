@@ -39,8 +39,11 @@ const StoryPage = () => {
   // HANDLE COPY CLICK
   const copyClick = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      toast.success("Story link copied");
+      await navigator.clipboard.writeText(
+        // STORY
+        storyData?.story_content
+      );
+      toast.success("Story copied");
     } catch (err) {
       alert("Failed to copy");
     }
