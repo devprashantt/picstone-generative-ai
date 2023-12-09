@@ -1,10 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import styles from "./StoryPage.module.scss";
+import { images } from "../../constant";
 
 // SKELETON
 import { Card, Skeleton } from "../../components";
+
 // API
 import useStory from "../../api/useStory";
 import useUser from "../../api/useUser";
@@ -31,6 +34,29 @@ const StoryPage = () => {
     await getUserPublicData(id, (responseData) => {
       setUserData(responseData);
     });
+  };
+
+  // HANDLE COPY CLICK
+  const copyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast.success("Story link copied");
+    } catch (err) {
+      alert("Failed to copy");
+    }
+  };
+
+  // HANDLE SHARE CLICK
+  const shareClick = async () => {
+    try {
+      await navigator.share({
+        title: storyData?.story_title,
+        text: storyData?.story_content,
+        url: window.location.href,
+      });
+    } catch (err) {
+      alert("Failed to share");
+    }
   };
 
   const handleTagClick = (e) => {
@@ -79,6 +105,39 @@ const StoryPage = () => {
               })}
         </div>
       </div>
+
+      {loading ? (
+        <Skeleton type="text" />
+      ) : (
+        <div className={styles.title}>
+          <h1>
+            {storyData?.story_title
+              ? storyData?.story_title
+              : "Picstone Stories"}
+          </h1>
+          <div className={styles.actions}>
+            <div
+              className={styles.action}
+              onClick={
+                // SHARE CLICK
+                shareClick
+              }
+            >
+              <img src={images.share} alt="share" />
+            </div>
+            <div
+              className={styles.action}
+              onClick={
+                // COPY CLICK
+                copyClick
+              }
+            >
+              <img src={images.copy} alt="copy" />
+            </div>
+          </div>
+        </div>
+      )}
+
       <p
         className={styles.story_content}
         dangerouslySetInnerHTML={{
@@ -88,11 +147,28 @@ const StoryPage = () => {
       <div className={styles.user}>
         {/* <div className={styles.user_detail}>
           <div className={styles.profile}>
-            <img src={images.profile} alt="profile" />
+            {
+              // SHOW PROFILE PIC
+              publicLoading ? (
+                <Skeleton type="img" />
+              ) : (
+                <img src={images.profile} alt="profile-pic" />
+              )
+            }
           </div>
           <div className={styles.details}>
-            <p className={styles.name}>{userData?.user_details?.name}</p>
-            <p className={styles.email}>{userData?.user_details?.email}</p>
+            {publicLoading ? (
+              <Skeleton type="tags" />
+            ) : (
+              <>
+                <h1>
+                  <p className={styles.name}>{userData?.user_details?.name}</p>
+                </h1>
+                <p className={styles.date}>
+                  {formatDate(storyData?.created_at)}
+                </p>
+              </>
+            )}
           </div>
         </div> */}
         <h1>More from the creators</h1>

@@ -82,7 +82,7 @@ const Signup = () => {
   return (
     <div className={styles.signup}>
       <div className={styles.image}>
-        <img src={images.story} alt="story" />
+        <img src={images.signup_img} alt="story" />
       </div>
       <div className={styles.right}>
         <Link to={"/"}>
@@ -109,7 +109,7 @@ const Signup = () => {
             }}
           />
           <Input
-            type="text"
+            type="password"
             placeholder="Enter password here.."
             label={"Password"}
             name={"password"}
@@ -118,7 +118,7 @@ const Signup = () => {
             }}
           />
           <Input
-            type="text"
+            type="password"
             placeholder="Confirm your password.."
             label={"Confirm Password"}
             name={"confirmPassword"}

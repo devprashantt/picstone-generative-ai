@@ -7,10 +7,12 @@
 
     border-radius: 0.75rem;
     border: 0.5px solid var(--color-gray-20, #ccc);
+
     .image {
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 0.5rem;
+        object-fit: cover;
     }
 
     .title {
@@ -40,6 +42,7 @@
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 0.5rem;
+        object-fit: cover;
     }
 
     .title {
