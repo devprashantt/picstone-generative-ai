@@ -72,6 +72,52 @@
         }
     }
 
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+
+        .actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+
+            .action {
+                display: flex;
+                width: 2.5rem;
+                height: 2.5rem;
+                padding: 0.5rem;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 0.3125rem;
+                border: 1px solid var(--neutral-400, #d9dbe9);
+                background: #fff;
+
+                cursor: pointer;
+
+                &:hover {
+                    background: var(--neutral-100, #f4f5f7);
+                }
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            text-align: left !important;
+            text-align: center;
+
+            // TEXT COLOR
+            background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
     p {
         font-size: 1.2rem;
         font-weight: 500;
@@ -122,6 +168,9 @@
 
                 .email {
                 }
+
+                .date {
+                }
             }
         }
 
@@ -130,6 +179,42 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .story {
+        .left {
+            .image {
+                height: 16rem;
+            }
+        }
+
+        .title {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            .actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .user {
+            .user_detail {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .user_stories {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     }
 }

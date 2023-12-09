@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Input, Button, ImageUploader, Textarea } from "../../components";
 
 import Theme from "./components/Theme/Theme";
@@ -33,6 +35,7 @@ const GenerateStory = () => {
 
   const [storyData, setStoryData] = useState({
     title: "",
+    email: "",
     description: "",
     file: null,
     themes: {
@@ -65,9 +68,14 @@ const GenerateStory = () => {
     setStoryData({ ...storyData, file: null });
   };
 
+  // USE EFFECT FOR MAKING PAGE START FROM TOP
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleGenerateStory = async () => {
     try {
-      if (storyData.file) {
+      if (storyData.file || storyData.email || storyData.title) {
         // Convert the image to base64
         const reader = new FileReader();
 
@@ -79,6 +87,8 @@ const GenerateStory = () => {
 
             // Create a new object with the base64 image data
             const base64Data = { ...storyData, file: base64Image };
+
+            console.log("data:", storyData);
 
             await uploadImage(base64Data, (responseData) => {
               dispatch(setStory(responseData.story));
@@ -100,7 +110,7 @@ const GenerateStory = () => {
         reader.readAsDataURL(storyData.file);
       } else {
         // Handle the case where no file is selected
-        toast.error("No file selected for upload");
+        toast.error("No file selected for upload or email/title is incomplete");
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -131,28 +141,59 @@ const GenerateStory = () => {
             className={styles.image_uploader}
           >
             <img src={images.upload} alt="upload" />
-            <p>Upload image</p>
+            <p
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                fontSize: "1rem",
+                fontWeight: "500",
+              }}
+            >
+              Upload image
+              <br />
+              <span
+                style={{
+                  fontSize: "0.8rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {"Max Size: 2MB"}
+              </span>
+            </p>
           </ImageUploader>
         )}
       </div>
       <div className={styles.inputs}>
         <Input
+          type={"text"}
           value={storyData.title}
           onChange={(event) =>
             setStoryData({ ...storyData, title: event.target.value })
           }
-          placeholder={"Title"}
+          placeholder={"Enter your story title..."}
           label={"Story Title"}
           className={styles.input}
         />
-
+        <Input
+          value={storyData.email}
+          type={"email"}
+          onChange={(event) =>
+            setStoryData({ ...storyData, email: event.target.value })
+          }
+          placeholder={"Enter your email..."}
+          label={"Email Address"}
+          className={styles.input}
+        />
         <Textarea
           rows={8}
           value={storyData.description}
           onChange={(event) =>
             setStoryData({ ...storyData, description: event.target.value })
           }
-          placeholder={"Description"}
+          placeholder={"Provide a brief about the story..."}
           label={"Description"}
         />
         <Suggestion />

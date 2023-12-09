@@ -23,10 +23,13 @@ import bulb from "../assets/icons/bulb.svg";
 import upload from "../assets/icons/upload.svg";
 import arrow_left from "../assets/icons/arrow_left.svg";
 import arrow_right from "../assets/icons/arrow_right.svg";
+import copy from "../assets/icons/copy.svg";
+import share from "../assets/icons/share.svg";
 
 // IMAGES
 import map from "../assets/img/map.svg";
 import profile from "../assets/img/profile.svg";
+import signup_img from "../assets/img/signup.png";
 
 // ASSETS
 import story from "../assets/story.svg";
@@ -52,4 +55,7 @@ export default {
   profile,
   arrow_left,
   arrow_right,
+  signup_img,
+  copy,
+  share,
 };
