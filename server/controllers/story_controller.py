@@ -84,7 +84,27 @@ class StoryController:
             cloudinary_tags = cloudinary_data['tags']
 
             # List of keywords to check
-            keywords_to_check = ['Sex', 'Brassiere']
+            keywords_to_check = ['Sex', 'Brassiere', 'Porn']
+
+            # Check if any of the keywords are present in the title
+            for keyword in keywords_to_check:
+                if keyword.lower() in title.lower():
+                    # Handle the case when the keyword is found in the title
+                    print(
+                        f"Warning: Found '{keyword}' in title. Handle accordingly.")
+                    # You can add your logic here to handle the specific keyword found
+                    # For example, you can return an error response
+                    return jsonify({'error': f"Found '{keyword}' in title. Can't proceed with this title"}), 400
+
+            # Check if any of the keywords are present in the description
+            for keyword in keywords_to_check:
+                if keyword.lower() in desc.lower():
+                    # Handle the case when the keyword is found in the description
+                    print(
+                        f"Warning: Found '{keyword}' in description. Handle accordingly.")
+                    # You can add your logic here to handle the specific keyword found
+                    # For example, you can return an error response
+                    return jsonify({'error': f"Found '{keyword}' in description. Can't proceed with this description"}), 400
 
             # Check if any of the keywords are present in the tags
             for keyword in keywords_to_check:
@@ -93,7 +113,7 @@ class StoryController:
                     print(
                         f"Warning: Found '{keyword}' in tags. Handle accordingly.")
                     # You can add your logic here to handle the specific keyword found
-                    return jsonify({'error': f"Found '{keyword}' in tags. Can't generate using these tags"}), 500
+                    return jsonify({'error': f"Found '{keyword}' in tags. Can't generate using these tags"}), 400
 
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
@@ -260,7 +280,7 @@ class StoryController:
         try:
             # Retrieve all stories from the database in desc by date
             stories = Story.query.order_by(
-                Story.created_at.desc()).paginate(page=page, per_page=9).items
+                Story.created_at.desc()).paginate(page=page, per_page=12).items
 
             # Convert the stories into the format we want
             stories_list = []
