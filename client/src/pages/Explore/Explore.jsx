@@ -20,13 +20,13 @@ const Explore = ({ storyLength }) => {
   // STATE TO MANAGE ALL STORIES
   const [story, setStory] = useState([]);
   const [tags, setTags] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   // STATE VARIABLE FOR SEARCH QUERY
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchStories = async () => {
-    await getStoriesByPage(page + 1, (responseData) => {
+  const fetchStories = async (pageNumber) => {
+    await getStoriesByPage(pageNumber ? pageNumber : 1, (responseData) => {
       setStory(responseData.stories);
     });
   };
@@ -46,6 +46,18 @@ const Explore = ({ storyLength }) => {
       });
     } else {
       fetchStories();
+    }
+  };
+
+  const handleRightClick = () => {
+    setPage((prevPage) => prevPage + 1);
+    fetchStories(page + 1); // Pass the updated page value
+  };
+
+  const handleLeftClick = () => {
+    if (page > 1) {
+      setPage((prevPage) => prevPage - 1);
+      fetchStories(page - 1); // Pass the updated page value
     }
   };
 
@@ -103,10 +115,10 @@ const Explore = ({ storyLength }) => {
                     <Skeleton type="tags" key={index} />
                   </div>
                 ))
-              : tags?.slice(0, 5)?.map((tag) => {
+              : tags?.slice(0, 5)?.map((tag, index) => {
                   return (
                     <motion.div
-                      key={tag?.id}
+                      key={index}
                       whileInView={{ y: [120, 50, 0], opacity: [0, 0, 1] }}
                       transition={{
                         duration: 0.5,
@@ -122,7 +134,6 @@ const Explore = ({ storyLength }) => {
                           },
                         }}
                       >
-                        {/* MAKE FIRST LETTER UPPERCASE AND WHOLE SHOULD NOT ME GREATER THAN 11 CHAR */}
                         {tag}
                       </Link>
                     </motion.div>
@@ -161,26 +172,12 @@ const Explore = ({ storyLength }) => {
         </div>
       </div>
       <div className={styles.page}>
-        <div
-          className={styles.btn}
-          onClick={() => {
-            // DON'T GO DOWN IF ALREADY ON FIRST PAGE
-            if (page <= 0) return;
-            setPage((prevPage) => prevPage - 1);
-            fetchStories();
-          }}
-        >
+        <div className={styles.btn} onClick={handleLeftClick}>
           <img src={images.arrow_left} alt="left" />
         </div>
         {/* SHOW CURRENT */}
-        <div className={styles.current}>{page + 1}</div>
-        <div
-          className={styles.btn}
-          onClick={() => {
-            setPage((prevPage) => prevPage + 1);
-            fetchStories();
-          }}
-        >
+        <div className={styles.current}>{page}</div>
+        <div className={styles.btn} onClick={handleRightClick}>
           <img src={images.arrow_right} alt="right" />
         </div>
       </div>

@@ -101,7 +101,6 @@ const GenerateStory = () => {
             setIsUploading(false);
           } catch (error) {
             toast.error("Error uploading image");
-            console.error("Error converting image to base64:", error);
             setIsUploading(false);
           }
         };
