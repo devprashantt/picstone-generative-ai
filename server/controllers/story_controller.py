@@ -441,8 +441,8 @@ class StoryController:
 
         # Get stories from story table using user id and limit to 3
         query = "SELECT * FROM story WHERE user_id = %s;"
-        # limit stories to 3 and send it in descending order after story creation and ignore first 6
-        stories = db.engine.execute(query, (user_id)).fetchall()[6:12]
+        # limit stories to 3 and send it in descending order after story creation
+        stories = db.engine.execute(query, (user_id)).fetchall()[:3]
 
         # Send user name, email and number of stories to frontend
         user_details = {
