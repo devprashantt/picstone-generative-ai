@@ -49,3 +49,8 @@ def get_user_stories(validated_user):
 @story_bp.route('/user-stories/public/<story_id>', methods=['GET'])
 def get_public_user_stories(story_id):
     return StoryController.get_public_user_stories(story_id)
+
+
+@story_bp.route('/generate-audio/<story_id>', methods=['POST'])
+def generate_audio(story_id):
+    return StoryController.generate_audio_from_text(story_id)

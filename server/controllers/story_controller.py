@@ -9,6 +9,7 @@ from utils.upload_img import upload_image_to_cloudinary
 from utils.generate_story import generate_story
 from utils.analyze_tags import analyze_tags
 from utils.themed_story import generate_themed_story
+from utils.generate_audio import generate_audio
 
 # CONFIG
 from config.database import db
@@ -471,3 +472,15 @@ class StoryController:
             })
 
         return jsonify({'stories': stories_list, 'user_details': user_details})
+
+    # generate audio from text
+    @staticmethod
+    def generate_audio_from_text(story_id):
+        # Get story from story table using story id
+        query = "SELECT story_content FROM story WHERE id = %s;"
+        story = db.engine.execute(query, (story_id)).fetchone().story_content
+
+        # Generate audio from story
+        audio = generate_audio(story)
+
+        return audio
