@@ -78,12 +78,14 @@ const GenerateStory = () => {
 
   const handleGenerateStory = async () => {
     try {
-      // Check if email is of correct format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Check if email is of correct format only when user is not loggedin
+      if (!auth_data?.session_token && storyData.email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (!emailRegex.test(storyData.email)) {
-        toast.error("Invalid email address");
-        return;
+        if (!emailRegex.test(storyData.email)) {
+          toast.error("Invalid email address");
+          return;
+        }
       }
 
       if (storyData.file || storyData.email || storyData.title) {

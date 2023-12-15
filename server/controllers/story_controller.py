@@ -30,9 +30,6 @@ class StoryController:
             # Get session token from cookie
             session_token = request.cookies.get('session_token')
 
-            # Initialize user_id to 0
-            user_id = 240001
-
             # Verify user session
             if session_token:
                 # Get email from session
@@ -44,12 +41,15 @@ class StoryController:
                 query = "SELECT id FROM users WHERE email = %s;"
                 user_id = db.engine.execute(query, (user_email)).fetchone().id
 
+            else:
+                # Get user email when its is not logged in
+                user_email = payload['email']
+
+                # Set user id
+                user_id = 210001
+
             # Get the base64 image from the request body
             file = payload['file']
-
-            # Get user email when its is not logged in
-            if user_id == 240001:
-                user_email = payload['email']
 
             # Get theme from the request body: themes {romance: true, horror: false, comedy: false}
             themes = payload['themes']
@@ -224,7 +224,7 @@ class StoryController:
 
         # Store story in database
         new_story = Story(
-            user_id=240001,
+            user_id=user_id,
             image_id=new_image.id,
             story_content=story,
             story_title=theme,
