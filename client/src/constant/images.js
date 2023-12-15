@@ -25,6 +25,7 @@ import arrow_left from "../assets/icons/arrow_left.svg";
 import arrow_right from "../assets/icons/arrow_right.svg";
 import copy from "../assets/icons/copy.svg";
 import share from "../assets/icons/share.svg";
+import menu from "../assets/icons/menu.svg";
 
 // IMAGES
 import map from "../assets/img/map.svg";
@@ -58,4 +59,5 @@ export default {
   signup_img,
   copy,
   share,
+  menu,
 };

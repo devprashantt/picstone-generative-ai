@@ -1,3 +1,6 @@
+// USE STATE
+import { useState } from "react";
+
 // CONSTANTS
 import styles from "./Navbar.module.scss";
 import { images } from "../../constant";
@@ -15,8 +18,46 @@ const Navbar = () => {
   // REDUX GET USER
   const { auth_data } = useSelector((state) => state.user);
 
+  const [active, setActive] = useState(false);
+
   return (
     <div className={styles.navbar}>
+      {/* FOR PHONE OR MOBILE */}
+      <div className={styles.mobile}>
+        <div
+          className={styles.hamburger}
+          onClick={() => {
+            setActive(!active);
+          }}
+        >
+          <img src={images.menu} alt="menu" />
+          {
+            // IF ACTIVE IS TRUE
+            active && (
+              <div className={styles.mobile_menu}>
+                <div className={styles.action}>
+                  <Link to={"/explore"} className={styles.menu}>
+                    Explore
+                  </Link>
+                  <Link to={"/theme"} className={styles.menu}>
+                    Theme
+                  </Link>
+                  <Link to={"/about"} className={styles.menu}>
+                    About
+                  </Link>
+                  <Link to={"/contact"} className={styles.menu}>
+                    Contact
+                  </Link>
+                </div>
+              </div>
+            )
+          }
+        </div>
+        <div className={styles.logo}>
+          <img src={images.picstone} alt="picstone" />
+        </div>
+      </div>
+
       {/* LOGO */}
       <Link to={"/"} className={styles.logo}>
         <img src={images.picstone} alt="picstone" />
