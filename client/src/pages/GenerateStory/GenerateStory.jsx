@@ -17,10 +17,13 @@ import { toast } from "react-toastify";
 import useStory from "../../api/useStory";
 
 // REDUX STATE
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setStory, setCloudinaryData } from "../../store/reducers/storySlice";
 
 const GenerateStory = () => {
+  // AUTH DATA
+  const { auth_data } = useSelector((state) => state.user);
+
   // REDUX DISPATCH
   const dispatch = useDispatch();
 
@@ -184,16 +187,20 @@ const GenerateStory = () => {
           label={"Story Title"}
           className={styles.input}
         />
-        <Input
-          value={storyData.email}
-          type={"email"}
-          onChange={(event) =>
-            setStoryData({ ...storyData, email: event.target.value })
-          }
-          placeholder={"Enter your email..."}
-          label={"Email Address"}
-          className={styles.input}
-        />
+
+        {!auth_data?.session_token && (
+          <Input
+            value={storyData.email}
+            type={"email"}
+            onChange={(event) =>
+              setStoryData({ ...storyData, email: event.target.value })
+            }
+            placeholder={"Enter your email..."}
+            label={"Email Address"}
+            className={styles.input}
+          />
+        )}
+
         <Textarea
           rows={8}
           value={storyData.description}

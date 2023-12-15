@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const useUser = () => {
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,9 @@ const useUser = () => {
 
       if (!response.ok) {
         const data = await response.json();
+
+        console.log(data.error);
+
         throw new Error(data.error || "Some error occurred, please try again");
       }
 

@@ -186,9 +186,17 @@
 
 @media screen and (max-width: 768px) {
     .story {
+        width: 100%;
         .left {
+            width: 100%;
             .image {
                 height: 16rem;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
             }
         }
 
@@ -205,8 +213,14 @@
             }
         }
 
+        .story_content {
+            width: 100%;
+        }
+
         .user {
+            width: 100%;
             .user_detail {
+                width: 100%;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -214,6 +228,7 @@
             }
 
             .user_stories {
+                width: 100%;
                 grid-template-columns: repeat(1, 1fr);
             }
         }
