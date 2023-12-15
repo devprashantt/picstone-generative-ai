@@ -68,7 +68,8 @@ const Navbar = () => {
           Explore
         </Link>
         <Link to={"/theme"} className={styles.menu}>
-          Theme
+          <p className={styles.name}>Theme</p>
+          <p className={styles.new}>New</p>
         </Link>
         <Link to={"/about"} className={styles.menu}>
           About

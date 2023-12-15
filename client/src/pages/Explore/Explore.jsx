@@ -82,11 +82,6 @@ const Explore = ({ storyLength }) => {
 
   useEffect(() => {}, [story]);
 
-  // WHENEVER RENDER NEW PAGE SCROLL TO STORY CONTAINER START
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [page]);
-
   return (
     <div className={styles.explore}>
       <Hero

@@ -37,6 +37,47 @@
             font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .new {
+                border-radius: 5%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                font-weight: 600;
+
+                text-transform: uppercase;
+                text-align: center;
+
+                // ANIMATE TEXT COLOR
+                background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
+
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+
+                border: 1.6px solid #702dff;
+                padding: 0.12rem 0.4rem 0rem 0.4rem;
+                border-radius: 8px;
+
+                // BORDER SHOULD SHOW INFINITE ANIMATE FOR SAME COLOR
+                animation: border 1.5s infinite;
+                @keyframes border {
+                    0% {
+                        border: 1.6px solid #702dff;
+                    }
+                    50% {
+                        border: 1.6px solid #702dff;
+                    }
+                    100% {
+                        border: 1.6px solid #702dff;
+                    }
+                }
+            }
         }
     }
 
