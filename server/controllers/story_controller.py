@@ -211,7 +211,7 @@ class StoryController:
 
         # Store image in database
         new_image = Image(
-            user_id=750008,
+            user_id=240001,
             image_path=images_link,
         )
 
@@ -224,7 +224,7 @@ class StoryController:
 
         # Store story in database
         new_story = Story(
-            user_id=user_id,
+            user_id=240001,
             image_id=new_image.id,
             story_content=story,
             story_title=theme,
