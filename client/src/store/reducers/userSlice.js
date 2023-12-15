@@ -19,13 +19,29 @@ const userSlice = createSlice({
 
     // Logout user
     logoutUser: (state) => {
-      state.user = {};
+      state.auth_data.session_token = null;
+
+      // Remove session token cookie
+      Cookies.remove("session_token");
+
+      // Remove user from local storage
       localStorage.removeItem("user");
+
+      // Remove user from session storage
+      sessionStorage.removeItem("user");
+
+      // Remove user from cookies
+      Cookies.remove("user");
+
+      // Remove user from redux store
+      state.auth_data.session_token = null;
+
+      // Redirect to explore page
+      window.location.href = "/explore";
     },
-    // Add other reducers here
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

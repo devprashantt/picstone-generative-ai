@@ -12,21 +12,31 @@ import ProfileView from "./components/ProfileView/ProfileView";
 // API
 import useUser from "../../api/useUser";
 
+// REDUX STATE
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/reducers/userSlice";
+
 import { images } from "../../constant";
 
 const profileTabOption = {
-  work: "Work",
+  work: "Stories",
   collections: "Collections",
   about: "About",
 };
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const [activeOption, setActiveOption] = useState(profileTabOption.work);
   const [userData, setUserData] = useState({});
 
   const { getUserData, loading } = useUser();
 
   const handleEditProfile = () => {};
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    toast.success("Logged out successfully");
+  };
 
   useEffect(() => {
     getUserData((userResponse) => {
@@ -40,8 +50,6 @@ const Profile = () => {
       setUserData(userResponse.user);
     });
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <div className={styles.profile}>
@@ -72,9 +80,9 @@ const Profile = () => {
             buttonText="Follow"
           />
           <Button
-            onClick={handleEditProfile}
+            onClick={handleLogout}
             className={styles.edit}
-            buttonText="Edit"
+            buttonText="Logout"
           />
         </div>
       </div>

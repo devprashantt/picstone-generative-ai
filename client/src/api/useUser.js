@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 const useUser = () => {
   const [loading, setLoading] = useState(false);

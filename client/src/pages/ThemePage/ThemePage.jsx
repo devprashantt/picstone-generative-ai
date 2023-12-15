@@ -37,8 +37,37 @@ const ThemePage = () => {
     });
   };
 
+  const handleChristmasTheme = () => {
+    // PAYLOAD
+    const payload = {
+      theme: "christmas",
+      images_link: theme.christmasTheme.imagesLink,
+    };
+
+    // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
+    themedStory(payload, (response, err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // DISPACTH TO REDUCER
+        dispatch(setStory(response?.story));
+        dispatch(setCloudinaryData(response?.cloudinary_data));
+        toast.success("Story generated successfully");
+        navigate("/story");
+      }
+    });
+  };
+
   return (
     <div className={styles.theme}>
+      <Theme
+        imagesLinks={theme.christmasTheme.imagesLink}
+        heading={theme.christmasTheme.heading}
+        subHeading={theme.christmasTheme.subHeading}
+        description={theme.christmasTheme.description}
+        handleTheme={() => handleChristmasTheme()}
+        isLoading={loading}
+      />
       <Theme
         imagesLinks={theme.diwaliTheme.imagesLink}
         heading={theme.diwaliTheme.heading}

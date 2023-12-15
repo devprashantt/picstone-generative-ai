@@ -53,9 +53,9 @@ const Navbar = () => {
             )
           }
         </div>
-        <div className={styles.logo}>
+        <Link to={"/"} className={styles.logo}>
           <img src={images.picstone} alt="picstone" />
-        </div>
+        </Link>
       </div>
 
       {/* LOGO */}

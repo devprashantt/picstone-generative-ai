@@ -21,4 +21,15 @@ const diwaliTheme = {
   description: `Diwali (also called Divali or Deepavali) is a “festival of lights” that celebrates the triumph of light over dark, good over evil, and the blessings of victory, freedom, and enlightenment.`,
 };
 
-export default { winterTheme, diwaliTheme };
+const christmasTheme = {
+  imagesLink: [
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1702678477/picstone/season/christmas/zhgt4x4vklphiyxocveu.jpg",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1702678371/picstone/season/christmas/iacica7hx0fmmmi71wui.jpg",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1702678425/picstone/season/christmas/rzmiykoj50thgudyiy5p.jpg",
+  ],
+  heading: "Christmas",
+  subHeading: "Christmas is a religious holiday celebrating the birth of Jesus",
+  description: `Christmas is a religious holiday celebrating the birth of Jesus as well as a cultural and commercial event. Learn about the history of Christmas, Santa Claus, and holiday traditions worldwide.`,
+};
+
+export default { winterTheme, diwaliTheme, christmasTheme };

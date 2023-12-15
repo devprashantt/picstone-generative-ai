@@ -9,7 +9,7 @@ const ProfileView = ({ option }) => {
   return (
     <div>
       {/* DELIVER DATA ON BASIS OF SELECTED OPTION, MAKE SWITCH CASES */}
-      {option === "Work" && <Work />}
+      {option === "Stories" && <Work />}
       {option === "boosted_shots" && (
         <div className={styles.profile_view}>
           <div className={styles.profile_view_header}>

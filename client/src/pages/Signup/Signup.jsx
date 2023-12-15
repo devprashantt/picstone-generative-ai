@@ -69,7 +69,7 @@ const Signup = () => {
     }
 
     // REGISTER USER
-    registerUser(formData, (responseData) => {
+    registerUser(formData, () => {
       navigate("/signin");
 
       // TOAST

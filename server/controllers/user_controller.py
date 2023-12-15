@@ -27,18 +27,18 @@ class UserController:
 
             db.engine.execute(query, data)
         except:
-            return 'The email supplied is already in use', 400
+            return 'The email supplied is already in use', 409
 
         try:
-            parameterized_url = f"{os.environ.get('BACKEND_URL')}/verify?token={verification_key}"
-            email_content = render_template(
-                'verification_email.html', name=name, path=parameterized_url)
-            msg = Message("Picstone: Verify Email",
-                          sender="picstoneai@gmail.com",
-                          recipients=[email])
-            msg.html = email_content
-            current_app.mail.send(msg)
-            return 'success', 200
+            # parameterized_url = f"{os.environ.get('BACKEND_URL')}/verify?token={verification_key}"
+            # email_content = render_template(
+            #     'verification_email.html', name=name, path=parameterized_url)
+            # msg = Message("Picstone: Verify Email",
+            #               sender="picstoneai@gmail.com",
+            #               recipients=[email])
+            # msg.html = email_content
+            # current_app.mail.send(msg)
+            return jsonify({'msg': "Successfully registered user!!"}), 200
         except:
             db.engine.execute("Delete from users where email = %s;", (email))
             return 'Could not register user', 400
@@ -49,7 +49,6 @@ class UserController:
         email = payload.get('email')
         password = payload.get('password')
 
-        # 
         # if not cls.is_user_verified(email):
         #     return 'user is not verified', 400
 

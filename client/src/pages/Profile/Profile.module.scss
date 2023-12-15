@@ -155,9 +155,12 @@
             .profile_body_nav {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 2rem;
 
                 .nav_items {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     width: 100%;
                 }
 
