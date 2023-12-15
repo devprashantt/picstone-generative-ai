@@ -179,10 +179,10 @@ const StoryPage = () => {
           {
             // SHOW 3 STORIES
             publicLoading
-              ? Array.from(Array(3).keys()).map((_, i) => {
+              ? Array.from(Array(4).keys()).map((_, i) => {
                   return <Skeleton key={i} type="card" />;
                 })
-              : userData?.stories?.slice(0, 3).map((story) => {
+              : userData?.stories?.slice(0, 4).map((story) => {
                   return (
                     <Card
                       key={story?.id}

@@ -75,6 +75,14 @@ const GenerateStory = () => {
 
   const handleGenerateStory = async () => {
     try {
+      // Check if email is of correct format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(storyData.email)) {
+        toast.error("Invalid email address");
+        return;
+      }
+
       if (storyData.file || storyData.email || storyData.title) {
         // Convert the image to base64
         const reader = new FileReader();

@@ -135,6 +135,7 @@
         align-items: center;
         justify-content: center;
         gap: 2rem;
+        margin-top: 2rem;
 
         h1 {
             background: linear-gradient(90deg, #702dff 33.02%, #702dff 33.02%, #9747ff 83.25%);
@@ -175,9 +176,9 @@
         }
 
         .user_stories {
-            width: 100%;
+            width: 80%;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
     }

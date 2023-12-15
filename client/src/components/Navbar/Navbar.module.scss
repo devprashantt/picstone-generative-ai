@@ -40,6 +40,10 @@
         }
     }
 
+    .mobile {
+        display: none;
+    }
+
     .auth {
         display: flex;
         align-items: center;
@@ -74,16 +78,71 @@
 @media screen and (max-width: 768px) {
     .navbar {
         .logo {
-            height: 50px;
-            width: 150px;
+            display: none;
+        }
 
-            img {
-                width: 100%;
-                height: 100%;
+        .mobile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-shrink: 1;
+
+            .logo {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                width: 180px;
+                flex-shrink: 1;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .hamburger {
+                display: flex;
+                position: relative;
+                cursor: pointer;
+
+                .mobile_menu {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+                    position: absolute;
+
+                    top: 100%;
+                    left: 0;
+                    padding: 1rem 2rem;
+                    border-radius: 0.9375rem;
+                    background: var(--neutral-100, #fff);
+
+                    border: 0.2px solid #eaeaea;
+
+                    box-shadow: 0px 5px 14px 0px rgba(8, 15, 52, 0.04);
+
+                    .action {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 1rem;
+
+                        .menu {
+                            width: 100%;
+                            display: flex;
+                            cursor: pointer;
+                        }
+                    }
+                }
             }
         }
 
         .action {
+            display: none;
             .menus {
                 .menu {
                 }
