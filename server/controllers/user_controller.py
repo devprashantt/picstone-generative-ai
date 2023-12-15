@@ -48,8 +48,10 @@ class UserController:
         payload = request.get_json()
         email = payload.get('email')
         password = payload.get('password')
-        if not cls.is_user_verified(email):
-            return 'user is not verified', 400
+
+        # 
+        # if not cls.is_user_verified(email):
+        #     return 'user is not verified', 400
 
         try:
             query = 'SELECT password_hash, salt FROM users where email = %s;'
