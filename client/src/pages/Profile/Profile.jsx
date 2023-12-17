@@ -69,7 +69,7 @@ const Profile = () => {
             ) : userData?.bio ? (
               userData?.bio
             ) : (
-              "UI / Visual Design, Product Design, UX Design / Research"
+              "Story Creator"
             )}
           </p>
         </div>

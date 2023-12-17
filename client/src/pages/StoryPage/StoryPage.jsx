@@ -174,7 +174,7 @@ const StoryPage = () => {
             )}
           </div>
         </div> */}
-        <h1>More from the creators</h1>
+        <h1>More from the creator</h1>
         <div className={styles.user_stories}>
           {
             // SHOW 3 STORIES
