@@ -82,7 +82,12 @@ const Signup = () => {
   return (
     <div className={styles.signup}>
       <div className={styles.image}>
-        <img src={images.signup_img} alt="story" />
+        <img
+          src={
+            "https://res.cloudinary.com/dixoiunbw/image/upload/v1702846196/picstone/landing-page/wkbc8he3e1ltbhe0dbyi.jpg"
+          }
+          alt="story"
+        />
       </div>
       <div className={styles.right}>
         <Link to={"/"}>

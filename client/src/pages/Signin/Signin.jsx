@@ -97,7 +97,12 @@ const Signin = () => {
         </p>
       </div>
       <div className={styles.image}>
-        <img src={images.story} alt="story" />
+        <img
+          src={
+            "https://res.cloudinary.com/dixoiunbw/image/upload/v1702846196/picstone/landing-page/gbvqtkri7cbtuyotxwfn.jpg"
+          }
+          alt="story"
+        />
       </div>
     </div>
   );
