@@ -91,3 +91,28 @@
         z-index: -1;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .hero {
+        .hero__content {
+            .hero__heading {
+                font-size: 2.4rem;
+            }
+
+            .hero__description {
+                width: 100%;
+                font-size: medium;
+            }
+        }
+
+        .warning {
+            width: 100%;
+        }
+
+        .shape1 {
+        }
+
+        .shape2 {
+        }
+    }
+}

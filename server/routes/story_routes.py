@@ -20,6 +20,15 @@ def get_all_stories():
     return StoryController.get_all_stories()
 
 
+@story_bp.route('/story/<story_id>', methods=['PUT`, DELETE'])
+@requires_user_session
+def update_story(story_id):
+    if request.method == 'PUT':
+        return StoryController.update_story(story_id)
+    elif request.method == 'DELETE':
+        return StoryController.delete_story(story_id)
+
+
 @story_bp.route('/generate-story/story/<story_id>', methods=['GET'])
 def get_story(story_id):
     return StoryController.get_story(story_id)

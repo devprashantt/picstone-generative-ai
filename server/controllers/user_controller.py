@@ -53,7 +53,7 @@ class UserController:
         #     return 'user is not verified', 400
 
         try:
-            query = 'SELECT password_hash, salt FROM users where email = %s;'
+            query = 'SELECT password_hash, salt, id FROM users where email = %s;'
             data = (email,)
             values = db.engine.execute(query, data)
             row = values.fetchone()
@@ -63,11 +63,17 @@ class UserController:
                 session_tools.establish_session(email, session_token)
                 response = make_response(
                     jsonify({'session_token': session_token,
-                            'msg': "session established", "email": email}), 200
+                            'msg': "session established", "email": email, "user_id": row.id}), 200
                 )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000,
                     secure=True, httponly=True, samesite='None')
+
+                # Set user id cookie
+                response.set_cookie(
+                    'user_id', str(row.id), max_age=36000,
+                    secure=True, httponly=True, samesite='None')
+
                 return response
             else:
                 return 'invalid', 400

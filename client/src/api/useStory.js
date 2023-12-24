@@ -211,6 +211,66 @@ const useStory = () => {
     }
   };
 
+  // EDIT STORY
+  const editStory = async (story_id, payload, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/story/${story_id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+
+      if (cb && typeof cb === "function") {
+        cb();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // DELETE STORY
+  const deleteStory = async (story_id, cb) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/story/${story_id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Some error occurred, please try again");
+      }
+      if (cb && typeof cb === "function") {
+        cb();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     loading,
     uploadImage,
@@ -220,6 +280,8 @@ const useStory = () => {
     getUserStories,
     getStoriesByPage,
     searchStory,
+    editStory,
+    deleteStory,
   };
 };
 
