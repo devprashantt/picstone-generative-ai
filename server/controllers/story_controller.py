@@ -64,6 +64,9 @@ class StoryController:
             # Get the title from the request body
             title = payload['title']
 
+            # Extracted text to be updated after ocr
+            image_text = ""
+
             # If sex word found in title return
             if 'sex' in title.lower():
                 return jsonify({'error': f"Found '{title}' in title. Can't generate using this title"}), 500
@@ -83,6 +86,15 @@ class StoryController:
 
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
+
+            # Extracted text from the image
+            if cloudinary_data["info"]["ocr"]["adv_ocr"]["status"] == "complete":
+                image_text_data = cloudinary_data["info"]["ocr"]["adv_ocr"]["data"][0]["textAnnotations"]
+
+            # Map over image text and create a string representation and ignore any empty strings and ignore "\n" characters in the string
+            for text in image_text_data:
+                if text["description"] != "" and text["description"] != "\n":
+                    image_text += text["description"] + " "
 
             # List of keywords to check
             keywords_to_check = ['Sex', 'Brassiere', 'Porn', 'Rape']
@@ -118,8 +130,6 @@ class StoryController:
 
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
-
-            image_text = ""
 
             if not cloudinary_tags:
                 return jsonify({'error': 'No Cloudinary-generated tags found'})
@@ -187,6 +197,7 @@ class StoryController:
 
             return jsonify({
                 'story': story,
+                'img_text': image_text,
                 'cloudinary_data': {
                     'secure_url': cloudinary_link,
                     'tags': cloudinary_tags
