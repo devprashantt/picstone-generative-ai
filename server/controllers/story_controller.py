@@ -85,7 +85,7 @@ class StoryController:
             cloudinary_tags = cloudinary_data['tags']
 
             # List of keywords to check
-            keywords_to_check = ['Sex', 'Brassiere', 'Porn']
+            keywords_to_check = ['Sex', 'Brassiere', 'Porn', 'Rape']
 
             # Check if any of the keywords are present in the title
             for keyword in keywords_to_check:
