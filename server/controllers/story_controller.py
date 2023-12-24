@@ -487,3 +487,50 @@ class StoryController:
             })
 
         return jsonify({'stories': stories_list, 'user_details': user_details})
+
+    # delete a story
+    @staticmethod
+    def delete_story(story_id):
+        try:
+            # Retrieve the story from the database
+            story = Story.query.get(story_id)
+
+            # Check if the story exists
+            if not story:
+                return jsonify({'error': 'Story not found'})
+
+            # Delete the story
+            db.session.delete(story)
+            db.session.commit()
+
+            return jsonify({'message': 'Story deleted successfully'})
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})
+
+    # update a story
+    @staticmethod
+    def update_story(story_id):
+        try:
+            # Retrieve the story from the database
+            story = Story.query.get(story_id)
+
+            # Check if the story exists
+            if not story:
+                return jsonify({'error': 'Story not found'})
+
+            # Get the new story content from the request body
+            new_story_content = request.get_json()['story_content']
+
+            # Update the story content
+            story.story_content = new_story_content
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            return jsonify({'message': 'Story updated successfully'})
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error': str(e)})

@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import styles from "./StoryPage.module.scss";
@@ -17,6 +18,8 @@ import replaceNewlinesWithBr from "../../utility/replaceNewLineWithBr";
 
 const StoryPage = () => {
   const navigate = useNavigate();
+
+  const { auth_data } = useSelector((state) => state.user);
 
   const { id } = useParams();
   const { getStoryById, loading } = useStory();
@@ -76,12 +79,12 @@ const StoryPage = () => {
       setStoryData({});
       setUserData({});
     };
-  }, []);
+  }, [id]);
 
   // TAKE USER TO TOP PAGE
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   return (
     <div className={styles.story}>
@@ -137,6 +140,17 @@ const StoryPage = () => {
             >
               <img src={images.copy} alt="copy" />
             </div>
+            {
+              // IF USER AND STORY ID OF USER ARE SAME THEN USER CAN EDIT ELSE DONT SHOW
+              auth_data?.user_id === storyData?.user_id && (
+                <div
+                  className={styles.action}
+                  onClick={() => navigate(`/generate-story/${id}`)}
+                >
+                  <img src={images.edit} alt="edit" />
+                </div>
+              )
+            }
           </div>
         </div>
       )}
