@@ -183,3 +183,16 @@ class UserController:
     @classmethod
     def user_access(cls, validated_user):
         return session_tools.get_privledge(validated_user), 200
+
+    @classmethod
+    def get_google_oauth_link(cls):
+        return "hello world", 200
+        # send oauth link
+    
+    @classmethod
+    def handle_google_login(cls):
+        return "hello world", 200
+        # 1. get url params and validate the user 
+        # 2 check if user exists for the email
+        # if no => register the follow login logic
+        # if yes => create a session token and send response to client
