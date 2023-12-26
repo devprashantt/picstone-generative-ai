@@ -4,8 +4,10 @@ from config.database import db
 import uuid
 import bcrypt
 import os
+import requests
 import hashlib
 from utils import session_tools
+from config.database import db
 
 
 class UserController:
@@ -186,12 +188,75 @@ class UserController:
 
     @classmethod
     def get_google_oauth_link(cls):
-        return "hello world", 200
-        # send oauth link
+        GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
+        GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+        GOOGLE_REDIRECT_URI = os.environ.get('REDIRECT_URI')
+        # LANDING_URL = "http://localhost:5000"# "https://picstone-generative-ai.vercel.app/"
+
+        authorization_url = f'''https://accounts.google.com/o/oauth2/auth?client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&response_type=code&scope=openid+profile+email&prompt=consent'''
+        # client side must handle rediecting to the oath link
+        return authorization_url
     
     @classmethod
     def handle_google_login(cls):
-        return "hello world", 200
+
+        code = request.args.get('code')
+
+        GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
+        GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+        GOOGLE_REDIRECT_URI = os.environ.get('REDIRECT_URI')
+
+        token_endpoint = 'https://oauth2.googleapis.com/token'
+
+        token_payload = {
+            'code': code,
+            'client_id': GOOGLE_CLIENT_ID,
+            'client_secret': GOOGLE_CLIENT_SECRET,
+            'redirect_uri': GOOGLE_REDIRECT_URI,
+            'grant_type': 'authorization_code'
+        }
+
+        token_response = requests.post(token_endpoint, data=token_payload)
+        token_data = token_response.json()
+
+        access_token = token_data.get('access_token')
+
+        if access_token:
+            user_info_endpoint = 'https://www.googleapis.com/oauth2/v2/userinfo'
+            headers = {'Authorization': f'Bearer {access_token}'}
+
+            # Retrieve user information
+            user_info_response = requests.get(user_info_endpoint, headers=headers)
+            user_info = user_info_response.json()
+
+            email = str(user_info['email'])
+            name = str(user_info['name'])
+
+            # check if the user exists
+            query = "SELECT is FROM users WHERE email = %s;"
+            values = db.engine.execute(query, (email)).fetchone()
+            if not values:
+                # try to register the user
+                query = 'INSERT INTO users (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
+
+                data = (email, name, "google_user", "google_user", "verified")
+
+                db.engine.execute(query, data)
+
+            session_token = str(uuid.uuid4())
+
+            session_tools.establish_session(email, session_token)
+
+            response = make_response("successful")
+
+            response.set_cookie(
+                    'session_token', session_token, max_age=36000,
+                    secure=True, httponly=True, samesite='None')
+            
+            return response
+        else:
+            return "invalid access token", 400
+
         # 1. get url params and validate the user 
         # 2 check if user exists for the email
         # if no => register the follow login logic
