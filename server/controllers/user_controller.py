@@ -198,7 +198,7 @@ class UserController:
         return authorization_url
     
     @classmethod
-    def handle_google_login(cls):
+    def handle_google_login_and_signup(cls):
 
         code = request.args.get('code')
 

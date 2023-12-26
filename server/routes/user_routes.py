@@ -40,3 +40,12 @@ def update_password():
 @session_tools.requires_user_session
 def user_access(validated_user):
     return UserController.user_access(validated_user)
+
+@user_bp.route('/get_google_oauth_link', methods=[ 'GET'])
+def get_google_oauth_link():
+    return UserController.get_google_oauth_link()
+
+@user_bp.route('/get_google_oauth_link', methods=[ 'POST' ])
+def handle_google_login_and_signup():
+    return UserController.handle_google_login_and_signup()
+
