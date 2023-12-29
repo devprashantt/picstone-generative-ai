@@ -200,7 +200,8 @@ class UserController:
     @classmethod
     def handle_google_login_and_signup(cls):
 
-        code = request.args.get('code')
+        payload = request.get_json()
+        code = payload.get('code')
 
         GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
         GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
