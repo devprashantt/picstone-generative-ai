@@ -4,8 +4,10 @@ from config.database import db
 import uuid
 import bcrypt
 import os
+import requests
 import hashlib
 from utils import session_tools
+from config.database import db
 
 
 class UserController:
@@ -53,7 +55,7 @@ class UserController:
         #     return 'user is not verified', 400
 
         try:
-            query = 'SELECT password_hash, salt, id FROM users where email = %s;'
+            query = 'SELECT password_hash, salt, id, name FROM users where email = %s;'
             data = (email,)
             values = db.engine.execute(query, data)
             row = values.fetchone()
@@ -63,7 +65,7 @@ class UserController:
                 session_tools.establish_session(email, session_token)
                 response = make_response(
                     jsonify({'session_token': session_token,
-                            'msg': "session established", "email": email, "user_id": row.id}), 200
+                            'msg': "session established", "email": email, "user_id": row.id, "name": row.name}), 200
                 )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000,
@@ -110,7 +112,7 @@ class UserController:
             return False
 
     @classmethod
-    def verfiy_user(cls):
+    def verify_user(cls):
         # TODO This route is timing attack vulnerable FIX -> hash the verification token
         verification_token = request.args.get('token', None, str)
         if not verification_token:
@@ -183,3 +185,103 @@ class UserController:
     @classmethod
     def user_access(cls, validated_user):
         return session_tools.get_privledge(validated_user), 200
+
+    @classmethod
+    def get_google_oauth_link(cls):
+        GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
+        GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+        GOOGLE_REDIRECT_URI = os.environ.get('REDIRECT_URI')
+        LANDING_URL = "http://localhost:5000"
+
+        authorization_url = f'''https://accounts.google.com/o/oauth2/auth?client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&response_type=code&scope=openid+profile+email&prompt=consent'''
+        # client side must handle redirecting to the oath link
+        return jsonify(
+            {'authorization_url': authorization_url, 'landing_url': LANDING_URL}
+        )
+
+    @classmethod
+    def handle_google_login_and_signup(cls):
+
+        payload = request.get_json()
+        code = payload.get('code')
+
+        GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
+        GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+        GOOGLE_REDIRECT_URI = os.environ.get('REDIRECT_URI')
+
+        token_endpoint = 'https://oauth2.googleapis.com/token'
+
+        token_payload = {
+            'code': code,
+            'client_id': GOOGLE_CLIENT_ID,
+            'client_secret': GOOGLE_CLIENT_SECRET,
+            'redirect_uri': GOOGLE_REDIRECT_URI,
+            'grant_type': 'authorization_code'
+        }
+
+        token_response = requests.post(token_endpoint, data=token_payload)
+        token_data = token_response.json()
+
+        access_token = token_data.get('access_token')
+
+        if access_token:
+            user_info_endpoint = 'https://www.googleapis.com/oauth2/v2/userinfo'
+            headers = {'Authorization': f'Bearer {access_token}'}
+
+            # Retrieve user information
+            user_info_response = requests.get(
+                user_info_endpoint, headers=headers)
+            user_info = user_info_response.json()
+
+            email = str(user_info['email'])
+            name = str(user_info['name'])
+
+            # check if the user exists
+            query = "SELECT id FROM users WHERE email = %s;"
+            values = db.engine.execute(query, (email)).fetchone()
+            if not values:
+                # try to register the user
+                query = 'INSERT INTO users (email, name, password_hash, salt, verification_id) VALUES (%s,%s,%s,%s,%s);'
+
+                data = (email, name, "google_user", "google_user", "verified")
+
+                db.engine.execute(query, data)
+
+            session_token = str(uuid.uuid4())
+
+            session_tools.establish_session(email, session_token)
+
+            response = make_response(
+                jsonify(
+                    {
+                        'session_token': session_token,
+                        'msg': "session established",
+                        "name": name,
+                        "email": email,
+                        "user_id": values.id
+                    }
+                )
+            )
+
+            response.set_cookie(
+                'session_token', session_token, max_age=36000,
+                secure=True, httponly=True, samesite='None')
+
+            return response, 200
+        else:
+            return "invalid access token", 400
+
+    @classmethod
+    def logout_user(cls):
+        session_token = request.cookies.get('session_token')
+        if not session_token:
+            return 'no session token provided', 400
+        try:
+            query = "DELETE FROM sessions WHERE session_token = %s;"
+            db.engine.execute(query, (session_token))
+            return jsonify({
+                'msg': "Successfully logged out!!",
+                "session_token": session_token
+            }), 200
+        except:
+            return 'could not log out', 400

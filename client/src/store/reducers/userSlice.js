@@ -6,6 +6,10 @@ const initialState = {
     session_token: Cookies.get("session_token") || null,
     user_id: Cookies.get("user_id") || null,
   },
+  user_data: {
+    name: "",
+    email: "",
+  },
 };
 
 const userSlice = createSlice({
@@ -18,33 +22,24 @@ const userSlice = createSlice({
       state.auth_data.session_token = action.payload.session_token;
       // Set user id from payload
       state.auth_data.user_id = action.payload.user_id;
+
+      // Set name
+      state.user_data.name = action.payload.name;
+      // Set email
+      state.user_data.email = action.payload.email;
     },
 
     // Logout user
-    logoutUser: (state) => {
-      state.auth_data.session_token = null;
-
-      // Remove session token cookie
+    logoutUserState: (state) => {
+      // Remove session id from cookies
       Cookies.remove("session_token");
 
-      // Remove user from local storage
-      localStorage.removeItem("user_id");
-
-      // Remove user from session storage
-      sessionStorage.removeItem("user_id");
-
-      // Remove user from cookies
-      Cookies.remove("user_id");
-
-      // Remove user from redux store
+      // Set user state as null
       state.auth_data.session_token = null;
-
-      // Redirect to explore page
-      window.location.href = "/explore";
     },
   },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setUser, logoutUserState } = userSlice.actions;
 
 export default userSlice.reducer;

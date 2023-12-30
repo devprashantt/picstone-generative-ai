@@ -1,7 +1,7 @@
 import styles from "./Signin.module.scss";
 
 // REACT IMPORTS
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // REACT ROUTER
@@ -12,6 +12,7 @@ import { images } from "../../constant";
 
 // TOAST
 import { toast } from "react-toastify";
+import axios from "axios";
 
 // REACT REDUX
 import { useDispatch } from "react-redux";
@@ -19,6 +20,8 @@ import { setUser } from "../../store/reducers/userSlice";
 
 // API
 import useUser from "./../../api/useUser";
+
+axios.defaults.withCredentials = true;
 
 const Signin = () => {
   const [formData, setFormData] = useState({
@@ -29,6 +32,54 @@ const Signin = () => {
   const { loginUser, loading } = useUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [gLoading, setGLoading] = useState(false);
+
+  // Function to handle the callback from Google after redirection
+  const handleGoogleCallback = async () => {
+    try {
+      setGLoading(true);
+
+      // Capture the authorization code from the URL
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const code = urlSearchParams.get("code");
+
+      // Send the authorization code to your server
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/get_google_oauth_link`,
+        { code: code }
+      );
+
+      // Handle the response from your server (optional)
+      console.log(response.data);
+
+      // Save user to redux state
+      dispatch(setUser(response.data));
+      navigate("/");
+    } catch (error) {
+      console.error("Error handling Google callback:", error);
+    } finally {
+      setGLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setGLoading(true);
+
+      // Call your backend to initiate the OAuth flow
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/get_google_oauth_link`
+      );
+
+      // Redirect the user to the Google OAuth authorization URL
+      window.location.href = response.data.authorization_url;
+    } catch (error) {
+      console.error("Error initiating Google login:", error);
+    } finally {
+      setGLoading(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,6 +98,16 @@ const Signin = () => {
       }
     });
   };
+
+  useEffect(() => {
+    // ONLY AFTER REDIRECT AND GOOGLE CALL FXN COMPLETED
+    if (window.location.search && !gLoading) {
+      handleGoogleCallback();
+    }
+  }, [
+    // IF SEARCH CHANGES
+    window.location.search,
+  ]);
 
   return (
     <div className={styles.signin}>
@@ -95,6 +156,8 @@ const Signin = () => {
             Sign Up
           </span>
         </p>
+
+        <button onClick={handleGoogleLogin}>Google</button>
       </div>
       <div className={styles.image}>
         <img
