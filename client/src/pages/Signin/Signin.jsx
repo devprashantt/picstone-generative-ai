@@ -20,6 +20,10 @@ import { setUser } from "../../store/reducers/userSlice";
 // API
 import useUser from "./../../api/useUser";
 
+import axios from "axios"
+
+axios.defaults.withCredentials = true;
+
 const Signin = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -97,6 +101,14 @@ const Signin = () => {
     });
   };
 
+  const redirectGoogle = () =>{
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/get_google_oauth_link`).then((response)=>{
+      window.location.href = response.data
+    }).catch((error)=>{
+      toast.error("There was an issue communicating with server");
+    })
+  }
+
   return (
     <div className={styles.signin}>
       <div className={styles.left}>
@@ -127,6 +139,11 @@ const Signin = () => {
             type={"submit"}
           />
         </form>
+
+        <Button 
+        buttonText={"Login with Google"}
+        onClick={redirectGoogle}
+        />
 
         <p className={styles.link}>
           {`Don't have an account?`}
