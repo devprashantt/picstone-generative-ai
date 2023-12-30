@@ -6,6 +6,10 @@ const initialState = {
     session_token: Cookies.get("session_token") || null,
     user_id: Cookies.get("user_id") || null,
   },
+  user_data: {
+    name: "",
+    email: "",
+  },
 };
 
 const userSlice = createSlice({
@@ -18,6 +22,11 @@ const userSlice = createSlice({
       state.auth_data.session_token = action.payload.session_token;
       // Set user id from payload
       state.auth_data.user_id = action.payload.user_id;
+
+      // Set name
+      state.user_data.name = action.payload.name;
+      // Set email
+      state.user_data.email = action.payload.email;
     },
 
     // Logout user

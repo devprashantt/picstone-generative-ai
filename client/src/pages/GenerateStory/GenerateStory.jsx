@@ -22,7 +22,7 @@ import { setStory, setCloudinaryData } from "../../store/reducers/storySlice";
 
 const GenerateStory = () => {
   // AUTH DATA
-  const { auth_data } = useSelector((state) => state.user);
+  const { auth_data, user_data } = useSelector((state) => state.user);
 
   // REDUX DISPATCH
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const GenerateStory = () => {
 
   const [storyData, setStoryData] = useState({
     title: "",
-    email: "",
+    email: user_data.email,
     description: "",
     file: null,
     themes: {
@@ -88,7 +88,7 @@ const GenerateStory = () => {
         }
       }
 
-      if (storyData.file || storyData.email || storyData.title) {
+      if (storyData.file && storyData.email && storyData.title) {
         // Convert the image to base64
         const reader = new FileReader();
 
