@@ -55,7 +55,7 @@ class UserController:
         #     return 'user is not verified', 400
 
         try:
-            query = 'SELECT password_hash, salt, id FROM users where email = %s;'
+            query = 'SELECT password_hash, salt, id, name FROM users where email = %s;'
             data = (email,)
             values = db.engine.execute(query, data)
             row = values.fetchone()
@@ -65,7 +65,7 @@ class UserController:
                 session_tools.establish_session(email, session_token)
                 response = make_response(
                     jsonify({'session_token': session_token,
-                            'msg': "session established", "email": email, "user_id": row.id}), 200
+                            'msg': "session established", "email": email, "user_id": row.id, "name": row.name}), 200
                 )
                 response.set_cookie(
                     'session_token', session_token, max_age=36000,
@@ -112,7 +112,7 @@ class UserController:
             return False
 
     @classmethod
-    def verfiy_user(cls):
+    def verify_user(cls):
         # TODO This route is timing attack vulnerable FIX -> hash the verification token
         verification_token = request.args.get('token', None, str)
         if not verification_token:
@@ -251,12 +251,37 @@ class UserController:
 
             session_tools.establish_session(email, session_token)
 
-            response = make_response("successful")
+            response = make_response(
+                jsonify(
+                    {
+                        'session_token': session_token,
+                        'msg': "session established",
+                        "name": name,
+                        "email": email,
+                        "user_id": values.id
+                    }
+                )
+            )
 
             response.set_cookie(
                 'session_token', session_token, max_age=36000,
                 secure=True, httponly=True, samesite='None')
 
-            return response
+            return response, 200
         else:
             return "invalid access token", 400
+
+    @classmethod
+    def logout_user(cls):
+        session_token = request.cookies.get('session_token')
+        if not session_token:
+            return 'no session token provided', 400
+        try:
+            query = "DELETE FROM sessions WHERE session_token = %s;"
+            db.engine.execute(query, (session_token))
+            return jsonify({
+                'msg': "Successfully logged out!!",
+                "session_token": session_token
+            }), 200
+        except:
+            return 'could not log out', 400

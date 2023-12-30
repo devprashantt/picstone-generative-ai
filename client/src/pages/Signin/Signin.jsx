@@ -53,7 +53,9 @@ const Signin = () => {
       // Handle the response from your server (optional)
       console.log(response.data);
 
-      // You may redirect the user to another page or handle the session on the frontend
+      // Save user to redux state
+      dispatch(setUser(response.data));
+      navigate("/");
     } catch (error) {
       console.error("Error handling Google callback:", error);
     } finally {
@@ -72,9 +74,6 @@ const Signin = () => {
 
       // Redirect the user to the Google OAuth authorization URL
       window.location.href = response.data.authorization_url;
-
-      // After redirection, handle the callback
-      handleGoogleCallback();
     } catch (error) {
       console.error("Error initiating Google login:", error);
     } finally {
@@ -99,6 +98,16 @@ const Signin = () => {
       }
     });
   };
+
+  useEffect(() => {
+    // ONLY AFTER REDIRECT AND GOOGLE CALL FXN COMPLETED
+    if (window.location.search && !gLoading) {
+      handleGoogleCallback();
+    }
+  }, [
+    // IF SEARCH CHANGES
+    window.location.search,
+  ]);
 
   return (
     <div className={styles.signin}>
@@ -130,8 +139,6 @@ const Signin = () => {
             type={"submit"}
           />
         </form>
-
-        <Button buttonText={"Login with Google"} onClick={redirectGoogle} />
 
         <p className={styles.link}>
           {`Don't have an account?`}

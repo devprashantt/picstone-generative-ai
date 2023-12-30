@@ -14,7 +14,7 @@ import useUser from "../../api/useUser";
 
 // REDUX STATE
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../store/reducers/userSlice";
+import { logoutUserState } from "../../store/reducers/userSlice";
 
 import { images } from "../../constant";
 
@@ -29,13 +29,28 @@ const Profile = () => {
   const [activeOption, setActiveOption] = useState(profileTabOption.work);
   const [userData, setUserData] = useState({});
 
-  const { getUserData, loading } = useUser();
+  const { getUserData, loading, logoutUser } = useUser();
 
   const handleEditProfile = () => {};
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    toast.success("Logged out successfully");
+    // CALL API
+    logoutUser((response) => {
+      console.log("response->", response);
+      toast.success(response?.msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      // REMOVE USER FROM REDUX STATE
+      dispatch(logoutUserState());
+
+      // REDIRECT TO HOME PAGE
+      // window.location.href = "/explore";
+    });
   };
 
   useEffect(() => {
@@ -63,7 +78,7 @@ const Profile = () => {
               userData?.name
             )}
           </h1>
-          <p className={styles.bio}>
+          <div className={styles.bio}>
             {loading ? (
               <Skeleton type="text" width={"30rem"} />
             ) : userData?.bio ? (
@@ -71,7 +86,7 @@ const Profile = () => {
             ) : (
               "Story Creator"
             )}
-          </p>
+          </div>
         </div>
         <div className={styles.action}>
           <Button
