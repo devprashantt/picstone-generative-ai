@@ -36,6 +36,44 @@ class TagsController:
         except Exception as e:
             return jsonify({'error': str(e)}), 500
 
+    # Get ids
+    @staticmethod
+    def get_tags_by_story_id(story_id):
+        try:
+            # Get the tags for the story with the specified ID
+            tags = Tags.query.filter_by(story_id=story_id).first()
+
+            # Split the tags_string by comma and remove leading/trailing spaces
+            tags_list = [tag.strip()
+                         for tag in tags.tags_string.split(',')] if tags else []
+
+            return jsonify({'tags': tags_list, "message": "Tags fetched successfully!"}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+    # Search tags
+    @staticmethod
+    def get_tags_by_search(search_term):
+        # Search tags similar to search term
+        try:
+            # Get all tags from tags table
+            tags = Tags.query.all()
+
+            # Save each tags separately which are separated by comma
+            all_tags = []
+            for tag in tags:
+                tags_list = [t.strip() for t in tag.tags_string.split(',')]
+                all_tags.extend(tags_list)
+
+            # Now filter out the tags which are similar to given search term
+            filtered_tags = [
+                tag for tag in all_tags if search_term.lower() in tag.lower()]
+
+            return jsonify({'tags': filtered_tags, "message": "Tags fetched successfully!"}), 200
+
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
     # Get story by tag name
     @staticmethod
     def get_story_by_tag(tag_name):

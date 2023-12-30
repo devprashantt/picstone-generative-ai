@@ -9,6 +9,7 @@ import GenerateStory from "./GenerateStory/GenerateStory";
 import StoryByTag from "./StoryByTag/StoryByTag";
 import Profile from "./Profile/Profile";
 import ThemePage from "./ThemePage/ThemePage";
+import TagsPage from "./TagsPage/TagsPage";
 
 export {
   Landing,
@@ -22,4 +23,5 @@ export {
   StoryByTag,
   Profile,
   ThemePage,
+  TagsPage,
 };

@@ -22,6 +22,7 @@ import {
   StoryByTag,
   Profile,
   ThemePage,
+  TagsPage,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
@@ -64,6 +65,7 @@ const App = () => {
         <Route path="/theme" element={<ThemePage />} />
 
         {/* TAG */}
+        <Route path="tags" element={<TagsPage />} />
         <Route path="/tags/:tag" element={<StoryByTag />} />
 
         {/* ABOUT AND CONTACT */}

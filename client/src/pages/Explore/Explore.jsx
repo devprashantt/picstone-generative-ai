@@ -15,7 +15,7 @@ import { images } from "../../constant";
 
 const Explore = ({ storyLength }) => {
   const { getStoriesByPage, searchStory, loading } = useStory();
-  const { getAllTags, tagLoading } = useTags();
+  const { getAllTags, tagLoading, getSearchedTags } = useTags();
 
   // STATE TO MANAGE ALL STORIES
   const [story, setStory] = useState([]);
@@ -35,6 +35,18 @@ const Explore = ({ storyLength }) => {
     await getAllTags((responseData) => {
       setTags(responseData.tags);
     });
+  };
+
+  // FILTER TAGS BASED ON SEARCH QUERY
+  const filterTags = async () => {
+    // CALL ONLY WHEN INPUT CHANGES NOT INITIALLY
+    if (searchQuery) {
+      await getSearchedTags(searchQuery, (responseData) => {
+        setTags(responseData.tags);
+      });
+    } else {
+      fetchTags();
+    }
   };
 
   // FILTER STORIES BASED ON SEARCH QUERY USING SEARCH STORY SUCH THAT INITIALLY SHOW ALL
@@ -66,6 +78,7 @@ const Explore = ({ storyLength }) => {
     // SET DEBOUNCING
     const timer = setTimeout(() => {
       filterStories();
+      filterTags();
     }, 1000);
 
     // CLEAN UP FUNCTION
@@ -105,12 +118,12 @@ const Explore = ({ storyLength }) => {
           {
             // Display the skeleton loading UI when data is loading
             tagLoading
-              ? Array.from({ length: 5 }).map((_, index) => (
+              ? Array.from({ length: 14 }).map((_, index) => (
                   <div key={index}>
                     <Skeleton type="tags" key={index} />
                   </div>
                 ))
-              : tags?.slice(0, 5)?.map((tag, index) => {
+              : tags?.slice(0, 14)?.map((tag, index) => {
                   return (
                     <motion.div
                       key={index}
