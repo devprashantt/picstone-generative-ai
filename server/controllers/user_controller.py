@@ -191,12 +191,14 @@ class UserController:
         GOOGLE_CLIENT_ID = os.environ.get('CLIENT_ID')
         GOOGLE_CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
         GOOGLE_REDIRECT_URI = os.environ.get('REDIRECT_URI')
-        # LANDING_URL = "http://localhost:5000"# "https://picstone-generative-ai.vercel.app/"
+        LANDING_URL = "http://localhost:5000"
 
         authorization_url = f'''https://accounts.google.com/o/oauth2/auth?client_id={GOOGLE_CLIENT_ID}&redirect_uri={GOOGLE_REDIRECT_URI}&response_type=code&scope=openid+profile+email&prompt=consent'''
-        # client side must handle rediecting to the oath link
-        return authorization_url
-    
+        # client side must handle redirecting to the oath link
+        return jsonify(
+            {'authorization_url': authorization_url, 'landing_url': LANDING_URL}
+        )
+
     @classmethod
     def handle_google_login_and_signup(cls):
 
@@ -226,14 +228,15 @@ class UserController:
             headers = {'Authorization': f'Bearer {access_token}'}
 
             # Retrieve user information
-            user_info_response = requests.get(user_info_endpoint, headers=headers)
+            user_info_response = requests.get(
+                user_info_endpoint, headers=headers)
             user_info = user_info_response.json()
 
             email = str(user_info['email'])
             name = str(user_info['name'])
 
             # check if the user exists
-            query = "SELECT is FROM users WHERE email = %s;"
+            query = "SELECT id FROM users WHERE email = %s;"
             values = db.engine.execute(query, (email)).fetchone()
             if not values:
                 # try to register the user
@@ -250,14 +253,9 @@ class UserController:
             response = make_response("successful")
 
             response.set_cookie(
-                    'session_token', session_token, max_age=36000,
-                    secure=True, httponly=True, samesite='None')
-            
+                'session_token', session_token, max_age=36000,
+                secure=True, httponly=True, samesite='None')
+
             return response
         else:
             return "invalid access token", 400
-
-        # 1. get url params and validate the user 
-        # 2 check if user exists for the email
-        # if no => register the follow login logic
-        # if yes => create a session token and send response to client
