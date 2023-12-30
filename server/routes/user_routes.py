@@ -10,6 +10,11 @@ def register_user():
     return UserController.register_user()
 
 
+@user_bp.route('/logout-user', methods=['POST'])
+def logout_user():
+    return UserController.logout_user()
+
+
 @user_bp.route('/signin', methods=['POST'])
 def sign_in_user():
     return UserController.log_in_user()
@@ -23,7 +28,7 @@ def get_user(validated_user):
 
 @user_bp.route('/verify', methods=['GET', 'POST'])
 def verify_user():
-    return UserController.verfiy_user()
+    return UserController.verify_user()
 
 
 @user_bp.route('/forgotpassword', methods=['GET', 'POST'])
@@ -41,11 +46,12 @@ def update_password():
 def user_access(validated_user):
     return UserController.user_access(validated_user)
 
-@user_bp.route('/get_google_oauth_link', methods=[ 'GET'])
+
+@user_bp.route('/get_google_oauth_link', methods=['GET'])
 def get_google_oauth_link():
     return UserController.get_google_oauth_link()
 
-@user_bp.route('/get_google_oauth_link', methods=[ 'POST' ])
+
+@user_bp.route('/get_google_oauth_link', methods=['POST'])
 def handle_google_login_and_signup():
     return UserController.handle_google_login_and_signup()
-
