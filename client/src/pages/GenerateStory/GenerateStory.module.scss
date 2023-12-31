@@ -133,3 +133,19 @@
         padding: 1rem 2.8rem;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .generate_story {
+        .image {
+            width: 100%;
+        }
+
+        .inputs {
+            width: 100%;
+        }
+
+        .theme {
+            width: 100%;
+        }
+    }
+}
