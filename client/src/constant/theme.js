@@ -1,7 +1,7 @@
 const winterTheme = {
   imagesLink: [
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/ux5vrsotrgyuneve7ntn.svg",
-    "https://res.cloudinary.com/dixoiunbw/image/upload/v1704136662/picstone/season/newyear2024/nj6bf5q6svyypjy9idlr.png",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/dfzow8yomxtolpq6ex9k.svg",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297414/picstone/season/b2ic2fyvxsvsfdxtg43e.svg",
   ],
   heading: "Winter Wonders",
