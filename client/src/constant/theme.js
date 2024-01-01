@@ -1,7 +1,7 @@
 const winterTheme = {
   imagesLink: [
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/ux5vrsotrgyuneve7ntn.svg",
-    "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/dfzow8yomxtolpq6ex9k.svg",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1704136662/picstone/season/newyear2024/nj6bf5q6svyypjy9idlr.png",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297414/picstone/season/b2ic2fyvxsvsfdxtg43e.svg",
   ],
   heading: "Winter Wonders",
@@ -32,4 +32,16 @@ const christmasTheme = {
   description: `Christmas is a religious holiday celebrating the birth of Jesus as well as a cultural and commercial event. Learn about the history of Christmas, Santa Claus, and holiday traditions worldwide.`,
 };
 
-export default { winterTheme, diwaliTheme, christmasTheme };
+const newYear2024 = {
+  imagesLink: [
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1704135907/picstone/season/newyear2024/xoxs08kht1ojwuyk76vv.webp",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1704136934/picstone/season/newyear2024/ovppgfbbzcltxr2hccki.jpg",
+    "https://res.cloudinary.com/dixoiunbw/image/upload/v1704135908/picstone/season/newyear2024/cdjjc0spjalufdhw4x9v.avif",
+  ],
+  heading: "A Night of Joy, Laughter, and New Beginnings",
+  subHeading:
+    "Sparkling Celebration: A Glittering Welcome to the New Year 2024",
+  description: `Step into a world aglow with the brilliance of a thousand stars as we bid farewell to the old and usher in the new. Our 'Sparkling Celebration' theme invites you to a night of enchantment, where every moment is a sparkle and every laugh echoes with the promise of a brighter tomorrow. Immerse yourself in the shimmering lights, dance beneath the glittering confetti, and join us in toasting to the possibilities that lie ahead.`,
+};
+
+export default { winterTheme, diwaliTheme, christmasTheme, newYear2024 };

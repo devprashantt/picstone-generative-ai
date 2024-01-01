@@ -19,9 +19,12 @@ from models.story import Story
 from models.image import Image
 from models.tags import Tags
 
+# CONSTANTS
+from constants.response_data import response_data
+
 
 class StoryController:
-    # generate story from image
+    # generate story from image old
     @staticmethod
     def generate_story_from_image():
         try:
@@ -40,13 +43,11 @@ class StoryController:
                 # Get user_id from email
                 query = "SELECT id FROM users WHERE email = %s;"
                 user_id = db.engine.execute(query, (user_email)).fetchone().id
-
             else:
                 # Get user email when its is not logged in
                 user_email = payload['email']
-
                 # Set user id
-                user_id = 210001
+                user_id = 1080002
 
             # Get the base64 image from the request body
             file = payload['file']
@@ -66,6 +67,9 @@ class StoryController:
 
             # Extracted text to be updated after ocr
             image_text = ""
+
+            # Extract ai content from image
+            ai_content = ""
 
             # If sex word found in title return
             if 'sex' in title.lower():
@@ -87,14 +91,21 @@ class StoryController:
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
 
-            # Extracted text from the image
-            if cloudinary_data["info"]["ocr"]["adv_ocr"]["status"] == "complete":
-                image_text_data = cloudinary_data["info"]["ocr"]["adv_ocr"]["data"][0]["textAnnotations"]
+            try:
+                # Extract ai analysis from image
+                if cloudinary_data["info"]["detection"]["captioning"]["status"] == "complete":
+                    # Get ai content from data
+                    ai_content = cloudinary_data["info"]["detection"]["captioning"]["data"]["caption"]
+            except Exception as e:
+                print("Exception occurs during ai content analysis:", e)
 
-            # Map over image text and create a string representation and ignore any empty strings and ignore "\n" characters in the string
-            for text in image_text_data:
-                if text["description"] != "" and text["description"] != "\n":
-                    image_text += text["description"] + " "
+            # Extracted text from the image
+            try:
+                if cloudinary_data["info"]["ocr"]["adv_ocr"]["status"] == "complete":
+                    # Get text data from data
+                    image_text = cloudinary_data["info"]["ocr"]["adv_ocr"]["data"][0]["fullTextAnnotation"]["text"]
+            except Exception as e:
+                print("Exception occurs during text data extraction:", e)
 
             # List of keywords to check
             keywords_to_check = ['Sex', 'Brassiere', 'Porn', 'Rape']
@@ -140,6 +151,7 @@ class StoryController:
                 tag_analysis=tag_analysis,
                 image_text=image_text,
                 story_title=title,
+                ai_content=ai_content,
                 desc=desc,
                 themes=selected_themes,
             )
@@ -155,7 +167,7 @@ class StoryController:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+                return jsonify({'error during saving image in database': str(e)}), 500
 
             # Retrieve the ID of the newly saved image
             image_id = new_image.id
@@ -167,6 +179,7 @@ class StoryController:
                 image_id=image_id,
                 story_content=story,
                 story_title=title,
+                ai_content=ai_content,
                 theme=','.join(selected_themes)
             )
 
@@ -176,7 +189,7 @@ class StoryController:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+                return jsonify({'error during saving story on database': str(e)}), 500
 
             # Retrieve the ID of the newly saved story
             story_id = new_story.id
@@ -193,20 +206,21 @@ class StoryController:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return jsonify({'error': str(e)}), 500
+                return jsonify({'error during saving tags in database': str(e)}), 500
 
             return jsonify({
                 'story': story,
                 'img_text': image_text,
+                'ai_content': ai_content,
                 'cloudinary_data': {
                     'secure_url': cloudinary_link,
                     'tags': cloudinary_tags
                 }
-            })
+            }), 200
 
         except Exception as e:
             # Handle exceptions and return an error response
-            return jsonify({'error': str(e)}), 500
+            return jsonify({'error during story generation': str(e)}), 500
 
     # generate story from theme
     @staticmethod
@@ -240,7 +254,8 @@ class StoryController:
             story_content=story,
             story_title=theme,
             theme=theme,
-            user_email="picstoneail@gmail.com"
+            ai_content="New year celebration!!",
+            user_email="picstoneai@gmail.com"
         )
 
         try:
