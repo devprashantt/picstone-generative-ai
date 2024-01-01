@@ -52,6 +52,6 @@ def get_google_oauth_link():
     return UserController.get_google_oauth_link()
 
 
-@user_bp.route('/get_google_oauth_link', methods=['POST'])
+@user_bp.route('/handle_google_login_and_signup', methods=['POST'])
 def handle_google_login_and_signup():
     return UserController.handle_google_login_and_signup()
