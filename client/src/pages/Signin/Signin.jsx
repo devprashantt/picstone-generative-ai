@@ -46,7 +46,7 @@ const Signin = () => {
 
       // Send the authorization code to your server
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/get_google_oauth_link`,
+        `${import.meta.env.VITE_BACKEND_URL}/handle_google_login_and_signup`,
         { code: code }
       );
 
