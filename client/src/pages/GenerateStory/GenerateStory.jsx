@@ -54,8 +54,37 @@ const GenerateStory = () => {
     },
   });
 
+  const handlePaste = (event) => {
+    console.log("Paste image->", event);
+    const items = event.clipboardData.items;
+
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") !== -1) {
+        const pastedFile = items[i].getAsFile();
+
+        // CHECK FILE SIZE
+        if (pastedFile.size > 2000000) {
+          toast.error("File size should be less than 2MB");
+          return;
+        }
+
+        // UPDATE STORY DATA
+        setStoryData({ ...storyData, file: pastedFile });
+      }
+    }
+  };
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
+
+    // HANDLE CTRL+V
+    if (!file) return;
+
+    // CHECK FILE SIZE
+    if (file.size > 2000000) {
+      toast.error("File size should be less than 2MB");
+      return;
+    }
 
     // UPDATE STORY DATA
     setStoryData({ ...storyData, file: file });
@@ -101,8 +130,6 @@ const GenerateStory = () => {
             // Create a new object with the base64 image data
             const base64Data = { ...storyData, file: base64Image };
 
-            console.log("data:", storyData);
-
             await uploadImage(base64Data, (responseData) => {
               dispatch(setStory(responseData.story));
               dispatch(setCloudinaryData(responseData.cloudinary_data));
@@ -129,6 +156,14 @@ const GenerateStory = () => {
       setIsUploading(false);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("paste", handlePaste);
+
+    return () => {
+      document.removeEventListener("paste", handlePaste);
+    };
+  }, [storyData]);
 
   return (
     <div className={styles.generate_story}>
@@ -164,7 +199,7 @@ const GenerateStory = () => {
                 fontWeight: "500",
               }}
             >
-              Upload image
+              Upload or Paste image
               <br />
               <span
                 style={{
