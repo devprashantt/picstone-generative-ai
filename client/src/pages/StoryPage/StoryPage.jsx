@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -96,24 +96,31 @@ const StoryPage = () => {
             <img src={storyData?.image_url} alt="img-picstone" />
           </div>
         )}
-        <div className={styles.tags}>
-          {loading
-            ? // SHOW 6 TAGS
-              Array.from(Array(6).keys()).map((_, i) => {
-                return <Skeleton key={i} type="text" />;
-              })
-            : storyData?.tags?.slice(0, 10).map((tag) => {
-                return (
-                  <p key={tag} className={styles.tag} onClick={handleTagClick}>
-                    {tag}
-                  </p>
-                );
-              })}
-        </div>
+        {loading ? (
+          <div className={styles.tags}>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <div key={index}>
+                <Skeleton type="tags" key={index} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.tags}>
+            {storyData?.tags?.slice(0, 10).map((tag) => {
+              return (
+                <p key={tag} className={styles.tag} onClick={handleTagClick}>
+                  {tag}
+                </p>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {loading ? (
-        <Skeleton type="text" />
+        Array.from({ length: 12 }).map((_, index) => (
+          <Skeleton type="text" key={index} />
+        ))
       ) : (
         <div className={styles.title}>
           <h1>
@@ -161,6 +168,25 @@ const StoryPage = () => {
           __html: replaceNewlinesWithBr(storyData?.story_content),
         }}
       ></p>
+
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "1rem 0 1rem  0",
+          backgroundColor: "#f8f9fa",
+          padding: "2rem",
+          color: "#7c7c7c",
+          textAlign: "center",
+          borderRadius: "1rem",
+        }}
+      >
+        <h2>✨ Wanna Try??? ✨</h2>
+        <Link>Generate story now!!</Link>
+      </div>
+
       <div className={styles.user}>
         {/* <div className={styles.user_detail}>
           <div className={styles.profile}>
