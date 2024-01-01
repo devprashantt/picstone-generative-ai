@@ -11,12 +11,14 @@ class Story(db.Model):
     story_content = db.Column(db.Text, nullable=False)
     story_title = db.Column(db.Text, nullable=False)
     theme = db.Column(db.Text, nullable=False)
+    ai_content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
 
-    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme):
+    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme, ai_content):
         self.user_id = user_id
         self.user_email = user_email
         self.image_id = image_id
         self.story_content = story_content
         self.story_title = story_title
         self.theme = theme
+        self.ai_content = ai_content

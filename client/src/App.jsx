@@ -30,6 +30,9 @@ const App = () => {
   // REDUCERS SELECTORS
   const { auth_data } = useSelector((state) => state.user);
 
+  // STORY STATE
+  const storyData = useSelector((state) => state.story);
+
   // USE LOCATION
   const location = useLocation();
 
