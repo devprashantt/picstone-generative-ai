@@ -279,9 +279,16 @@ class UserController:
         try:
             query = "DELETE FROM sessions WHERE session_token = %s;"
             db.engine.execute(query, (session_token))
-            return jsonify({
+
+            response = make_response(jsonify({
                 'msg': "Successfully logged out!!",
                 "session_token": session_token
-            }), 200
+            }))
+
+            response.set_cookie(
+                'session_token', '' , max_age=0,
+                secure=True, httponly=True, samesite='None')
+            
+            return response
         except:
             return 'could not log out', 400
