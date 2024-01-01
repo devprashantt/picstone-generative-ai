@@ -13,11 +13,11 @@ const Landing = () => {
   const dispatch = useDispatch();
   const { themedStory, loading } = useStory();
 
-  const handleChristmasTheme = () => {
+  const handleNewYearTheme = () => {
     // PAYLOAD
     const payload = {
-      theme: "christmas",
-      images_link: theme.christmasTheme.imagesLink,
+      theme: "new_year2024",
+      images_link: theme.newYearTheme.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -33,6 +33,7 @@ const Landing = () => {
       }
     });
   };
+
   return (
     <div className={styles.landing}>
       {/* HERO */}
@@ -68,11 +69,11 @@ const Landing = () => {
       </div>
 
       <Theme
-        imagesLinks={theme.christmasTheme.imagesLink}
-        heading={theme.christmasTheme.heading}
-        subHeading={theme.christmasTheme.subHeading}
-        description={theme.christmasTheme.description}
-        handleTheme={() => handleChristmasTheme()}
+        imagesLinks={theme.newYear2024.imagesLink}
+        heading={theme.newYear2024.heading}
+        subHeading={theme.newYear2024.subHeading}
+        description={theme.newYear2024.description}
+        handleTheme={() => handleNewYearTheme()}
         isLoading={loading}
       />
 
