@@ -62,7 +62,7 @@ const ThemePage = () => {
     // PAYLOAD
     const payload = {
       theme: "new_year2024",
-      images_link: theme.newYearTheme.imagesLink,
+      images_link: theme.newYear2024.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD

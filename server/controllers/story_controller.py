@@ -254,6 +254,7 @@ class StoryController:
             story_content=story,
             story_title=theme,
             theme=theme,
+            ai_content="New year celebration!!",
             user_email="picstoneai@gmail.com"
         )
 
