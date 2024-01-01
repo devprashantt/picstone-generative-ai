@@ -1,7 +1,7 @@
 import openai
 
 
-def generate_story(tags, tag_analysis, image_text, story_title, desc, themes, ai_content):
+def generate_story(tags, tag_analysis, image_text, story_title, desc, theme, ai_content):
     # Extract detected moods, sentiments, and tones from tag_analysis
     detected_moods = tag_analysis.get("moods", [])
     detected_sentiments = tag_analysis.get("sentiments", [])

@@ -15,6 +15,11 @@ def get_all_stories():
     return StoryController.get_all_stories()
 
 
+@story_bp.route('/generate-story/genre/<genre>', methods=['GET'])
+def get_all_stories_by_genre(genre):
+    return StoryController.search_story_by_genre(genre)
+
+
 @story_bp.route('/story/<story_id>', methods=['PUT`, DELETE'])
 @requires_user_session
 def update_story(story_id):

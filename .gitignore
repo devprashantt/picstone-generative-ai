@@ -9,3 +9,6 @@ voices.txt
 
 # OTHERS
 database/query.sql
+
+#environments
+virtenv/.*
