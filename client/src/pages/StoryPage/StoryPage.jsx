@@ -7,7 +7,7 @@ import styles from "./StoryPage.module.scss";
 import { images } from "../../constant";
 
 // SKELETON
-import { Card, Skeleton } from "../../components";
+import { Card, Skeleton, Button } from "../../components";
 
 // API
 import useStory from "../../api/useStory";
@@ -173,6 +173,8 @@ const StoryPage = () => {
         style={{
           width: "100%",
           display: "flex",
+          flexDirection: "column",
+          gap: "1.2rem",
           justifyContent: "center",
           alignItems: "center",
           margin: "1rem 0 1rem  0",
@@ -183,8 +185,11 @@ const StoryPage = () => {
           borderRadius: "1rem",
         }}
       >
-        <h2>✨ Wanna Try??? ✨</h2>
-        <Link>Generate story now!!</Link>
+        <h2>✨ Try generating stories by yourself now!! ✨</h2>
+        <Button
+          buttonText="Generate Story"
+          onClick={() => navigate("/generate-story")}
+        />
       </div>
 
       <div className={styles.user}>
