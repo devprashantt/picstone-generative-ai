@@ -58,8 +58,51 @@ const ThemePage = () => {
     });
   };
 
+  const handleNewYearTheme = () => {
+    // PAYLOAD
+    const payload = {
+      theme: "new_year2024",
+      images_link: theme.newYear2024.imagesLink,
+    };
+
+    // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
+    themedStory(payload, (response, err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // DISPACTH TO REDUCER
+        dispatch(setStory(response?.story));
+        dispatch(setCloudinaryData(response?.cloudinary_data));
+        toast.success("Story generated successfully");
+        navigate("/story");
+      }
+    });
+  };
+
   return (
     <div className={styles.theme}>
+      <Theme
+        imagesLinks={theme.newYear2024.imagesLink}
+        heading={theme.newYear2024.heading}
+        subHeading={theme.newYear2024.subHeading}
+        description={theme.newYear2024.description}
+        handleTheme={() => handleNewYearTheme()}
+        isLoading={loading}
+      />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#f8f9fa",
+          padding: "2rem",
+          color: "#7c7c7c",
+          textAlign: "center",
+        }}
+      >
+        <h1>✨ Older Themes ✨</h1>
+      </div>
       <Theme
         imagesLinks={theme.christmasTheme.imagesLink}
         heading={theme.christmasTheme.heading}

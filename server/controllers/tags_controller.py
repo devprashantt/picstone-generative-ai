@@ -69,6 +69,9 @@ class TagsController:
             filtered_tags = [
                 tag for tag in all_tags if search_term.lower() in tag.lower()]
 
+            # Remove duplicates
+            filtered_tags = list(dict.fromkeys(filtered_tags))
+
             return jsonify({'tags': filtered_tags, "message": "Tags fetched successfully!"}), 200
 
         except Exception as e:

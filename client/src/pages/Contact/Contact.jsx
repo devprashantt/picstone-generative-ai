@@ -26,7 +26,9 @@ const Contact = () => {
     }
 
     // SEND MESSAGE
-    await sendMessage(formData, (responseData) => {});
+    await sendMessage(formData, (responseData) => {
+      console.log(responseData);
+    });
   };
 
   return (
@@ -93,7 +95,7 @@ const Contact = () => {
           />
           <Button
             className={styles.button}
-            buttonText="Send message"
+            buttonText="Send message [Testing]"
             disabled={false}
             type={"submit"}
             isLoading={loading}

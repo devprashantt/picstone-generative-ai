@@ -26,7 +26,7 @@ const Button = ({
       transition={{ duration: 0.5 }}
       className={buttonClass}
       onClick={onClick}
-      disabled={disabled || isLoading}
+      disabled={isLoading ? "disabled" : disabled}
       type={type ? type : "button"}
     >
       {isLoading ? isLoadingText : buttonText}

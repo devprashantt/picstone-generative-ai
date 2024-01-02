@@ -1,7 +1,7 @@
 import openai
 
 
-def generate_story(tags, tag_analysis, image_text, story_title, desc, theme):
+def generate_story(tags, tag_analysis, image_text, story_title, desc, themes, ai_content):
     # Extract detected moods, sentiments, and tones from tag_analysis
     detected_moods = tag_analysis.get("moods", [])
     detected_sentiments = tag_analysis.get("sentiments", [])
@@ -19,7 +19,7 @@ def generate_story(tags, tag_analysis, image_text, story_title, desc, theme):
     tone = ', '.join(detected_tones) if detected_tones else default_tone
 
     # Create a prompt with specific instructions for ChatGPT
-    prompt = f"Your task is to create a captivating narrative, a story that unfolds over at around 500 words. You draw inspiration from a selection of tags, each one a unique element mending with each other in your storytelling tag palette: {', '.join(tags)}. These tags will guide the tone of your narrative, lending it a {tone} quality. The sentiment you'll infuse into your words should resonate with {sentiment}, and the overall mood should be nothing less than {mood} and keep the theme as mixture of {','.join(themes)}. The narrative should always have a happy ending and a life lesson attached to it. Include these {image_text}. Imagine your readers provided you a desc: {desc} and title: {story_title}, eager to embark on this literary journey you're about to create. They await a story that's not just words on a page but an experience that evokes emotions, thoughts, and memories. Your canvas is ready; the colors are your tags, the brush is your pen. Start your narrative, and let the world of words come alive."
+    prompt = f"""Generate a captivating story based on the provided image and information. The image analysis has extracted tags, and further analysis has revealed moods: {mood}, sentiments: {sentiment}, and tones: {tone}. The OCR applied to the image has provided the following text: {image_text}. The user has contributed a story titled "{story_title}" with the description: "{desc}" and themes: {themes}. Additionally, an AI content analysis has generated the following caption: "{ai_content}". Create a narrative that seamlessly incorporates these elements into a coherent and engaging story."""
 
     try:
         # Generate a story/poem using ChatGPT
@@ -34,4 +34,4 @@ def generate_story(tags, tag_analysis, image_text, story_title, desc, theme):
         return response.choices[0].text
     except Exception as e:
         print(f"Error generating poem/story from ChatGPT: {str(e)}")
-        return None
+        raise e
