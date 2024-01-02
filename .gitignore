@@ -11,4 +11,4 @@ voices.txt
 database/query.sql
 
 #environments
-virtenv/.*
+virtenv
