@@ -15,7 +15,7 @@ class Story(db.Model):
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     genre = db.Column(db.String(50), nullable = False)
 
-    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme, ai_content):
+    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme, ai_content,genre):
         self.user_id = user_id
         self.user_email = user_email
         self.image_id = image_id
@@ -23,3 +23,4 @@ class Story(db.Model):
         self.story_title = story_title
         self.theme = theme
         self.ai_content = ai_content
+        self.genre = genre

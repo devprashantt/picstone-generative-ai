@@ -39,7 +39,7 @@ class StoryController:
                 query = "SELECT email FROM sessions WHERE session_token = %s;"
                 user_email = db.engine.execute(
                     query, (session_token)).fetchone().email
-
+                
                 # Get user_id from email
                 query = "SELECT id FROM users WHERE email = %s;"
                 user_id = db.engine.execute(query, (user_email)).fetchone().id
@@ -66,7 +66,7 @@ class StoryController:
             title = payload['title']
 
             # Get the genre from the request body
-            genre:str = payload["genre"]
+            genre:str = payload.get("genre", "yandere")
 
             # Extracted text to be updated after ocr
             image_text = ""
@@ -85,6 +85,7 @@ class StoryController:
             # Analyze the tags
             tag_analysis = analyze_tags(tags)
 
+            print("A")
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
 
@@ -163,7 +164,7 @@ class StoryController:
                 story_title=title,
                 ai_content=ai_content,
                 desc=desc,
-                theme=selected_themes,
+                themes=selected_themes,
             )
 
             # Save the image in the "images" table
@@ -190,7 +191,8 @@ class StoryController:
                 story_content=story,
                 story_title=title,
                 ai_content=ai_content,
-                theme=','.join(selected_themes)
+                theme=','.join(selected_themes),
+                genre=genre
             )
 
             try:
@@ -267,7 +269,8 @@ class StoryController:
             story_title=theme,
             theme=theme,
             ai_content="New year celebration!!",
-            user_email="picstoneai@gmail.com"
+            user_email="picstoneai@gmail.com",
+            genre=genre,
         )
 
         try:
