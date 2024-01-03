@@ -39,7 +39,7 @@ class StoryController:
                 query = "SELECT email FROM sessions WHERE session_token = %s;"
                 user_email = db.engine.execute(
                     query, (session_token)).fetchone().email
-                
+
                 # Get user_id from email
                 query = "SELECT id FROM users WHERE email = %s;"
                 user_id = db.engine.execute(query, (user_email)).fetchone().id
@@ -53,7 +53,12 @@ class StoryController:
             file = payload['file']
 
             # Get theme from the request body: themes {romance: true, horror: false, comedy: false}
-            themes = payload['themes']
+            themes = payload.get('themes', {
+                'romance': False,
+                'horror': False,
+                'comedy': False,
+                'power': True
+            })
 
             # Create an array of themes where the value is true
             selected_themes = [theme for theme,
@@ -66,7 +71,7 @@ class StoryController:
             title = payload['title']
 
             # Get the genre from the request body
-            genre:str = payload.get("genre", "yandere")
+            genre: str = payload.get("genre", "yandere")
 
             # Extracted text to be updated after ocr
             image_text = ""
@@ -85,7 +90,6 @@ class StoryController:
             # Analyze the tags
             tag_analysis = analyze_tags(tags)
 
-            print("A")
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
 
@@ -312,7 +316,7 @@ class StoryController:
                     'image_url': image_url,
                     'story_content': story.story_content,
                     'created_at': story.created_at,
-                    "genre":story.genre,
+                    "genre": story.genre,
                 })
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -346,7 +350,7 @@ class StoryController:
                     'image_url': image_url,
                     'story_content': story.story_content,
                     'created_at': story.created_at,
-                    "genre":story.genre,
+                    "genre": story.genre,
                 })
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -380,7 +384,7 @@ class StoryController:
                     'image_url': image_url,
                     'story_content': story.story_content,
                     'created_at': story.created_at,
-                    "genre":story.genre,
+                    "genre": story.genre,
                 })
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -388,16 +392,15 @@ class StoryController:
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})
-        
+
     # Story by genre
     @staticmethod
     def search_story_by_genre(genre):
         try:
             # Retrieve all stories from the database in desc by date
             stories = Story.query.filter_by(
-                genre = genre
+                genre=genre
             ).all()
-
 
             # Convert the stories into the format we want
             stories_list = []
@@ -416,7 +419,7 @@ class StoryController:
                     'image_url': image_url,
                     'story_content': story.story_content,
                     'created_at': story.created_at,
-                    "genre":story.genre,
+                    "genre": story.genre,
                 })
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -510,7 +513,7 @@ class StoryController:
                 'image_url': image_url,
                 'story_content': story.story_content,
                 'created_at': story.created_at,
-                "genre":story.genre,
+                "genre": story.genre,
             })
 
         return jsonify({'stories': stories_list})
@@ -555,7 +558,7 @@ class StoryController:
                 'image_url': image_url,
                 'story_content': story.story_content,
                 'created_at': story.created_at,
-                "genre":story.genre,
+                "genre": story.genre,
             })
 
         return jsonify({'stories': stories_list, 'user_details': user_details})
