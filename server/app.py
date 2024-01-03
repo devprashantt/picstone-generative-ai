@@ -53,7 +53,7 @@ with app.app_context():
     app.mail = mail
 
 # Production mode
-app.debug = app.config.get('DEBUG', False)
+app.debug = app.config.get('DEBUG', True)
 
 # Set SQLALCHEMY_DATABASE_URI to your TiDB URI
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
