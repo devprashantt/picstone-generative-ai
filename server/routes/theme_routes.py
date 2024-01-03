@@ -5,5 +5,5 @@ theme_bp = Blueprint('theme', __name__)
 
 
 @theme_bp.route('/stories/<theme>', methods=['GET'])
-def get_theme_story():
-    return ThemeController.get_all_theme_story()
+def get_theme_story(theme):
+    return ThemeController.get_all_theme_story(theme)
