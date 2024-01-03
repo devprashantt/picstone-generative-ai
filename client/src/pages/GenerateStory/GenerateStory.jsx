@@ -250,7 +250,7 @@ const GenerateStory = () => {
         <Suggestion />
       </div>
       <div className={styles.theme}>
-        <p className={styles.label}>{"Theme"}</p>
+        <p className={styles.label}>{"Genre"}</p>
         <div className={styles.themes}>
           <Theme
             img_link={
