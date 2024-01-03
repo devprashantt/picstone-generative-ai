@@ -66,7 +66,7 @@ class StoryController:
             title = payload['title']
 
             # Get the genre from the request body
-            genre: str = payload["genre"]
+            genre: str = payload.get("genre", "yandere")
 
             # Extracted text to be updated after ocr
             image_text = ""
@@ -85,6 +85,7 @@ class StoryController:
             # Analyze the tags
             tag_analysis = analyze_tags(tags)
 
+            print("A")
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
 
@@ -163,7 +164,7 @@ class StoryController:
                 story_title=title,
                 ai_content=ai_content,
                 desc=desc,
-                theme=selected_themes,
+                themes=selected_themes,
             )
 
             # Save the image in the "images" table
@@ -191,7 +192,7 @@ class StoryController:
                 story_title=title,
                 ai_content=ai_content,
                 theme=','.join(selected_themes),
-                genre=genre,
+                genre=genre
             )
 
             try:

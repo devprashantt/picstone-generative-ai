@@ -24,3 +24,4 @@ class Story(db.Model):
         self.theme = theme
         self.genre = genre
         self.ai_content = ai_content
+        self.genre = genre
