@@ -93,12 +93,9 @@ app.debug = app.config.get('DEBUG', False)
 if app.debug:
     print("The Flask app is running in debug mode.")
 
-# Register the blueprint after the 'db_conn' setup
-
 
 @app.route('/')
 def index():
-    # You can access the database within this route function
     # Your database operations should be here
     return "Server is running, and the database is connected."
 
@@ -124,4 +121,8 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(
+        host=os.environ.get('HOST', 'localhost'),
+        port=os.environ.get('PORT', '8000'),
+        debug=os.environ.get('DEBUG', False),
+    )
