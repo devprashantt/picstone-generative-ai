@@ -53,7 +53,12 @@ class StoryController:
             file = payload['file']
 
             # Get theme from the request body: themes {romance: true, horror: false, comedy: false}
-            themes = payload['themes']
+            themes = payload.get('themes', {
+                'romance': False,
+                'horror': False,
+                'comedy': False,
+                'power': True
+            })
 
             # Create an array of themes where the value is true
             selected_themes = [theme for theme,
@@ -85,7 +90,6 @@ class StoryController:
             # Analyze the tags
             tag_analysis = analyze_tags(tags)
 
-            print("A")
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
 
