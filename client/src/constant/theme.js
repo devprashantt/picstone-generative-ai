@@ -4,6 +4,7 @@ const winterTheme = {
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297413/picstone/season/dfzow8yomxtolpq6ex9k.svg",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1697297414/picstone/season/b2ic2fyvxsvsfdxtg43e.svg",
   ],
+  theme: "winter",
   heading: "Winter Wonders",
   subHeading: "Embrace the enchantment of the winter season",
   description: `Embrace the enchantment of the winter season with our "Winter Wonders" themed story. Capture the essence of snowy landscapes, cozy moments by the fireplace, or the magic of holiday festivities. Write a poem, paint a wintry scene, or create any form of art that celebrates the beauty and emotions of winter. Let the chill in the air inspire your creativity and transport you to a world of winter wonders.`,
@@ -15,6 +16,7 @@ const diwaliTheme = {
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1699784469/picstone/season/diwali/xzxuxaitaskg9a8ukt2s.jpg",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1699784440/picstone/season/diwali/c275psfeb0dazpi5m1ki.jpg",
   ],
+  theme: "diwali",
   heading: "Diwali",
   subHeading:
     "Colorful rangoli designs, decorative diyas, and vibrant flower garlands",
@@ -27,6 +29,7 @@ const christmasTheme = {
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1702678371/picstone/season/christmas/iacica7hx0fmmmi71wui.jpg",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1702678425/picstone/season/christmas/rzmiykoj50thgudyiy5p.jpg",
   ],
+  theme: "christmas",
   heading: "Christmas",
   subHeading: "Christmas is a religious holiday celebrating the birth of Jesus",
   description: `Christmas is a religious holiday celebrating the birth of Jesus as well as a cultural and commercial event. Learn about the history of Christmas, Santa Claus, and holiday traditions worldwide.`,
@@ -38,6 +41,7 @@ const newYear2024 = {
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1704136934/picstone/season/newyear2024/ovppgfbbzcltxr2hccki.jpg",
     "https://res.cloudinary.com/dixoiunbw/image/upload/v1704135908/picstone/season/newyear2024/cdjjc0spjalufdhw4x9v.avif",
   ],
+  theme: "newYear",
   heading: "A Night of Joy, Laughter, and New Beginnings",
   subHeading:
     "Sparkling Celebration: A Glittering Welcome to the New Year 2024",

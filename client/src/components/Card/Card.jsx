@@ -11,6 +11,9 @@ import styles from "./Card.module.scss";
 // ENUMS
 const MAX_CHARACTERS = 110;
 
+// TITLE
+const TITLE = 50;
+
 const Card = ({ img, heading, description, link }) => {
   return (
     <motion.div
@@ -19,7 +22,7 @@ const Card = ({ img, heading, description, link }) => {
       transition={{ duration: 0.5 }}
     >
       <img src={img} alt="" className={styles.img} />
-      <h3 className={styles.heading}>{heading}</h3>
+      <h3 className={styles.heading}>{heading.substring(0, TITLE)}</h3>
       <p className={styles.description}>
         {description.length > MAX_CHARACTERS
           ? `${description.substring(0, MAX_CHARACTERS)}...`

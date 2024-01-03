@@ -39,7 +39,7 @@ const Navbar = () => {
                   <Link to={"/explore"} className={styles.menu}>
                     Explore
                   </Link>
-                  <Link to={"/theme"} className={styles.menu}>
+                  <Link to={"/themes"} className={styles.menu}>
                     <p className={styles.name}>Theme</p>
                     <span className={styles.new}>New</span>
                   </Link>
@@ -68,7 +68,7 @@ const Navbar = () => {
         <Link to={"/explore"} className={styles.menu}>
           Explore
         </Link>
-        <Link to={"/theme"} className={styles.menu}>
+        <Link to={"/themes"} className={styles.menu}>
           <p className={styles.name}>Theme</p>
           <span className={styles.new}>New</span>
         </Link>

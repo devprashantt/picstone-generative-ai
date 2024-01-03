@@ -86,7 +86,7 @@ const ThemePage = () => {
         heading={theme.newYear2024.heading}
         subHeading={theme.newYear2024.subHeading}
         description={theme.newYear2024.description}
-        handleTheme={() => handleNewYearTheme()}
+        theme={theme.newYear2024.theme}
         isLoading={loading}
       />
       <div
@@ -108,7 +108,7 @@ const ThemePage = () => {
         heading={theme.christmasTheme.heading}
         subHeading={theme.christmasTheme.subHeading}
         description={theme.christmasTheme.description}
-        handleTheme={() => handleChristmasTheme()}
+        theme={theme.christmasTheme.theme}
         isLoading={loading}
       />
       <Theme
@@ -116,7 +116,7 @@ const ThemePage = () => {
         heading={theme.diwaliTheme.heading}
         subHeading={theme.diwaliTheme.subHeading}
         description={theme.diwaliTheme.description}
-        handleTheme={() => handleDiwaliTheme()}
+        theme={theme.diwaliTheme.theme}
         isLoading={loading}
       />
       <Theme
@@ -124,7 +124,7 @@ const ThemePage = () => {
         heading={theme.winterTheme.heading}
         subHeading={theme.winterTheme.subHeading}
         description={theme.winterTheme.description}
-        handleTheme={() => console.log("Winter Theme Clicked")}
+        theme={theme.winterTheme.theme}
         isLoading={loading}
       />
     </div>

@@ -105,7 +105,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
-app.register_blueprint()
+app.register_blueprint(theme_bp)
 
 
 @app.before_request
@@ -123,8 +123,4 @@ def after_request(response):
 
 
 if __name__ == "__main__":
-    app.run(
-        host=os.environ.get('HOST', 'localhost'),
-        port=os.environ.get('PORT', '8000'),
-        debug=os.environ.get('DEBUG', False),
-    )
+    app.run(host='0.0.0.0', port=80)

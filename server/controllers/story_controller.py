@@ -252,9 +252,9 @@ class StoryController:
             user_id=240001,
             image_id=new_image.id,
             story_content=story,
-            story_title=theme,
+            story_title=theme.capitalize(),
             theme=theme,
-            ai_content="New year celebration!!",
+            ai_content=theme,
             user_email="picstoneai@gmail.com"
         )
 
