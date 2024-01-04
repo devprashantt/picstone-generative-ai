@@ -23,6 +23,7 @@ import {
   Profile,
   ThemePage,
   TagsPage,
+  ThemeDetail,
 } from "./pages";
 import { Navbar, Story, Footer } from "./components";
 
@@ -65,7 +66,8 @@ const App = () => {
         <Route path="/generate-story" element={<GenerateStory />} />
 
         {/* THEME */}
-        <Route path="/theme" element={<ThemePage />} />
+        <Route path="/themes" element={<ThemePage />} />
+        <Route path="/themes/:themeName" element={<ThemeDetail />} />
 
         {/* TAG */}
         <Route path="tags" element={<TagsPage />} />

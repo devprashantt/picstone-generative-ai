@@ -22,6 +22,8 @@ const Hero = ({
   img_btn,
   btn_text,
   to,
+  onClick,
+  isLoading,
 }) => {
   return (
     <div className={styles.hero}>
@@ -75,7 +77,11 @@ const Hero = ({
             textDecoration: "none",
           }}
         >
-          <Button buttonText={btn_text} />
+          <Button
+            buttonText={btn_text}
+            onClick={onClick}
+            isLoading={isLoading}
+          />
         </Link>
       ) : null}
       {/* WARNING */}
@@ -120,6 +126,8 @@ Hero.propTypes = {
   btn_text: PropTypes.string,
   btn: PropTypes.bool,
   to: PropTypes.string,
+  onClick: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 export default Hero;

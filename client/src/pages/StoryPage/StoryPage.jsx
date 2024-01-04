@@ -96,26 +96,26 @@ const StoryPage = () => {
             <img src={storyData?.image_url} alt="img-picstone" />
           </div>
         )}
-        {loading ? (
-          <div className={styles.tags}>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index}>
-                <Skeleton type="tags" key={index} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className={styles.tags}>
-            {storyData?.tags?.slice(0, 10).map((tag) => {
-              return (
-                <p key={tag} className={styles.tag} onClick={handleTagClick}>
-                  {tag}
-                </p>
-              );
-            })}
-          </div>
-        )}
       </div>
+      {loading ? (
+        <div className={styles.tags}>
+          {Array.from({ length: 12 }).map((_, index) => (
+            <div key={index}>
+              <Skeleton type="tags" key={index} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.tags}>
+          {storyData?.tags?.slice(0, 10).map((tag) => {
+            return (
+              <p key={tag} className={styles.tag} onClick={handleTagClick}>
+                {tag}
+              </p>
+            );
+          })}
+        </div>
+      )}
 
       {loading ? (
         Array.from({ length: 12 }).map((_, index) => (
@@ -171,7 +171,7 @@ const StoryPage = () => {
 
       <div
         style={{
-          width: "100%",
+          width: "80%",
           display: "flex",
           flexDirection: "column",
           gap: "1.2rem",

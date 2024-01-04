@@ -10,6 +10,7 @@ import StoryByTag from "./StoryByTag/StoryByTag";
 import Profile from "./Profile/Profile";
 import ThemePage from "./ThemePage/ThemePage";
 import TagsPage from "./TagsPage/TagsPage";
+import ThemeDetail from "./ThemeDetail/ThemeDetail";
 
 export {
   Landing,
@@ -24,4 +25,5 @@ export {
   Profile,
   ThemePage,
   TagsPage,
+  ThemeDetail,
 };

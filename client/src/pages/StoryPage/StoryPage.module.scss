@@ -31,45 +31,6 @@
                 object-fit: contain;
             }
         }
-
-        .tags {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 85%;
-            flex-wrap: wrap;
-
-            gap: 0.4rem;
-
-            .skeleton {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                flex-wrap: wrap;
-            }
-
-            .tag {
-                display: flex;
-                padding: 0.625rem 1.25rem;
-                justify-content: center;
-                align-items: center;
-                gap: 0.625rem;
-
-                // COLOR
-                border-radius: 0.625rem;
-                background: #3b3b3b;
-
-                // TYPOGRAPHY
-                color: #fff;
-                text-align: center;
-                font-size: 0.8rem;
-                font-style: normal;
-                font-weight: 200;
-
-                cursor: pointer;
-            }
-        }
     }
 
     // .story_skeleton {
@@ -79,6 +40,45 @@
     //     flex-direction: column;
     //     gap: 1rem;
     // }
+
+    .tags {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        flex-wrap: wrap;
+
+        gap: 0.4rem;
+
+        .skeleton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: flex;
+            padding: 0.625rem 1.25rem;
+            justify-content: center;
+            align-items: center;
+            gap: 0.625rem;
+
+            // COLOR
+            border-radius: 0.625rem;
+            background: #3b3b3b;
+
+            // TYPOGRAPHY
+            color: #fff;
+            text-align: center;
+            font-size: 0.8rem;
+            font-style: normal;
+            font-weight: 200;
+
+            cursor: pointer;
+        }
+    }
 
     .title {
         display: flex;

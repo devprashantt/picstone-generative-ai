@@ -8,6 +8,7 @@ from routes.story_routes import story_bp
 from routes.message_routes import message_bp
 from routes.tags_routes import tags_bp
 from routes.message_routes import message_bp
+from routes.theme_routes import theme_bp
 
 from config.database import db, database_url
 from config.cloudinary import cloudinary
@@ -93,12 +94,9 @@ app.debug = app.config.get('DEBUG', False)
 if app.debug:
     print("The Flask app is running in debug mode.")
 
-# Register the blueprint after the 'db_conn' setup
-
 
 @app.route('/')
 def index():
-    # You can access the database within this route function
     # Your database operations should be here
     return "Server is running, and the database is connected."
 
@@ -107,6 +105,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
+app.register_blueprint(theme_bp)
 
 
 @app.before_request

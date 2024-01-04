@@ -1,6 +1,9 @@
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./Theme.module.scss";
 import Button from "./../Button/Button";
-import PropTypes from "prop-types";
+
 import { images } from "../../constant";
 
 const Theme = ({
@@ -8,9 +11,10 @@ const Theme = ({
   heading,
   subHeading,
   description,
-  handleTheme,
   isLoading,
+  theme: themeName,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.theme}>
       <h1 className={styles.heading}>{subHeading}</h1>
@@ -32,8 +36,23 @@ const Theme = ({
         <p className={styles.theme_desc}>{description}</p>
         <Button
           className={styles.theme_btn}
-          buttonText={isLoading ? "Generating..." : "Generate story"}
-          onClick={handleTheme}
+          buttonText={isLoading ? "Loading..." : "Explore"}
+          // onClick={handleTheme}
+          onClick={() => {
+            navigate(
+              `/themes/${themeName}`,
+              // PASS STATE
+              {
+                state: {
+                  themeName: themeName,
+                  heading: heading,
+                  subHeading: subHeading,
+                  description: description,
+                  imagesLinks: imagesLinks,
+                },
+              }
+            );
+          }}
         />
       </div>
     </div>
@@ -47,6 +66,7 @@ Theme.propTypes = {
   description: PropTypes.string,
   handleTheme: PropTypes.func,
   isLoading: PropTypes.bool,
+  theme: PropTypes.string,
 };
 
 export default Theme;
