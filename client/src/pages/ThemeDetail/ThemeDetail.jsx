@@ -7,12 +7,11 @@ import { theme } from "./../../constant";
 import styles from "./ThemeDetail.module.scss";
 
 // COMPONENTS
-import { Theme, Hero, Card, Skeleton } from "./../../components";
+import { Hero, Card, Skeleton } from "./../../components";
 
 // API
 import useTheme from "../../api/useTheme";
 import useUnsplash from "../../api/useUnsplash";
-import useStory from "../../api/useStory";
 
 // STATE
 import { useDispatch } from "react-redux";
@@ -24,8 +23,8 @@ const ThemeDetail = () => {
   const [themeData, setThemeData] = useState({});
 
   const { getThemeImages, loadingImg } = useUnsplash();
-  const { getAllStoryByTheme, themeLoading } = useTheme();
-  const { themedStory, loading } = useStory();
+  const { getAllStoryByTheme, themedStory, themeLoading, generateLoading } =
+    useTheme();
   const { themeName } = useParams();
 
   const navigate = useNavigate();
@@ -60,7 +59,10 @@ const ThemeDetail = () => {
     // PAYLOAD
     const payload = {
       theme: themeName,
-      images_link: images.map((image) => image?.urls?.regular),
+      images_link:
+        images.map((image) => image?.urls?.regular).length > 0
+          ? images.map((image) => image?.urls?.regular)
+          : theme[themeName].imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -68,7 +70,7 @@ const ThemeDetail = () => {
       if (err) {
         console.log(err);
       } else {
-        // DISPACTH TO REDUCER
+        // DISPATCH TO REDUCER
         dispatch(setStory(response?.story));
         dispatch(setCloudinaryData(response?.cloudinary_data));
         toast.success("Story generated successfully");
@@ -80,6 +82,15 @@ const ThemeDetail = () => {
   useEffect(() => {
     fetchImages();
     fetchAllStoriesByTheme();
+
+    // SCROLL TO TOP
+    window.scrollTo(0, 0);
+
+    // CLEANUP
+    return () => {
+      setImages([]);
+      setThemeData({});
+    };
   }, []);
 
   return (
@@ -90,7 +101,7 @@ const ThemeDetail = () => {
         description={themeName ? theme[themeName]?.description : ""}
         subHeading={themeName ? theme[themeName]?.subHeading : ""}
         btn_text={"Generate Story"}
-        isLoading={loading}
+        isLoading={generateLoading}
         btn={true}
         onClick={
           themeName
@@ -133,12 +144,9 @@ const ThemeDetail = () => {
       <div className={styles.theme_detail}>
         <h2 className={styles.heading}>
           More from{" "}
-          {
-            // MAKE THEME NAM EFIRST LETTER CAPITAL
-            themeName
-              ? themeName.charAt(0).toUpperCase() + themeName.slice(1)
-              : ""
-          }{" "}
+          {themeName
+            ? themeName.charAt(0).toUpperCase() + themeName.slice(1)
+            : ""}{" "}
           theme
         </h2>
         <div className={styles.stories}>

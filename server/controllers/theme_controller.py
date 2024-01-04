@@ -17,8 +17,6 @@ class ThemeController:
     @staticmethod
     def get_all_theme_story(theme):
         try:
-            print(theme)
-
             # get all stories which have common theme in theme column in reverse order
             stories = Story.query.filter(Story.theme.like(
                 f'%{theme}%')).order_by(Story.created_at.desc()).all()
@@ -56,11 +54,11 @@ class ThemeController:
     # generate story from theme
     @staticmethod
     def generate_story_from_theme(theme):
-        # Generate random number from 0 to 4
-        random_number = random.randint(0, 4)
-
         # Get images link from payload
-        images_link = request.get_json()['images_link'][random_number]
+        images_link = request.get_json()['images_link']
+
+        # Get any random link from images link
+        image_link = random.choice(images_link)
 
         # Generate story
         story = generate_themed_story(theme)
@@ -68,7 +66,7 @@ class ThemeController:
         # Store image in database
         new_image = Image(
             user_id=1080002,
-            image_path=images_link,
+            image_path=image_link,
         )
 
         try:
@@ -99,7 +97,7 @@ class ThemeController:
         return jsonify({
             'story': story,
             'cloudinary_data': {
-                'secure_url': images_link,
+                'secure_url': image_link,
                 'tags': [theme]
             }
         })

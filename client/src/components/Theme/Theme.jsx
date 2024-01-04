@@ -11,7 +11,6 @@ const Theme = ({
   heading,
   subHeading,
   description,
-  handleTheme,
   isLoading,
   theme: themeName,
 }) => {
@@ -41,7 +40,7 @@ const Theme = ({
           // onClick={handleTheme}
           onClick={() => {
             navigate(
-              `${themeName}`,
+              `/themes/${themeName}`,
               // PASS STATE
               {
                 state: {

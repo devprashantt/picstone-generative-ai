@@ -37,42 +37,6 @@ const useStory = () => {
     }
   };
 
-  // THEMED STORY
-  const themedStory = async (payload, cb) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/generate-story/theme/${
-          payload.theme
-        }`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Some error occurred, please try again");
-      }
-
-      const data = await response.json();
-
-      if (cb && typeof cb === "function") {
-        cb(data);
-      }
-    } catch (err) {
-      console.error(err);
-      // Handle errors if necessary
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // GET ALL STORIES
   const getAllStories = async (cb) => {
     try {
@@ -274,7 +238,6 @@ const useStory = () => {
   return {
     loading,
     uploadImage,
-    themedStory,
     getAllStories,
     getStoryById,
     getUserStories,
