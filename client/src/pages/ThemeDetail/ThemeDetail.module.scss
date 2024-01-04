@@ -62,3 +62,19 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .theme {
+        .images {
+            grid-template-areas:
+                "a a e"
+                "b c d";
+        }
+
+        .theme_detail {
+            .stories {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    }
+}
