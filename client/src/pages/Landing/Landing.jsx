@@ -16,8 +16,8 @@ const Landing = () => {
   const handleNewYearTheme = () => {
     // PAYLOAD
     const payload = {
-      theme: "new_year2024",
-      images_link: theme.newYear2024.imagesLink,
+      theme: "newYear",
+      images_link: theme.newYear.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -69,10 +69,10 @@ const Landing = () => {
       </div>
 
       <Theme
-        imagesLinks={theme.newYear2024.imagesLink}
-        heading={theme.newYear2024.heading}
-        subHeading={theme.newYear2024.subHeading}
-        description={theme.newYear2024.description}
+        imagesLinks={theme.newYear.imagesLink}
+        heading={theme.newYear.heading}
+        subHeading={theme.newYear.subHeading}
+        description={theme.newYear.description}
         handleTheme={() => handleNewYearTheme()}
         isLoading={loading}
       />

@@ -1,7 +1,15 @@
 from flask import jsonify, request
+import random
 
+# UTILS
+from utils.themed_story import generate_themed_story
+
+# MODELS
 from models.story import Story
 from models.image import Image
+
+# CONFIG
+from config.database import db
 
 
 class ThemeController:
@@ -11,8 +19,9 @@ class ThemeController:
         try:
             print(theme)
 
-            # get all stories which have common theme in theme column
-            stories = Story.query.filter(Story.theme == theme).all()
+            # get all stories which have common theme in theme column in reverse order
+            stories = Story.query.filter(Story.theme.like(
+                f'%{theme}%')).order_by(Story.created_at.desc()).all()
 
             # save all stories
             stories_list = []
@@ -43,3 +52,54 @@ class ThemeController:
 
         except Exception as e:
             return f'invalid: {e}', 400
+
+    # generate story from theme
+    @staticmethod
+    def generate_story_from_theme(theme):
+        # Generate random number from 0 to 4
+        random_number = random.randint(0, 4)
+
+        # Get images link from payload
+        images_link = request.get_json()['images_link'][random_number]
+
+        # Generate story
+        story = generate_themed_story(theme)
+
+        # Store image in database
+        new_image = Image(
+            user_id=1080002,
+            image_path=images_link,
+        )
+
+        try:
+            db.session.add(new_image)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
+
+        # Store story in database
+        new_story = Story(
+            user_id=1080002,
+            image_id=new_image.id,
+            story_content=story,
+            story_title=theme.capitalize(),
+            theme=theme,
+            ai_content=theme,
+            user_email="picstoneai@gmail.com"
+        )
+
+        try:
+            db.session.add(new_story)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': str(e)}), 500
+
+        return jsonify({
+            'story': story,
+            'cloudinary_data': {
+                'secure_url': images_link,
+                'tags': [theme]
+            }
+        })

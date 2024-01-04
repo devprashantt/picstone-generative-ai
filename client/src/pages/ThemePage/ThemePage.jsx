@@ -20,7 +20,7 @@ const ThemePage = () => {
     // PAYLOAD
     const payload = {
       theme: "diwali",
-      images_link: theme.diwaliTheme.imagesLink,
+      images_link: theme.diwali.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -41,7 +41,7 @@ const ThemePage = () => {
     // PAYLOAD
     const payload = {
       theme: "christmas",
-      images_link: theme.christmasTheme.imagesLink,
+      images_link: theme.christmas.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -61,8 +61,8 @@ const ThemePage = () => {
   const handleNewYearTheme = () => {
     // PAYLOAD
     const payload = {
-      theme: "new_year2024",
-      images_link: theme.newYear2024.imagesLink,
+      theme: "newYear",
+      images_link: theme.ne.imagesLink,
     };
 
     // SEND REQ TO BACKEND WITH ALL IMAGE LINKS IN PAYLOAD
@@ -82,11 +82,11 @@ const ThemePage = () => {
   return (
     <div className={styles.theme}>
       <Theme
-        imagesLinks={theme.newYear2024.imagesLink}
-        heading={theme.newYear2024.heading}
-        subHeading={theme.newYear2024.subHeading}
-        description={theme.newYear2024.description}
-        theme={theme.newYear2024.theme}
+        imagesLinks={theme.newYear.imagesLink}
+        heading={theme.newYear.heading}
+        subHeading={theme.newYear.subHeading}
+        description={theme.newYear.description}
+        theme={theme.newYear.theme}
         isLoading={loading}
       />
       <div
@@ -104,27 +104,27 @@ const ThemePage = () => {
         <h1>✨ Older Themes ✨</h1>
       </div>
       <Theme
-        imagesLinks={theme.christmasTheme.imagesLink}
-        heading={theme.christmasTheme.heading}
-        subHeading={theme.christmasTheme.subHeading}
-        description={theme.christmasTheme.description}
-        theme={theme.christmasTheme.theme}
+        imagesLinks={theme.christmas.imagesLink}
+        heading={theme.christmas.heading}
+        subHeading={theme.christmas.subHeading}
+        description={theme.christmas.description}
+        theme={theme.christmas.theme}
         isLoading={loading}
       />
       <Theme
-        imagesLinks={theme.diwaliTheme.imagesLink}
-        heading={theme.diwaliTheme.heading}
-        subHeading={theme.diwaliTheme.subHeading}
-        description={theme.diwaliTheme.description}
-        theme={theme.diwaliTheme.theme}
+        imagesLinks={theme.diwali.imagesLink}
+        heading={theme.diwali.heading}
+        subHeading={theme.diwali.subHeading}
+        description={theme.diwali.description}
+        theme={theme.diwali.theme}
         isLoading={loading}
       />
       <Theme
-        imagesLinks={theme.winterTheme.imagesLink}
-        heading={theme.winterTheme.heading}
-        subHeading={theme.winterTheme.subHeading}
-        description={theme.winterTheme.description}
-        theme={theme.winterTheme.theme}
+        imagesLinks={theme.winter.imagesLink}
+        heading={theme.winter.heading}
+        subHeading={theme.winter.subHeading}
+        description={theme.winter.description}
+        theme={theme.winter.theme}
         isLoading={loading}
       />
     </div>

@@ -40,7 +40,19 @@ const Theme = ({
           buttonText={isLoading ? "Loading..." : "Explore"}
           // onClick={handleTheme}
           onClick={() => {
-            navigate(`${themeName}`);
+            navigate(
+              `${themeName}`,
+              // PASS STATE
+              {
+                state: {
+                  themeName: themeName,
+                  heading: heading,
+                  subHeading: subHeading,
+                  description: description,
+                  imagesLinks: imagesLinks,
+                },
+              }
+            );
           }}
         />
       </div>

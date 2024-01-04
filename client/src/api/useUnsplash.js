@@ -9,9 +9,9 @@ const useUnsplash = () => {
     try {
       setLoadingImg(true);
       const response = await fetch(
-        `https://api.unsplash.com/photos/random?count=6${
-          payload ? `&query=${payload.theme}` : ""
-        }`,
+        `https://api.unsplash.com/photos/random?${
+          payload ? `&count=${payload.count}` : ""
+        }${payload ? `&query=${payload.theme}` : ""}`,
         {
           method: "GET",
           headers: {
