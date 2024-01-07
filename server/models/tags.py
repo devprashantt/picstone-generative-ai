@@ -13,8 +13,3 @@ class Tags(db.Model):
         self.story_id = story_id
         self.image_id = image_id
         self.tags_string = tags_string
-
-    def as_dict(self, *args):
-        if args:
-            return {i:self.__getattribute__(i) for i in args}
-        return {i:j for i,j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}

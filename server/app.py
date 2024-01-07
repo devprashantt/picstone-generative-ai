@@ -105,7 +105,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
-app.register_blueprint(theme_bp)
+app.register_blueprint()
 
 
 @app.before_request
