@@ -25,3 +25,8 @@ class Story(db.Model):
         self.genre = genre
         self.ai_content = ai_content
         self.genre = genre
+
+    def as_dict(self, *args):
+        if args:
+            return {i: self.__getattribute__(i) for i in args}
+        return {i: j for i, j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}
