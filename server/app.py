@@ -79,16 +79,30 @@ if cloudinary.config():
 if openai.api_key:
     print("Connected to OpenAI successfully.")
 
+# Production mode
+app.debug = app.config.get('DEBUG', False)
 
-# Your routes registration
+if app.debug:
+    print("The Flask app is running in debug mode.")
+
 app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
 
+app.static_folder = 'assets'
 
-# Before and after request hooks
+app.add_url_rule('/assets/<path:filename>', endpoint='assets',
+                 view_func=app.send_static_file)
+
+
+@app.route('/', defaults={'path': ''}, strict_slashes=False)
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template('index.html')
+
+
 @app.before_request
 def before_request():
     request.start_time = time.time()
