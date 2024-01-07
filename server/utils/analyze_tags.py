@@ -1,4 +1,6 @@
-def analyze_tags(tags):
+from constants.constant_data import DEFAULT_ANALYZE_TAGS
+
+def analyze_tags(tags = DEFAULT_ANALYZE_TAGS):
     # Define mood, sentiment, and tone mappings (you can expand this as needed)
     mood_mapping = {
         "happy": "joyful",
