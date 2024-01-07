@@ -11,8 +11,3 @@ class Image(db.Model):
     def __init__(self, user_id, image_path):
         self.user_id = user_id
         self.image_path = image_path
-
-    def as_dict(self, *args):
-        if args:
-            return {i:self.__getattribute__(i) for i in args}
-        return {i:j for i,j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}

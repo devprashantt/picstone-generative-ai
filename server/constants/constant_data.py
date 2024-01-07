@@ -1,8 +1,6 @@
-KEYWORDS_TO_CHECK = {'sex', 'brassiere', 'porn', 'rape'}
+KEYWORDS_TO_CHECK = {'Sex', 'Brassiere', 'Porn', 'Rape'}
 
-DEFAULT_USER_ID_STORY = 1080002
-
-DEFAULT_USER_ID_IMAGE = 240001
+DEFAULT_USER_ID = 1080002
 
 DEFAULT_ANALYZE_TAGS = ['happy', 'sad', 'calm', 'exciting', 'positive', 'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
 
@@ -14,13 +12,3 @@ DEFAULT_THEMES = {
             }
 
 DEFAULT_GENRE = "yandere"
-
-DEBUG = True
-
-DEFAULT_OCR = ""
-
-DEFAULT_CAPTION = ""
-
-DEFAULT_AI_CONTENT = "New year celebration!!"
-
-DEFAULT_USER_EMAIL = "picstoneai@gmail.com"
