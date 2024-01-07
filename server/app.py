@@ -1,4 +1,4 @@
-from flask import Flask, current_app, request
+from flask import Flask, current_app, request, render_template
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
@@ -107,6 +107,12 @@ app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
 
+app.add_url_rule('/assets/<path:filename>', endpoint='assets', view_func=app.send_static_file)
+
+@app.route('/', defaults={'path': ''}, strict_slashes=False)
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template('index.html', muniurl=request.muni_name)
 
 @app.before_request
 def before_request():
