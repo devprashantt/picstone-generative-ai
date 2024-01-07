@@ -29,7 +29,7 @@ CORS(app, origins='*', supports_credentials=True)
 load_dotenv()
 
 # Initialize SQLAlchemy (if needed)
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Configure Flask-Mail
 with app.app_context():
@@ -94,25 +94,20 @@ app.debug = app.config.get('DEBUG', False)
 if app.debug:
     print("The Flask app is running in debug mode.")
 
-
-@app.route('/')
-def index():
-    # Your database operations should be here
-    return "Server is running, and the database is connected."
-
-
 app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
 
+app.static_folder = 'assets'
+
 app.add_url_rule('/assets/<path:filename>', endpoint='assets', view_func=app.send_static_file)
 
 @app.route('/', defaults={'path': ''}, strict_slashes=False)
 @app.route('/<path:path>')
 def catch_all(path):
-    return render_template('index.html', muniurl=request.muni_name)
+    return render_template('index.html')
 
 @app.before_request
 def before_request():
