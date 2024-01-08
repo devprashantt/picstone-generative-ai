@@ -4,12 +4,14 @@ import requests
 from io import BytesIO
 import PIL.Image
 import pytesseract
+from utils.story_utils import check_keywords, extract_ai_content, extract_payload_data, extract_text_data, get_user_info
 
 # UTILS
 from utils.upload_img import upload_image_to_cloudinary
 from utils.generate_story import generate_story
 from utils.analyze_tags import analyze_tags
 from utils.themed_story import generate_themed_story
+from utils.exceptions import *
 
 # CONFIG
 from config.database import db
@@ -28,41 +30,23 @@ class StoryController:
     @staticmethod
     def generate_story_from_image():
         try:
-            payload = request.get_json()
+            raw_payload = request.get_json()
+
+            payload = extract_payload_data(raw_payload)
 
             # Get session token from cookie
             session_token = request.cookies.get('session_token')
 
-            # Verify user session
-            if session_token:
-                # Get email from session
-                query = "SELECT email FROM sessions WHERE session_token = %s;"
-                user_email = db.engine.execute(
-                    query, (session_token)).fetchone().email
-
-                # Get user_id from email
-                query = "SELECT id FROM users WHERE email = %s;"
-                user_id = db.engine.execute(query, (user_email)).fetchone().id
-            else:
-                # Get user email when its is not logged in
-                user_email = payload['email']
-                # Set user id
-                user_id = 1080002
+            user_email = payload["user_email"]
 
             # Get the base64 image from the request body
             file = payload['file']
 
             # Get theme from the request body: themes {romance: true, horror: false, comedy: false}
-            themes = payload.get('themes', {
-                'romance': False,
-                'horror': False,
-                'comedy': False,
-                'power': True
-            })
+            themes = payload["themes"]
 
             # Create an array of themes where the value is true
-            selected_themes = [theme for theme,
-                               value in themes.items() if value]
+            selected_themes = payload["selected_themes"]
 
             # Get the desc from the request body
             desc = payload['description']
@@ -71,7 +55,13 @@ class StoryController:
             title = payload['title']
 
             # Get the genre from the request body
-            genre: str = payload.get("genre", "yandere")
+            genre: str = payload["genre"]
+
+            # Verify user session
+            user_email, user_id = get_user_info(
+                session_token=session_token,
+                email=user_email,
+            )
 
             # Extracted text to be updated after ocr
             image_text = ""
@@ -79,16 +69,10 @@ class StoryController:
             # Extract ai content from image
             ai_content = ""
 
-            # If sex word found in title return
-            if 'sex' in title.lower():
-                return jsonify({'error': f"Found '{title}' in title. Can't generate using this title"}), 500
-
-            # Tags for analysis
-            tags = ['happy', 'sad', 'calm', 'exciting', 'positive',
-                    'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
-
             # Analyze the tags
-            tag_analysis = analyze_tags(tags)
+            tag_analysis = analyze_tags(
+                # tags,
+            )
 
             # Upload the image to Cloudinary
             cloudinary_data = upload_image_to_cloudinary(file)
@@ -99,13 +83,9 @@ class StoryController:
             # Extract tags from the Cloudinary metadata
             cloudinary_tags = cloudinary_data['tags']
 
-            try:
-                # Extract ai analysis from image
-                if cloudinary_data["info"]["detection"]["captioning"]["status"] == "complete":
-                    # Get ai content from data
-                    ai_content = cloudinary_data["info"]["detection"]["captioning"]["data"]["caption"]
-            except Exception as e:
-                print("Exception occurs during ai content analysis:", e)
+            ai_content = extract_ai_content(
+                cloudinary_data=cloudinary_data,
+            )
 
             # Extracted text from the image
             image_text = extract_text_data(
@@ -126,9 +106,6 @@ class StoryController:
 
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
-
-            if not cloudinary_tags:
-                return jsonify({'error': 'No Cloudinary-generated tags found'})
 
             # Generate a story based on the Cloudinary-generated tags
             story = generate_story(
@@ -173,7 +150,9 @@ class StoryController:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return jsonify({'error during saving story on database': str(e)}), 500
+                raise INTERNAL_SERVER_ERROR_EXCEPTION(
+                    message='error during saving story on database',
+                )
 
             # Retrieve the ID of the newly saved story
             story_id = new_story.id
@@ -190,7 +169,9 @@ class StoryController:
                 db.session.commit()
             except Exception as e:
                 db.session.rollback()
-                return jsonify({'error during saving tags in database': str(e)}), 500
+                raise INTERNAL_SERVER_ERROR_EXCEPTION(
+                    message='error during saving tags in database',
+                )
 
             return jsonify({
                 'story': story,
