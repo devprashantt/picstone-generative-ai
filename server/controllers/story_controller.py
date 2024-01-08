@@ -4,7 +4,7 @@ import requests
 from io import BytesIO
 import PIL.Image
 import pytesseract
-from utils.story_utils import check_keywords, extract_ai_content, extract_payload_data, extract_text_data, get_user_info
+from utils.story_utils import check_keywords, extract_ai_content, extract_payload_data, extract_text_data, get_user_info, save_image, save_story, save_tags
 
 # UTILS
 from utils.upload_img import upload_image_to_cloudinary
@@ -23,6 +23,7 @@ from models.tags import Tags
 
 # CONSTANTS
 from constants.response_data import response_data
+import constants.constant_data as CONSTANTS
 
 
 class StoryController:
@@ -58,7 +59,7 @@ class StoryController:
             genre: str = payload["genre"]
 
             # Verify user session
-            user_email, user_id = get_user_info(
+            user_id, user_email = get_user_info(
                 session_token=session_token,
                 email=user_email,
             )
@@ -95,6 +96,8 @@ class StoryController:
             if not cloudinary_tags:
                 raise INTERNAL_SERVER_ERROR_EXCEPTION(
                     message='No Cloudinary-generated tags found')
+                raise INTERNAL_SERVER_ERROR_EXCEPTION(
+                    message='No Cloudinary-generated tags found')
 
             # check keywords
             check_keywords(
@@ -103,9 +106,6 @@ class StoryController:
                 tags=cloudinary_data,
                 genre=genre,
             )
-
-            # Join the tags into a string
-            tags_string = ','.join(cloudinary_tags)
 
             # Generate a story based on the Cloudinary-generated tags
             story = generate_story(
@@ -118,7 +118,6 @@ class StoryController:
                 themes=selected_themes,
             )
 
-            # Save the image in the "images" table
             new_image = Image(
                 user_id=user_id,
                 image_path=cloudinary_data["secure_url"],
@@ -144,34 +143,22 @@ class StoryController:
                 genre=genre
             )
 
-            try:
-                # Add the new story to the database
-                db.session.add(new_story)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                raise INTERNAL_SERVER_ERROR_EXCEPTION(
-                    message='error during saving story on database',
-                )
+            save_story(new_story)
 
             # Retrieve the ID of the newly saved story
             story_id = new_story.id
+
+            # Join the tags into a string
+            tags_string = ','.join(cloudinary_tags)
 
             # Store tags_string in the database
             new_tags = Tags(
                 story_id=story_id,
                 image_id=image_id,
-                tags_string=tags_string
+                tags_string=tags_string,
             )
 
-            try:
-                db.session.add(new_tags)
-                db.session.commit()
-            except Exception as e:
-                db.session.rollback()
-                raise INTERNAL_SERVER_ERROR_EXCEPTION(
-                    message='error during saving tags in database',
-                )
+            save_tags(new_tags)
 
             return jsonify({
                 'story': story,
@@ -210,21 +197,14 @@ class StoryController:
                 else:
                     image_url = None
 
-                stories_list.append({
-                    'id': story.id,
-                    'user_id': story.user_id,
-                    'story_title': story.story_title,
-                    'image_url': image_url,
-                    'story_content': story.story_content,
-                    'created_at': story.created_at,
-                    "genre": story.genre,
-                })
+                stories_list.append(
+                    story.as_dict()
+                )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
         except Exception as e:
-            # Handle exceptions and return an error response
-            return jsonify({'error': str(e)})
+            return jsonify({'error': str(e)}), 500
 
     # get story page
     @staticmethod
@@ -244,15 +224,9 @@ class StoryController:
                 else:
                     image_url = None
 
-                stories_list.append({
-                    'id': story.id,
-                    'user_id': story.user_id,
-                    'story_title': story.story_title,
-                    'image_url': image_url,
-                    'story_content': story.story_content,
-                    'created_at': story.created_at,
-                    "genre": story.genre,
-                })
+                stories_list.append(
+                    story.as_dict()
+                )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
@@ -278,15 +252,7 @@ class StoryController:
                 else:
                     image_url = None
 
-                stories_list.append({
-                    'id': story.id,
-                    'user_id': story.user_id,
-                    'story_title': story.story_title,
-                    'image_url': image_url,
-                    'story_content': story.story_content,
-                    'created_at': story.created_at,
-                    "genre": story.genre,
-                })
+                stories_list.append(story.as_dict())
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
@@ -313,15 +279,9 @@ class StoryController:
                 else:
                     image_url = None
 
-                stories_list.append({
-                    'id': story.id,
-                    'user_id': story.user_id,
-                    'story_title': story.story_title,
-                    'image_url': image_url,
-                    'story_content': story.story_content,
-                    'created_at': story.created_at,
-                    "genre": story.genre,
-                })
+                stories_list.append(
+                    story.as_dict()
+                )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
@@ -359,16 +319,7 @@ class StoryController:
                 tag_list = []
 
             # Convert the story into the format we want, including tags
-            story_data = {
-                'id': story.id,
-                'user_id': story.user_id,
-                'image_url': image_url,
-                'story_content': story.story_content,
-                'story_title': story.story_title,
-                'created_at': story.created_at,
-                'tags': tag_list,
-                "genre": story.genre,
-            }
+            story_data = story.as_dict()
 
             return jsonify({'story': story_data})
 
@@ -407,15 +358,9 @@ class StoryController:
             else:
                 image_url = None
 
-            stories_list.append({
-                'id': story.id,
-                'user_id': story.user_id,
-                'story_title': story.story_title,
-                'image_url': image_url,
-                'story_content': story.story_content,
-                'created_at': story.created_at,
-                "genre": story.genre,
-            })
+            stories_list.append(
+                story.as_dict()
+            )
 
         return jsonify({'stories': stories_list})
 
@@ -449,15 +394,9 @@ class StoryController:
             else:
                 image_url = None
 
-            stories_list.append({
-                'id': story.id,
-                'user_id': story.user_id,
-                'story_title': story.story_title,
-                'image_url': image_url,
-                'story_content': story.story_content,
-                'created_at': story.created_at,
-                "genre": story.genre,
-            })
+            stories_list.append(
+                story.as_dict()
+            )
 
         return jsonify({'stories': stories_list, 'user_details': user_details})
 
@@ -470,13 +409,16 @@ class StoryController:
 
             # Check if the story exists
             if not story:
-                return jsonify({'error': 'Story not found'})
+                raise NOT_FOUND_EXCEPTION_404('Story not found')
 
             # Delete the story
             db.session.delete(story)
             db.session.commit()
 
             return jsonify({'message': 'Story deleted successfully'})
+
+        except NOT_FOUND_EXCEPTION_404 as e:
+            return jsonify({"error": e.message}), e.error
 
         except Exception as e:
             # Handle exceptions and return an error response
@@ -491,7 +433,7 @@ class StoryController:
 
             # Check if the story exists
             if not story:
-                return jsonify({'error': 'Story not found'})
+                raise NOT_FOUND_EXCEPTION_404('Story not found')
 
             # Get the new story content from the request body
             new_story_content = request.get_json()['story_content']
