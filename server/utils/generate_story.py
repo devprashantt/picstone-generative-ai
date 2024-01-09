@@ -24,7 +24,7 @@ def generate_story(tags, tag_analysis, image_text, story_title, desc, themes, ai
     try:
         # Generate a story/poem using ChatGPT
         response = openai.Completion.create(
-            engine="text-davinci-003",
+            engine="gpt-3.5-turbo-instruct",
             temperature=0.7,  # Adjust temperature for creativity
             max_tokens=1000,  # Adjust max_tokens for desired length
             prompt=prompt,
