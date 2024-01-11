@@ -13,9 +13,9 @@ class Story(db.Model):
     theme = db.Column(db.Text, nullable=False)
     ai_content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
-    genre = db.Column(db.String(50), nullable = False)
+    genre = db.Column(db.String(50), nullable=False)
 
-    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme, ai_content,genre):
+    def __init__(self, user_id, user_email, image_id, story_content, story_title, theme, ai_content, genre):
         self.user_id = user_id
         self.user_email = user_email
         self.image_id = image_id
@@ -27,5 +27,5 @@ class Story(db.Model):
 
     def as_dict(self, *args):
         if args:
-            return {i:self.__getattribute__(i) for i in args}
-        return {i:j for i,j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}
+            return {i: self.__getattribute__(i) for i in args}
+        return {i: j for i, j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}

@@ -117,10 +117,10 @@ class StoryController:
             )
 
             new_image = Image(
-                    user_id=user_id,
-                    image_path=cloudinary_data["secure_url"],
-                )
-            
+                user_id=user_id,
+                image_path=cloudinary_data["secure_url"],
+            )
+
             # Save the image in the "images" table
             save_image(
                 new_image
@@ -145,7 +145,7 @@ class StoryController:
 
             # Retrieve the ID of the newly saved story
             story_id = new_story.id
-            
+
             # Join the tags into a string
             tags_string = ','.join(cloudinary_tags)
 
@@ -224,7 +224,7 @@ class StoryController:
                     'tags': [theme]
                 }
             })
-        
+
         except INTERNAL_SERVER_ERROR_EXCEPTION as e:
             return jsonify({"error": e.message}), e.error
 
@@ -436,7 +436,7 @@ class StoryController:
         stories = db.engine.execute(query, (user_id)).fetchall()[:4]
 
         # Send user name, email and number of stories to frontend
-        user_details = user.as_dict("name","email")
+        user_details = user.as_dict("name", "email")
 
         # Convert the stories into the format we want
         stories_list = []
@@ -500,10 +500,10 @@ class StoryController:
             db.session.commit()
 
             return jsonify({'message': 'Story updated successfully'})
-        
+
         except NOT_FOUND_EXCEPTION_404 as e:
-                    return jsonify({"error": e.message}), e.error
-        
+            return jsonify({"error": e.message}), e.error
+
         except Exception as e:
             # Handle exceptions and return an error response
             return jsonify({'error': str(e)})

@@ -9,7 +9,9 @@ story_bp = Blueprint('generate-story', __name__)
 def generate_story():
     return StoryController.generate_story_from_image()
 
-#put the genre in request
+# put the genre in request
+
+
 @story_bp.route('/generate-story/theme/<theme>', methods=['POST'])
 def generate_story_from_theme(theme):
     return StoryController.generate_story_from_theme(theme)
@@ -19,9 +21,11 @@ def generate_story_from_theme(theme):
 def get_all_stories():
     return StoryController.get_all_stories()
 
+
 @story_bp.route('/generate-story/genre/<genre>', methods=['GET'])
 def get_all_stories_by_genre(genre):
     return StoryController.search_story_by_genre(genre)
+
 
 @story_bp.route('/story/<story_id>', methods=['PUT`, DELETE'])
 @requires_user_session
