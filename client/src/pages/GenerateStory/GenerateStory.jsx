@@ -107,7 +107,7 @@ const GenerateStory = () => {
 
   const handleGenerateStory = async () => {
     try {
-      // Check if email is of correct format only when user is not loggedin
+      // Check if email is of correct format only when user is not logged-in
       if (!auth_data?.session_token && storyData.email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

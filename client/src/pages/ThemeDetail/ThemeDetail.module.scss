@@ -8,6 +8,12 @@
     width: 100%;
     gap: 4rem;
 
+    .images_skeleton {
+        width: 100%;
+        gap: 0.4rem;
+        padding: 0 2rem;
+    }
+
     .images {
         // GRID OF 5 IMAGES WITH 2 LARGE IN TOP AND THREE AT BOTTOM
         display: grid;

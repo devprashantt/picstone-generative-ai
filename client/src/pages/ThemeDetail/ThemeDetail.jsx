@@ -112,11 +112,13 @@ const ThemeDetail = () => {
         }
       />
       {/* IMAGES */}
-      <div className={styles.images}>
-        {loadingImg ? (
+      {loadingImg ? (
+        <div className={styles.images_skeleton}>
           <Skeleton type={"img"} />
-        ) : (
-          images?.map((image, index) => (
+        </div>
+      ) : (
+        <div className={styles.images}>
+          {images?.map((image, index) => (
             <img
               key={image?.id}
               src={image?.urls?.regular}
@@ -137,9 +139,9 @@ const ThemeDetail = () => {
                     : "f",
               }}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
       {/* MORE FROM SAME STORIES */}
       <div className={styles.theme_detail}>
         <h2 className={styles.heading}>
