@@ -123,6 +123,10 @@ class StoryController:
                 image_path=cloudinary_data["secure_url"],
             )
 
+                user_id=user_id,
+                image_path=cloudinary_data["secure_url"],
+            )
+
             # Save the image in the "images" table
             save_image(
                 new_image
@@ -169,6 +173,63 @@ class StoryController:
                     'tags': cloudinary_tags
                 }
             }), 200
+
+        except INTERNAL_SERVER_ERROR_EXCEPTION as e:
+            return jsonify({"error": e.message}), e.error
+
+        except BAD_REQUEST_EXCEPTION as e:
+            return jsonify({"error": e.message}), e.error
+
+        except Exception as e:
+            # Handle exceptions and return an error response
+            return jsonify({'error during story generation': str(e)}), 500
+
+    # generate story from theme
+    @staticmethod
+    def generate_story_from_theme(theme):
+        try:
+            # Generate random number from 0 to 2
+            random_number = random.randint(0, 2)
+
+            payload = request.get_json()
+
+            genre = payload.get("genre", CONSTANTS.DEFAULT_GENRE)
+
+            # Get images link from payload
+            images_link = payload['images_link'][random_number]
+
+            # Generate story
+            story = generate_themed_story(theme)
+
+            # Store image in database
+            new_image = Image(
+                user_id=CONSTANTS.DEFAULT_USER_ID_IMAGE,
+                image_path=images_link,
+            )
+
+            save_image(new_image=new_image)
+
+            # Store story in database
+            new_story = Story(
+                user_id=CONSTANTS.DEFAULT_USER_ID_IMAGE,
+                image_id=new_image.id,
+                story_content=story,
+                story_title=theme,
+                theme=theme,
+                ai_content=CONSTANTS.DEFAULT_AI_CONTENT,
+                user_email=CONSTANTS.DEFAULT_USER_EMAIL,
+                genre=genre,
+            )
+
+            save_story(new_story)
+
+            return jsonify({
+                'story': story,
+                'cloudinary_data': {
+                    'secure_url': images_link,
+                    'tags': [theme]
+                }
+            })
 
         except INTERNAL_SERVER_ERROR_EXCEPTION as e:
             return jsonify({"error": e.message}), e.error
