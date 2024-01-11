@@ -9,6 +9,8 @@ story_bp = Blueprint('generate-story', __name__)
 def generate_story():
     return StoryController.generate_story_from_image()
 
+# put the genre in request
+
 
 @story_bp.route('/generate-story', methods=['GET'])
 def get_all_stories():
