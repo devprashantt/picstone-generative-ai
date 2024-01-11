@@ -107,7 +107,7 @@ const GenerateStory = () => {
 
   const handleGenerateStory = async () => {
     try {
-      // Check if email is of correct format only when user is not loggedin
+      // Check if email is of correct format only when user is not logged-in
       if (!auth_data?.session_token && storyData.email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -250,7 +250,7 @@ const GenerateStory = () => {
         <Suggestion />
       </div>
       <div className={styles.theme}>
-        <p className={styles.label}>{"Theme"}</p>
+        <p className={styles.label}>{"Genre"}</p>
         <div className={styles.themes}>
           <Theme
             img_link={
