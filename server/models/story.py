@@ -28,4 +28,15 @@ class Story(db.Model):
     def as_dict(self, *args):
         if args:
             return {i:self.__getattribute__(i) for i in args}
-        return {i:j for i,j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}
+        return {
+            "id" : self.id,
+            "user_id" : self.user_id,
+            "user_email" : self.user_email,
+            "image_id" : self.image_id,
+            "story_content" : self.story_content,
+            "story_title" : self.story_title,
+            "theme" : self.theme,
+            "ai_content" : self.ai_content,
+            "created_at" : self.created_at,
+            "genre" : self.genre,
+        }

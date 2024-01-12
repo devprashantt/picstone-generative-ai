@@ -16,4 +16,14 @@ class Music(db.Model):
     def as_dict(self, *args):
         if args:
             return {i:self.__getattribute__(i) for i in args}
-        return {i:j for i,j in self.__class__.__dict__.items() if not (i.startswith("__") or callable(j))}
+        return {
+            "id" : self.id,
+            "user_id" : self.user_id,
+            "user" : self.user,
+            "story_id" : self.story_id,
+            "story" : self.story,
+            "image_id" : self.image_id,
+            "image" : self.image,
+            "music_content" : self.music_content,
+            "created_at" : self.created_at,
+        }

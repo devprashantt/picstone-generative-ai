@@ -252,8 +252,12 @@ class StoryController:
                 else:
                     image_url = None
 
+                story_dict = story.as_dict()
+
+                story_dict["image_id"] = image_url
+
                 stories_list.append(
-                    story.as_dict()
+                    story_dict
                 )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -279,8 +283,12 @@ class StoryController:
                 else:
                     image_url = None
 
+                story_dict = story.as_dict()
+
+                story_dict["image_id"] = image_url
+
                 stories_list.append(
-                    story.as_dict()
+                    story_dict
                 )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -307,7 +315,13 @@ class StoryController:
                 else:
                     image_url = None
 
-                stories_list.append(story.as_dict())
+                story_dict = story.as_dict()
+
+                story_dict["image_id"] = image_url
+
+                stories_list.append(
+                    story_dict
+                )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
 
@@ -334,8 +348,12 @@ class StoryController:
                 else:
                     image_url = None
 
+                story_dict = story.as_dict()
+
+                story_dict["image_id"] = image_url
+
                 stories_list.append(
-                    story.as_dict()
+                    story_dict
                 )
 
             return jsonify({'stories': stories_list, "message": "Stories data fetched successfully"})
@@ -376,6 +394,8 @@ class StoryController:
             # Convert the story into the format we want, including tags
             story_data = story.as_dict()
 
+            story_data["image_id"] = image_url
+
             return jsonify({'story': story_data})
 
         except Exception as e:
@@ -413,8 +433,12 @@ class StoryController:
             else:
                 image_url = None
 
+            story_dict = story.as_dict()
+
+            story_dict["image_id"] = image_url
+
             stories_list.append(
-                story.as_dict()
+                story_dict
             )
 
         return jsonify({'stories': stories_list})
@@ -449,8 +473,12 @@ class StoryController:
             else:
                 image_url = None
 
+            story_dict = story.as_dict()
+
+            story_dict["image_id"] = image_url
+
             stories_list.append(
-                story.as_dict()
+                story_dict
             )
 
         return jsonify({'stories': stories_list, 'user_details': user_details})
