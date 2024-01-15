@@ -2,16 +2,17 @@ KEYWORDS_TO_CHECK = {'sex', 'brassiere', 'porn', 'rape'}
 
 DEFAULT_USER_ID_STORY = 1080002
 
-DEFAULT_USER_ID_IMAGE = 240001
+DEFAULT_USER_ID_IMAGE = 1080002
 
-DEFAULT_ANALYZE_TAGS = ['happy', 'sad', 'calm', 'exciting', 'positive', 'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
+DEFAULT_ANALYZE_TAGS = ['happy', 'sad', 'calm', 'exciting', 'positive',
+                        'negative', 'neutral', 'uplifting', 'romantic', 'mysterious']
 
 DEFAULT_THEMES = {
-                'romance': False,
-                'horror': False,
-                'comedy': False,
-                'power': True
-            }
+    'romance': False,
+    'horror': False,
+    'comedy': False,
+    'power': True
+}
 
 DEFAULT_GENRE = "yandere"
 

@@ -1,15 +1,20 @@
-from flask import jsonify, request
 import random
+from flask import request, jsonify
+from utils.story_utils import save_image, save_story
 
 # UTILS
 from utils.themed_story import generate_themed_story
+from utils.exceptions import *
+
+# CONFIG
+from config.database import db
 
 # MODELS
 from models.story import Story
 from models.image import Image
 
-# CONFIG
-from config.database import db
+# CONSTANTS
+import constants.constant_data as CONSTANTS
 
 
 class ThemeController:
@@ -51,53 +56,60 @@ class ThemeController:
         except Exception as e:
             return f'invalid: {e}', 400
 
-    # generate story from theme
+    # Generate story from theme
     @staticmethod
     def generate_story_from_theme(theme):
-        # Get images link from payload
-        images_link = request.get_json()['images_link']
-
-        # Get any random link from images link
-        image_link = random.choice(images_link)
-
-        # Generate story
-        story = generate_themed_story(theme)
-
-        # Store image in database
-        new_image = Image(
-            user_id=1080002,
-            image_path=image_link,
-        )
-
         try:
-            db.session.add(new_image)
-            db.session.commit()
+
+            payload = request.get_json()
+
+            genre = payload.get("genre", CONSTANTS.DEFAULT_GENRE)
+
+            # Get images link from payload
+            images_link = payload['images_link']
+
+            # Get any random link from images link
+            image_link = random.choice(images_link)
+
+            # Generate story
+            story = generate_themed_story(theme)
+
+            # Store image in database
+            new_image = Image(
+                user_id=CONSTANTS.DEFAULT_USER_ID_IMAGE,
+                image_path=image_link,
+            )
+
+            save_image(new_image=new_image)
+
+            # Store story in database
+            new_story = Story(
+                user_id=CONSTANTS.DEFAULT_USER_ID_IMAGE,
+                image_id=new_image.id,
+                story_content=story,
+                story_title=theme,
+                theme=theme,
+                ai_content=CONSTANTS.DEFAULT_AI_CONTENT,
+                user_email=CONSTANTS.DEFAULT_USER_EMAIL,
+                genre=genre,
+            )
+
+            save_story(new_story)
+
+            return jsonify({
+                'story': story,
+                'cloudinary_data': {
+                    'secure_url': images_link,
+                    'tags': [theme]
+                }
+            })
+
+        except INTERNAL_SERVER_ERROR_EXCEPTION as e:
+            return jsonify({"error": e.message}), e.error
+
+        except BAD_REQUEST_EXCEPTION as e:
+            return jsonify({"error": e.message}), e.error
+
         except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
-
-        # Store story in database
-        new_story = Story(
-            user_id=1080002,
-            image_id=new_image.id,
-            story_content=story,
-            story_title=theme.capitalize(),
-            theme=theme,
-            ai_content=theme,
-            user_email="picstoneai@gmail.com"
-        )
-
-        try:
-            db.session.add(new_story)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            return jsonify({'error': str(e)}), 500
-
-        return jsonify({
-            'story': story,
-            'cloudinary_data': {
-                'secure_url': image_link,
-                'tags': [theme]
-            }
-        })
+            # Handle exceptions and return an error response
+            return jsonify({'error during story generation': str(e)}), 500

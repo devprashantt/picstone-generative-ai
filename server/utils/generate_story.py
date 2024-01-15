@@ -19,7 +19,7 @@ def generate_story(tags, tag_analysis, image_text, story_title, desc, theme, ai_
     tone = ', '.join(detected_tones) if detected_tones else default_tone
 
     # Create a prompt with specific instructions for ChatGPT
-    prompt = f"""Generate a captivating story based on the provided image and information. The image analysis has extracted tags, and further analysis has revealed moods: {mood}, sentiments: {sentiment}, and tones: {tone}. The OCR applied to the image has provided the following text: {image_text}. The user has contributed a story titled "{story_title}" with the description: "{desc}" and themes: {themes}. Additionally, an AI content analysis has generated the following caption: "{ai_content}". Create a narrative that seamlessly incorporates these elements into a coherent and engaging story."""
+    prompt = f"""Generate a captivating story based on the provided image and information. The image analysis has extracted {tags}, and further analysis has revealed moods: {mood}, sentiments: {sentiment}, and tones: {tone}. The OCR applied to the image has provided the following text: {image_text}. The user has contributed a story titled "{story_title}" with the description: "{desc}" and themes: {theme}. Additionally, an AI content analysis has generated the following caption: "{ai_content}". Create a narrative that seamlessly incorporates these elements into a coherent and engaging story."""
 
     try:
         # Generate a story/poem using ChatGPT

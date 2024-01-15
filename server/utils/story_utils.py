@@ -22,6 +22,7 @@ from models.tags import Tags
 def extract_payload_data(payload):
     try:
         file = payload['file']
+
         themes = payload['themes']
         selected_themes = [theme for theme, value in themes.items() if value]
         desc = payload['description']
@@ -29,6 +30,7 @@ def extract_payload_data(payload):
         user_email = payload['email']
         themes = payload.get('themes', CONSTANTS.DEFAULT_THEMES)
         genre = payload.get("genre", CONSTANTS.DEFAULT_GENRE)
+
         return {
             "file": file,
             "themes": themes,
@@ -41,7 +43,7 @@ def extract_payload_data(payload):
         }
     except Exception:
         raise BAD_REQUEST_EXCEPTION(
-            "One or More parameters missing in request")
+            "One or more parameters missing in request")
 
 
 def get_user_info(session_token, email):
@@ -53,7 +55,8 @@ def get_user_info(session_token, email):
                 "SELECT id FROM users WHERE email = %s;", (user_email,)).fetchone().id
         else:
             user_email = email
-            user_id = CONSTANTS.DEFAULT_USER_ID_STORY  # Set a default user id when not logged in
+            # Set a default user id when not logged in
+            user_id = CONSTANTS.DEFAULT_USER_ID_STORY
 
         return user_id, user_email
     except Exception:
@@ -69,7 +72,7 @@ def extract_ai_content(cloudinary_data):
         return ai_content
     except Exception:
         raise INTERNAL_SERVER_ERROR_EXCEPTION(
-            "Error in Extracting Coludinary Data : AI_CONTENT")
+            "Error in Extracting Cloudinary Data : AI_CONTENT")
 
 
 def extract_text_data(cloudinary_data):
@@ -87,7 +90,7 @@ def extract_text_data(cloudinary_data):
 
 def check_keywords(title: str, genre: str, desc: str, tags: List[str]):
     error = []
-    
+
     if title.lower() in CONSTANTS.KEYWORDS_TO_CHECK:
         error.append("title")
 
@@ -104,7 +107,8 @@ def check_keywords(title: str, genre: str, desc: str, tags: List[str]):
         raise BAD_REQUEST_EXCEPTION(
             "Can't generate using these " + ", ".join(error))
 
-def save_image(new_image:Image):
+
+def save_image(new_image: Image):
     # Save the image in the "images" table
 
     try:
@@ -117,6 +121,7 @@ def save_image(new_image:Image):
             f'error during saving image in database : {e.args}')
         # return jsonify({'error during saving image in database': str(e)}), 500
 
+
 def save_story(new_story: Story):
     try:
         # Add the new story to the database
@@ -128,7 +133,8 @@ def save_story(new_story: Story):
             message=f'error during saving story on database : {e.args}',
         )
 
-def save_tags(new_tags:Tags):
+
+def save_tags(new_tags: Tags):
     try:
         db.session.add(new_tags)
         db.session.commit()
