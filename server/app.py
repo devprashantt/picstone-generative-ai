@@ -1,13 +1,12 @@
-from flask import Flask, current_app, request
+from flask import Flask, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail, Message
+from flask_mail import Mail
 
 from routes.user_routes import user_bp
 from routes.story_routes import story_bp
 from routes.message_routes import message_bp
 from routes.tags_routes import tags_bp
-from routes.message_routes import message_bp
 from routes.theme_routes import theme_bp
 
 from config.database import db, database_url
@@ -23,58 +22,50 @@ import threading
 
 app = Flask(__name__)
 
-# Enable CORS
+# Enable CORS for all origins
 CORS(app, origins='*', supports_credentials=True)
 
+# Load environment variables from .env file
 load_dotenv()
 
-# Initialize SQLAlchemy (if needed)
-db = SQLAlchemy(app)
+# Initialize SQLAlchemy and bind to the app
+db.init_app(app)
 
 # Configure Flask-Mail
 with app.app_context():
-    MAIL_SERVER = os.environ.get('MAIL_SERVER')
-    MAIL_PORT = os.environ.get('MAIL_PORT')
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS')
-    MAIL_USE_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER')
-
-    app.config['MAIL_SERVER'] = MAIL_SERVER
-    app.config['MAIL_PORT'] = MAIL_PORT
-    app.config['MAIL_USERNAME'] = MAIL_USERNAME
-    app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
-    app.config['MAIL_USE_TLS'] = MAIL_USE_TLS
-    app.config['MAIL_USE_DEFAULT_SENDER'] = MAIL_USE_DEFAULT_SENDER
-    print("Connected to Mail successfully.")
+    app.config.update(
+        MAIL_SERVER=os.getenv('MAIL_SERVER'),
+        MAIL_PORT=os.getenv('MAIL_PORT'),
+        MAIL_USERNAME=os.getenv('MAIL_USERNAME'),
+        MAIL_PASSWORD=os.getenv('MAIL_PASSWORD'),
+        MAIL_USE_TLS=os.getenv('MAIL_USE_TLS'),
+        MAIL_USE_DEFAULT_SENDER=os.getenv('MAIL_DEFAULT_SENDER')
+    )
 
     # Initialize Flask-Mail
     mail = Mail(app)
-    app.mail = mail
-
-# Production mode
-app.debug = app.config.get('DEBUG', False)
 
 # Set SQLALCHEMY_DATABASE_URI to your TiDB URI
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 
-# Disbale SQLALCHEMY_BINDS warning
+# Disable SQLALCHEMY_BINDS warning
 app.config['SQLALCHEMY_BINDS'] = False
 
 # Disable SQLALCHEMY_TRACK_MODIFICATIONS warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Increase the pool size to, for example, 20
+# Increase the pool size
 app.config['SQLALCHEMY_POOL_SIZE'] = 100
 
-# Production mode
-app.debug = app.config.get('DEBUG', True)
+# Set debug mode based on the environment
+app.debug = app.config.get('DEBUG', False)
 
+# Print debug information
 if app.debug:
     print("The Flask app is running in debug mode.")
 
+# Attempt to connect to the database
 try:
-    # Attempt to connect to the database
     if db.engine.connect():
         print("Connected to the database successfully.")
 except Exception as e:
@@ -84,23 +75,12 @@ except Exception as e:
 if cloudinary.config():
     print("Connected to Cloudinary successfully.")
 
-# Check if openapi is configured
+# Check if openai is configured
 if openai.api_key:
     print("Connected to OpenAI successfully.")
 
-# Production mode
-app.debug = app.config.get('DEBUG', False)
 
-if app.debug:
-    print("The Flask app is running in debug mode.")
-
-
-@app.route('/')
-def index():
-    # Your database operations should be here
-    return "Server is running, and the database is connected."
-
-
+# Your routes registration
 app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
@@ -108,6 +88,7 @@ app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
 
 
+# Before and after request hooks
 @app.before_request
 def before_request():
     request.start_time = time.time()
@@ -115,12 +96,24 @@ def before_request():
 
 @app.after_request
 def after_request(response):
+    # Create a copy of the request for logging
     request_copy = RequestLogCopy(request)
+
+    # Use threading for asynchronous logging
     thread = threading.Thread(
         target=push_request_to_log, args=(request_copy, response, app))
     thread.start()
+
     return response
 
 
+# Define the main route
+@app.route('/')
+def index():
+    # Your database operations should be here
+    return "Server is running, and the database is connected."
+
+
 if __name__ == "__main__":
+    # Run the app on 0.0.0.0:80
     app.run(host='0.0.0.0', port=80)
