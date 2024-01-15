@@ -30,11 +30,15 @@ jobs:
             rm .env
           fi
       
-      - name: Create back end .env file
+      - name: Create client .env file
         env:
           ENV_FILE: ${{ secrets.ENV_FILE_FE }}
         run: |
-          echo "$ENV_FILE" > ./client/.env
+
+          echo "VITE_BACKEND_URL=''" > ./client/.env
+          echo "VITE_FRONTEND_URL=''" > ./client/.env
+          echo "VITE_UNSPLASH_SECRET_KEY=lKz2hoixS3-eabxlmISGJfraBsaE-RFn00eC3AxGt8Q" > ./client/.env
+          echo "VITE_UNSPLASH_ACCESS_KEY=DFr54id4MqppKdPAmkxCVbSdrSogWGiEKKGpsW7MTyk" > ./client/.env
 
       - name: Run npm build in the cloned repository
         working-directory: ./client
