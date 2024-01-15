@@ -1,4 +1,4 @@
-name: Push to Main
+name: Push to ci-dev
 
 on:
   push:
