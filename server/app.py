@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, current_app, request, render_template, send_from_directory
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
@@ -33,6 +33,13 @@ db = SQLAlchemy()
 db.init_app(app)
 print("Database initialized:", db)
 
+try:
+    with app.app_context():
+        if db.engine.connect():
+            print("Connected to the database successfully.")
+except Exception as e:
+    print("Failed to connect to the database. Error:", str(e))
+
 # Configure Flask-Mail
 with app.app_context():
     app.config.update(
@@ -66,14 +73,6 @@ app.debug = app.config.get('DEBUG', False)
 if app.debug:
     print("The Flask app is running in debug mode.")
 
-# Attempt to connect to the database
-try:
-    with app.app_context():
-        if db.engine.connect():
-            print("Connected to the database successfully.")
-except Exception as e:
-    print("Failed to connect to the database. Error:", str(e))
-
 # Check if cloudinary is configured
 if cloudinary.config():
     print("Connected to Cloudinary successfully.")
@@ -93,6 +92,11 @@ app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
+
+app.static_folder = 'assets'
+
+app.add_url_rule('/assets/<path:filename>', endpoint='assets',
+                 view_func=app.send_static_file)
 
 
 @app.route('/<path:filename>')
@@ -128,9 +132,8 @@ def after_request(response):
 
     return response
 
+
 # Define the main route
-
-
 @app.route('/')
 def index():
     # Your database operations should be here
