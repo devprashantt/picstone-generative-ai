@@ -55,7 +55,7 @@ jobs:
         run: cp client/dist/index.html server/templates/index.html
 
       - name: remove assets from client
-        run: rm -f client/dist/assets
+        run: rm -r client/dist/assets
       
       - name: Copy files from dist to static
         run: cp -R client/dist/. server/static
