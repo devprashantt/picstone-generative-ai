@@ -35,8 +35,8 @@ jobs:
           ENV_FILE: ${{ secrets.ENV_FILE_FE }}
         run: |
 
-          echo "VITE_BACKEND_URL=''" > ./client/.env
-          echo "VITE_FRONTEND_URL=''" > ./client/.env
+          echo "VITE_BACKEND_URL='https://picstone.lunargen.com'" > ./client/.env
+          echo "VITE_FRONTEND_URL='https://picstone.lunargen.com'" > ./client/.env
           echo "VITE_UNSPLASH_SECRET_KEY=lKz2hoixS3-eabxlmISGJfraBsaE-RFn00eC3AxGt8Q" > ./client/.env
           echo "VITE_UNSPLASH_ACCESS_KEY=DFr54id4MqppKdPAmkxCVbSdrSogWGiEKKGpsW7MTyk" > ./client/.env
 
