@@ -41,7 +41,24 @@ jobs:
         run: npm run build  # Adjust to your build command
         env:
           CI : false
+      
+      - name: Remove existing content in server/assets
+        run: rm -rf server/assets/*
 
+      - name: Copy files from client/dist/assets to server/assets
+        run: cp -R client/dist/assets/. server/assets
+
+      - name: Remove existing index.html from server/templates
+        run: rm -f server/templates/index.html
+
+      - name: Copy index.html from client/dist to server/templates
+        run: cp client/dist/index.html server/templates/index.html
+
+      - name: remove assets from client
+        run: rm -f client/dist/assets
+      
+      - name: Copy files from dist to static
+        run: cp -R client/dist/. server/static
         
       - name: Create back end .env file
         env:
