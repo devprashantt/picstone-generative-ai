@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, current_app, request, render_template, send_from_directory
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 import time
 import threading
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # Enable CORS for all origins
 CORS(app, origins='*', supports_credentials=True)
@@ -95,6 +95,16 @@ app.static_folder = 'assets'
 
 app.add_url_rule('/assets/<path:filename>', endpoint='assets',
                  view_func=app.send_static_file)
+
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    static_path = os.path.join(app.root_path, 'static')
+
+    if os.path.exists(os.path.join(static_path, filename)):
+        return send_from_directory(static_path, filename)
+    else:
+        return render_template('index.html')
 
 
 @app.route('/', defaults={'path': ''}, strict_slashes=False)
