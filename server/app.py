@@ -9,7 +9,7 @@ from routes.message_routes import message_bp
 from routes.tags_routes import tags_bp
 from routes.theme_routes import theme_bp
 
-from config.database import db, database_url
+from config.database import database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
@@ -28,8 +28,10 @@ CORS(app, origins='*', supports_credentials=True)
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize SQLAlchemy and bind to the app
+print("Attempting to initialize the database.")
+db = SQLAlchemy()
 db.init_app(app)
+print("Database initialized:", db)
 
 # Configure Flask-Mail
 with app.app_context():
