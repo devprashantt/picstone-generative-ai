@@ -20,7 +20,10 @@ from dotenv import load_dotenv
 import time
 import threading
 
+from config.database import db
+
 app = Flask(__name__, static_url_path='/static')
+
 
 # Enable CORS for all origins
 CORS(app, origins='*', supports_credentials=True)
@@ -29,7 +32,8 @@ CORS(app, origins='*', supports_credentials=True)
 load_dotenv()
 
 print("Attempting to initialize the database.")
-db = SQLAlchemy()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 db.init_app(app)
 print("Database initialized:", db)
 

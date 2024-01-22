@@ -36,18 +36,18 @@ def push_request_to_log(request, response, app):
     except:
         pass
 
-    with app.app_context():
-        if response.status_code >= 500:
-            msg = Message('Picstone, 500 Error Code', recipients=['picstoneai@gmail.com'], sender='picstoneai@gmail.com')
-            msg.body =  f"""
-                            Error occured for: {user_id} @ {client_ip}
+    # with app.app_context():
+    #     if response.status_code >= 500:
+    #         msg = Message('Picstone, 500 Error Code', recipients=['picstoneai@gmail.com'], sender='picstoneai@gmail.com')
+    #         msg.body =  f"""
+    #                         Error occured for: {user_id} @ {client_ip}
 
-                            Error occured on route: {trail_url}
+    #                         Error occured on route: {trail_url}
 
-                            Elapsed time: {elapsed_time}
+    #                         Elapsed time: {elapsed_time}
                         
-                            """
-            app.mail.send(msg)
+    #                         """
+    #         app.mail.send(msg)
 
     try:
         conn = psycopg2.connect(
