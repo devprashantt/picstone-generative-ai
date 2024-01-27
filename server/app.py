@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, current_app, request, render_template, send_from_directory
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
@@ -9,7 +9,7 @@ from routes.message_routes import message_bp
 from routes.tags_routes import tags_bp
 from routes.theme_routes import theme_bp
 
-from config.database import db, database_url
+from config.database import database_url
 from config.cloudinary import cloudinary
 from config.open_ai import openai
 
@@ -20,7 +20,10 @@ from dotenv import load_dotenv
 import time
 import threading
 
-app = Flask(__name__)
+from config.database import db
+
+app = Flask(__name__, static_url_path='/static')
+
 
 # Enable CORS for all origins
 CORS(app, origins='*', supports_credentials=True)
@@ -28,8 +31,18 @@ CORS(app, origins='*', supports_credentials=True)
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize SQLAlchemy and bind to the app
+print("Attempting to initialize the database.")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 db.init_app(app)
+print("Database initialized:", db)
+
+try:
+    with app.app_context():
+        if db.engine.connect():
+            print("Connected to the database successfully.")
+except Exception as e:
+    print("Failed to connect to the database. Error:", str(e))
 
 # Configure Flask-Mail
 with app.app_context():
@@ -64,13 +77,6 @@ app.debug = app.config.get('DEBUG', False)
 if app.debug:
     print("The Flask app is running in debug mode.")
 
-# Attempt to connect to the database
-try:
-    if db.engine.connect():
-        print("Connected to the database successfully.")
-except Exception as e:
-    print("Failed to connect to the database. Error:", str(e))
-
 # Check if cloudinary is configured
 if cloudinary.config():
     print("Connected to Cloudinary successfully.")
@@ -79,16 +85,40 @@ if cloudinary.config():
 if openai.api_key:
     print("Connected to OpenAI successfully.")
 
+# Production mode
+app.debug = app.config.get('DEBUG', False)
 
-# Your routes registration
+if app.debug:
+    print("The Flask app is running in debug mode.")
+
 app.register_blueprint(user_bp)
 app.register_blueprint(story_bp)
 app.register_blueprint(message_bp)
 app.register_blueprint(tags_bp)
 app.register_blueprint(theme_bp)
 
+app.static_folder = 'assets'
 
-# Before and after request hooks
+app.add_url_rule('/assets/<path:filename>', endpoint='assets',
+                 view_func=app.send_static_file)
+
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    static_path = os.path.join(app.root_path, 'static')
+
+    if os.path.exists(os.path.join(static_path, filename)):
+        return send_from_directory(static_path, filename)
+    else:
+        return render_template('index.html')
+
+
+@app.route('/', defaults={'path': ''}, strict_slashes=False)
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template('index.html')
+
+
 @app.before_request
 def before_request():
     request.start_time = time.time()

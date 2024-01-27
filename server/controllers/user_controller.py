@@ -1,12 +1,13 @@
 from flask import request, jsonify, make_response, render_template, current_app
 from flask_mail import Message
-from config.database import db
 import uuid
 import bcrypt
 import os
 import hashlib
-from utils import session_tools
 
+import sqlalchemy
+from utils import session_tools
+from config.database import db
 
 class UserController:
     # Create a new user
@@ -51,12 +52,13 @@ class UserController:
 
         # if not cls.is_user_verified(email):
         #     return 'user is not verified', 400
-
         try:
             query = 'SELECT password_hash, salt, id FROM users where email = %s;'
             data = (email,)
-            values = db.engine.execute(query, data)
-            row = values.fetchone()
+            # Get a connection from the engine
+            value = db.engine.execute(query, data)
+            row = value.fetchone()
+
             stored_hash = row.password_hash
             if bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8')):
                 session_token = str(uuid.uuid4())

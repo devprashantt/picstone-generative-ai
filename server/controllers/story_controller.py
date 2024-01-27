@@ -14,6 +14,7 @@ from utils.themed_story import generate_themed_story
 # CONFIG
 from config.database import db
 
+
 # MODELS
 from models.story import Story
 from models.image import Image

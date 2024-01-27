@@ -1,5 +1,5 @@
-from config.database import db
 
+from config.database import db
 
 class Story(db.Model):
 
