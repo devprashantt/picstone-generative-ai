@@ -327,7 +327,15 @@ const GenerateStory = () => {
         </div>
       </div>
       <Button
-        onClick={handleGenerateStory}
+        onClick={() => {
+          // if(!auth_data?.session_token){
+          //   toast.error("Please login to generate story");
+          //   return;
+          // }
+          // If loading don't call the function
+          if (isUploading) return;
+          handleGenerateStory();
+        }}
         buttonText="Generate Story"
         className={styles.button}
         isLoading={isUploading}
